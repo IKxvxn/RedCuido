@@ -1,0 +1,1107 @@
+{
+	"provincias": [
+        {"value": 0,"label": "Desconocido"},
+		{"value": 1,"label": "San José",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+                    "label": "San José",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Carmen"},
+						{"value": 2,"label": "Merced"},
+						{"value": 3,"label": "Hospital"},
+						{"value": 4,"label": "Catedral"},
+						{"value": 5,"label": "Zapote"},
+						{"value": 6,"label": "San Fco. de Dos Ríos"},
+						{"value": 7,"label": "Uruca"},
+						{"value": 8,"label": "Mata Redonda"},
+						{"value": 9,"label": "Pavas"},
+						{"value": 10,"label": "Hatillo"},
+						{"value": 11,"label": "San Sebastián"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Escazú",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Escazú"},
+						{"value": 2,"label": "San Antonio"},
+						{"value": 3,"label": "San Rafael"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Desamparados",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Desamparados"},
+						{"value": 2,"label": "San Miguel"},
+						{"value": 3,"label": "San Juan de Dios"},
+						{"value": 4,"label": "San Rafael Arriba"},
+						{"value": 5,"label": "San Antonio"},
+						{"value": 6,"label": "Frailes"},
+						{"value": 7,"label": "Patarrá"},
+						{"value": 8,"label": "San Cristóbal"},
+						{"value": 9,"label": "Rosario"},
+						{"value": 10,"label": "Damas"},
+						{"value": 11,"label": "San Rafael Abajo"},
+						{"value": 12,"label": "Gravilias"},
+						{"value": 13,"label": "Los Guido"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Puriscal",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santiago"},
+						{"value": 2,"label": "Mercedes Sur"},
+						{"value": 3,"label": "Barbacoas"},
+						{"value": 4,"label": "Grifo Alto"},
+						{"value": 5,"label": "San Rafael"},
+						{"value": 6,"label": "Candelaria"},
+						{"value": 7,"label": "Desamparaditos"},
+						{"value": 8,"label": "San Antonio"},
+						{"value": 9,"label": "Chires"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Tarrazú",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Marcos"},
+						{"value": 2,"label": "San Lorenzo"},
+						{"value": 3,"label": "San Carlos"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Aserrí",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Aserrí"},
+						{"value": 2,"label": "Tarbaca"},
+						{"value": 3,"label": "Vuelta de Jorco"},
+						{"value": 4,"label": "San Gabriel"},
+						{"value": 5,"label": "La Legua"},
+						{"value": 6,"label": "Monterrey"},
+						{"value": 7,"label": "Salitrillos"}
+					]
+				},
+				{
+                    "value": 7,
+					"label": "Mora",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Colón"},
+						{"value": 2,"label": "Guayabo"},
+						{"value": 3,"label": "Tabarcia"},
+						{"value": 4,"label": "Piedras Negras"},
+						{"value": 5,"label": "Picagres"},
+						{"value": 6,"label": "Caris"},
+						{"value": 7,"label": "Quitirrisí"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "Goicoechea",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Guadalupe"},
+						{"value": 2,"label": "San Francisco"},
+						{"value": 3,"label": "Calle Blancos"},
+						{"value": 4,"label": "Mata de Plátano"},
+						{"value": 5,"label": "Ipís"},
+						{"value": 6,"label": "Rancho Redondo"},
+						{"value": 7,"label": "Purral"}
+					]
+				},
+				{
+                    "value": 9,
+					"label": "Santa Ana",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santa Ana"},
+						{"value": 2,"label": "Salitral"},
+						{"value": 3,"label": "Pozos"},
+						{"value": 4,"label": "Uruca"},
+						{"value": 5,"label": "Piedades"},
+						{"value": 6,"label": "Brasil"}
+					]
+				},
+				{
+                    "value": 10,
+					"label": "Alajuelita",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Alajuelita"},
+						{"value": 2,"label": "San Josecito"},
+						{"value": 3,"label": "San Antonio"},
+						{"value": 4,"label": "Concepción"},
+						{"value": 5,"label": "San Felipe"}
+					]
+				},
+				{
+                    "value": 11,
+					"label": "Coronado",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Isidro"},
+						{"value": 2,"label": "San Rafael"},
+						{"value": 3,"label": "Dulce Nombre de Jesús"},
+						{"value": 4,"label": "Patalillo"},
+						{"value": 6,"label": "Cascajal"}
+					]
+				},
+				{
+                    "value": 12,
+					"label": "Acosta",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Ignacio"},
+						{"value": 2,"label": "Guaitil"},
+						{"value": 3,"label": "Palmichal"},
+						{"value": 4,"label": "Cangrejal"},
+						{"value": 5,"label": "Sabanillas"}
+					]
+				},
+				{
+                    "value": 13,
+					"label": "Tibás",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Juan"},
+						{"value": 2,"label": "Cinco Esquinas"},
+						{"value": 3,"label": "Anselmo Llorente"},
+						{"value": 4,"label": "León XIII"},
+						{"value": 5,"label": "Colima"}
+					]
+				},
+				{
+                    "value": 14,
+					"label": "Moravia",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Vicente"},
+						{"value": 2,"label": "San Jerónimo"},
+						{"value": 3,"label": "Trinidad"}
+					]
+				},
+				{
+                    "value": 15,
+					"label": "Montes de Oca",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Pedro"},
+						{"value": 2,"label": "Sabanilla"},
+						{"value": 3,"label": "Mercedes"},
+						{"value": 4,"label": "San Rafael"}
+					]
+				},
+				{
+                    "value": 16,
+					"label": "Turrubares",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Pablo"},
+						{"value": 2,"label": "San Pedro"},
+						{"value": 3,"label": "San Juan de Mata"},
+						{"value": 4,"label": "San Luis"},
+						{"value": 5,"label": "Cárara"}
+					]
+				},
+				{
+                    "value": 17,
+					"label": "Dota",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santa María"},
+						{"value": 2,"label": "Jardín"},
+						{"value": 3,"label": "Copey"}
+					]
+				},
+				{
+                    "value": 18,
+					"label": "Curridabat",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Curridabat"},
+						{"value": 2,"label": "Granadilla"},
+						{"value": 3,"label": "Sánchez"},
+						{"value": 4,"label": "Tirrases"}
+					]
+				},
+				{
+                    "value": 19,
+					"label": "Perez Zeledón",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Isidro de el General"},
+						{"value": 2,"label": "General"},
+						{"value": 3,"label": "Daniel Flores"},
+						{"value": 4,"label": "Rivas"},
+						{"value": 5,"label": "San Pedro"},
+						{"value": 6,"label": "Platanares"},
+						{"value": 7,"label": "Pejibaye"},
+						{"value": 8,"label": "Cajón"},
+						{"value": 9,"label": "Barú"},
+						{"value": 10,"label": "Río Nuevo"},
+						{"value": 11,"label": "Páramo"},
+						{"value": 12,"label": "La Amistad"}
+					]
+				},
+				{
+                    "value": 20,
+					"label": "León Cortés",
+					"children": [
+                        
+						{"value": 1,"label": "San Pablo"},
+						{"value": 2,"label": "San Andrés"},
+						{"value": 3,"label": "Llano Bonito"},
+						{"value": 4,"label": "San Isidro"},
+						{"value": 5,"label": "Santa Cruz"},
+						{"value": 6,"label": "San Antonio"}
+					]
+				}
+			]
+		},
+		{
+            "value": 2,
+			"label": "Alajuela",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Alajuela",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Alajuela"},
+						{"value": 2,"label": "San José"},
+						{"value": 3,"label": "Carrizal"},
+						{"value": 4,"label": "San Antonio"},
+						{"value": 5,"label": "Guácima"},
+						{"value": 6,"label": "San Isidro"},
+						{"value": 7,"label": "Sabanilla"},
+						{"value": 8,"label": "San Rafael"},
+						{"value": 9,"label": "Río Segundo"},
+						{"value": 10,"label": "Desamparados"},
+						{"value": 11,"label": "Turrucares"},
+						{"value": 12,"label": "Tambor"},
+						{"value": 13,"label": "La Garita"},
+						{"value": 14,"label": "Sarapiquí"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "San Ramón",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Ramón"},
+						{"value": 2,"label": "Santiago"},
+						{"value": 3,"label": "San Juan"},
+						{"value": 4,"label": "Piedades Norte"},
+						{"value": 5,"label": "Piedades Sur"},
+						{"value": 6,"label": "San Rafael"},
+						{"value": 7,"label": "San Isidro"},
+						{"value": 8,"label": "Angeles"},
+						{"value": 9,"label": "Alfaro"},
+						{"value": 10,"label": "Volio"},
+						{"value": 11,"label": "Concepción"},
+						{"value": 12,"label": "Zapotal"},
+						{"value": 13,"label": "San Isidro de Peñas Blancas"},
+						{"value": 14,"label": "San Lorenzo"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Grecia",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Grecia"},
+						{"value": 2,"label": "San Isidro"},
+						{"value": 3,"label": "San José"},
+						{"value": 4,"label": "San Roque"},
+						{"value": 5,"label": "Tacares"},
+						{"value": 6,"label": "Puente Piedra"},
+						{"value": 7,"label": "Bolívar"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "San Mateo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Mateo"},
+						{"value": 2,"label": "Desmonte"},
+						{"value": 3,"label": "Jesús María"},
+						{"value": 4,"label": "Labrador"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Atenas",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Atenas"},
+						{"value": 2,"label": "Jesús"},
+						{"value": 3,"label": "Mercedes"},
+						{"value": 4,"label": "San Isidro"},
+						{"value": 5,"label": "Concepción"},
+						{"value": 6,"label": "San José"},
+						{"value": 7,"label": "Santa Eulalia"},
+						{"value": 8,"label": "Escobal"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Naranjo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Naranjo"},
+						{"value": 2,"label": "San Miguel"},
+						{"value": 3,"label": "San José"},
+						{"value": 4,"label": "Cirrí Sur"},
+						{"value": 5,"label": "San Jerónimo"},
+						{"value": 6,"label": "San Juan"},
+						{"value": 7,"label": "Rosario"},
+						{"value": 8,"label": "Palmitos"}
+					]
+				},
+				{
+                    "value": 7,
+					"label": "Palmares",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Palmares"},
+						{"value": 2,"label": "Zaragoza"},
+						{"value": 3,"label": "Buenos Aires"},
+						{"value": 4,"label": "Santiago"},
+						{"value": 5,"label": "Candelaria"},
+						{"value": 6,"label": "Esquipulas"},
+						{"value": 7,"label": "La Granja"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "Poas",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Pedro"},
+						{"value": 2,"label": "San Juan"},
+						{"value": 3,"label": "San Rafael"},
+						{"value": 4,"label": "Carrillos"},
+						{"value": 5,"label": "Sabana Redonda"}
+					]
+				},
+				{
+                    "value": 9,
+					"label": "Orotina",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Orotina"},
+						{"value": 2,"label": "Mastate"},
+						{"value": 3,"label": "Hacienda Vieja"},
+						{"value": 4,"label": "Coyolar"},
+						{"value": 5,"label": "Ceiba"}
+					]
+				},
+				{
+                    "value": 10,
+					"label": "San Carlos",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Quesada"},
+						{"value": 2,"label": "Florencia"},
+						{"value": 3,"label": "Buenavista"},
+						{"value": 4,"label": "Aguas Zarcas"},
+						{"value": 5,"label": "Venecia"},
+						{"value": 6,"label": "Pital"},
+						{"value": 7,"label": "Fortuna"},
+						{"value": 8,"label": "Tigra"},
+						{"value": 9,"label": "Palmera"},
+						{"value": 10,"label": "Venado"},
+						{"value": 11,"label": "Cutris"},
+						{"value": 12,"label": "Monterrey"},
+						{"value": 13,"label": "Pocosol"}
+					]
+				},
+				{
+                    "value": 11,
+					"label": "Zarcero",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Zarcero"},
+						{"value": 2,"label": "Laguna"},
+						{"value": 3,"label": "Tapezco"},
+						{"value": 4,"label": "Guadalupe"},
+						{"value": 5,"label": "Palmira"},
+						{"value": 6,"label": "Zapote"},
+						{"value": 7,"label": "Las Brisas"}
+					]
+				},
+				{
+                    "value": 12,
+					"label": "Valverde Vega",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Sarchí Norte"},
+						{"value": 2,"label": "Sarchí Sur"},
+						{"value": 3,"label": "Toro Amarillo"},
+						{"value": 4,"label": "San Pedro"},
+						{"value": 5,"label": "Rodríguez"}
+					]
+				},
+				{
+                    "value": 13,
+					"label": "Upala",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Upala"},
+						{"value": 2,"label": "Aguas Claras"},
+						{"value": 3,"label": "San José"},
+						{"value": 4,"label": "Bijagua"},
+						{"value": 5,"label": "Delicias"},
+						{"value": 6,"label": "Dos Ríos"},
+						{"value": 7,"label": "Yolillal"},
+						{"value": 8,"label": "Canalete"}
+					]
+				},
+				{
+                    "value": 14,
+					"label": "Los Chiles",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Los Chiles"},
+						{"value": 2,"label": "Caño Negro"},
+						{"value": 3,"label": "Amparo"},
+						{"value": 4,"label": "San Jorge"}
+					]
+				},
+				{
+                    "value": 15,
+					"label": "Guatuso",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Rafael"},
+						{"value": 2,"label": "Buenavista"},
+						{"value": 3,"label": "Cote"},
+						{"value": 4,"label": "Katira"}
+					]
+				},
+				{
+                    "value": 16,
+					"label": "Río Cuarto",
+					"children": [
+						{"value": 1,"label": "Río Cuarto"}
+					]
+				}
+			]
+		},
+		{
+            "value": 3,
+			"label": "Cartago",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Cartago",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Oriental"},
+						{"value": 2,"label": "Occidental"},
+						{"value": 3,"label": "Carmen"},
+						{"value": 4,"label": "San Nicolás"},
+						{"value": 5,"label": "Aguacaliente"},
+						{"value": 6,"label": "Guadalupe"},
+						{"value": 7,"label": "Corralillo"},
+						{"value": 8,"label": "Tierra Blanca"},
+						{"value": 9,"label": "Dulce Nombre"},
+						{"value": 10,"label": "Llano Grande"},
+						{"value": 11,"label": "Quebradilla"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Paraíso",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Paraíso"},
+						{"value": 2,"label": "Santiago"},
+						{"value": 3,"label": "Orosi"},
+						{"value": 4,"label": "Cachí"},
+						{"value": 5,"label": "Los Llanos de Santa Lucía"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "La Unión",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Tres Ríos"},
+						{"value": 2,"label": "San Diego"},
+						{"value": 3,"label": "San Juan"},
+						{"value": 4,"label": "San Rafael"},
+						{"value": 5,"label": "Concepción"},
+						{"value": 6,"label": "Dulce Nombre"},
+						{"value": 7,"label": "San Ramón"},
+						{"value": 8,"label": "Río Azul"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Jiménez",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Juan Viñas"},
+						{"value": 2,"label": "Tucurrique"},
+						{"value": 3,"label": "Pejibaye"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Turrialba",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Turrialba"},
+						{"value": 2,"label": "La Suiza"},
+						{"value": 3,"label": "Peralta"},
+						{"value": 4,"label": "Santa Cruz"},
+						{"value": 5,"label": "Santa Teresita"},
+						{"value": 6,"label": "Pavones"},
+						{"value": 7,"label": "Tuis"},
+						{"value": 8,"label": "Tayutic"},
+						{"value": 9,"label": "Santa Rosa"},
+						{"value": 10,"label": "Tres Equis"},
+						{"value": 11,"label": "La Isabel"},
+						{"value": 12,"label": "Chirripó"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Alvarado",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Pacayas"},
+						{"value": 2,"label": "Cervantes"},
+						{"value": 3,"label": "Capellades"}
+					]
+				},
+				{
+                    "value": 7, 
+					"label": "Oreamuno",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Rafael"},
+						{"value": 2,"label": "Cot"},
+						{"value": 3,"label": "Potrero Cerrado"},
+						{"value": 4,"label": "Cipreses"},
+						{"value": 5,"label": "Santa Rosa"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "El Guarco",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "El Tejar"},
+						{"value": 2,"label": "San Isidro"},
+						{"value": 3,"label": "Tobosi"},
+						{"value": 4,"label": "Patio de Agua"}
+					]
+				}
+			]
+		},
+		{
+            "value": 4,
+			"label": "Heredia",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Heredia",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Heredia"},
+						{"value": 2,"label": "Mercedes"},
+						{"value": 3,"label": "San Francisco"},
+						{"value": 4,"label": "Ulloa"},
+						{"value": 5,"label": "Varablanca"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Barva",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Barva"},
+						{"value": 2,"label": "San Pedro"},
+						{"value": 3,"label": "San Pablo"},
+						{"value": 4,"label": "San Roque"},
+						{"value": 5,"label": "Santa Lucía"},
+						{"value": 6,"label": "San José de la Montaña"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Santo Domingo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santo Domingo"},
+						{"value": 2,"label": "San Vicente"},
+						{"value": 3,"label": "San Miguel"},
+						{"value": 4,"label": "Paracito"},
+						{"value": 5,"label": "Santo Tomás"},
+						{"value": 6,"label": "Santa Rosa"},
+						{"value": 7,"label": "Tures"},
+						{"value": 8,"label": "Pará"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Santa Bárbara",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santa Bárbara"},
+						{"value": 2,"label": "San Pedro"},
+						{"value": 3,"label": "San Juan"},
+						{"value": 4,"label": "Jesús"},
+						{"value": 5,"label": "Santo Domingo del Roble"},
+						{"value": 6,"label": "Puraba"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "San Rafael",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Rafael"},
+						{"value": 2,"label": "San Josecito"},
+						{"value": 3,"label": "Santiago"},
+						{"value": 4,"label": "Angeles"},
+						{"value": 5,"label": "Concepción"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "San Isidro",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Isidro"},
+						{"value": 2,"label": "San José"},
+						{"value": 3,"label": "Concepción"},
+						{"value": 4,"label": "San Francisco"}
+					]
+				},
+				{
+                    "value": 7,
+					"label": "Belén",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Antonio"},
+						{"value": 2,"label": "La Ribera"},
+						{"value": 3,"label": "Asunción"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "Flores",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Joaquín"},
+						{"value": 2,"label": "Barrantes"},
+						{"value": 3,"label": "Llorente"}
+					]
+				},
+				{
+                    "value": 9,
+					"label": "San Pablo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Pablo"},
+						{"value": 2,"label": "Rincón de Sabanilla"}
+					]
+				},
+				{
+                    "value": 10,
+					"label": "Sarapiquí",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Puerto Viejo"},
+						{"value": 2,"label": "La Virgen"},
+						{"value": 3,"label": "Horquetas"},
+						{"value": 4,"label": "Llanuras de Gaspar"},
+						{"value": 5,"label": "Cureña"}
+					]
+				}
+			]
+		},
+		{
+            "value": 5,
+			"label": "Guanacaste",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Liberia",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Liberia"},
+						{"value": 2,"label": "Cañas Dulces"},
+						{"value": 3,"label": "Mayorga"},
+						{"value": 4,"label": "Nacascolo"},
+						{"value": 5,"label": "Curubande"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Nicoya",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Nicoya"},
+						{"value": 2,"label": "Mansión"},
+						{"value": 3,"label": "San Antonio"},
+						{"value": 4,"label": "Quebrada Honda"},
+						{"value": 5,"label": "Sámara"},
+						{"value": 6,"label": "Nósara"},
+						{"value": 7,"label": "Belén de Nosarita"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Santa Cruz",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Santa Cruz"},
+						{"value": 2,"label": "Bolsón"},
+						{"value": 3,"label": "Veintisiete de Abril"},
+						{"value": 4,"label": "Tempate"},
+						{"value": 5,"label": "Cartagena"},
+						{"value": 6,"label": "Cuajiniquil"},
+						{"value": 7,"label": "Diriá"},
+						{"value": 8,"label": "Cabo Velas"},
+						{"value": 9,"label": "Tamarindo"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Bagaces",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Bagaces"},
+						{"value": 2,"label": "Fortuna"},
+						{"value": 3,"label": "Mogote"},
+						{"value": 4,"label": "Río Naranjo"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Carrillo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Filadelfia"},
+						{"value": 2,"label": "Palmira"},
+						{"value": 3,"label": "Sardinal"},
+						{"value": 4,"label": "Belén"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Cañas",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Cañas"},
+						{"value": 2,"label": "Palmira"},
+						{"value": 3,"label": "San Miguel"},
+						{"value": 4,"label": "Bebedero"},
+						{"value": 5,"label": "Porozal"}
+					]
+				},
+				{
+                    "value": 7,
+					"label": "Abangares",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Juntas"},
+						{"value": 2,"label": "Sierra"},
+						{"value": 3,"label": "San Juan"},
+						{"value": 4,"label": "Colorado"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "Tilarán",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Tilarán"},
+						{"value": 2,"label": "Quebrada Grande"},
+						{"value": 3,"label": "Tronadora"},
+						{"value": 4,"label": "Santa Rosa"},
+						{"value": 5,"label": "Líbano"},
+						{"value": 6,"label": "Tierras Morenas"},
+						{"value": 7,"label": "Arenal"}
+					]
+				},
+				{
+                    "value": 9,
+					"label": "Nandayure",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Carmona"},
+						{"value": 2,"label": "Santa Rita"},
+						{"value": 3,"label": "Zapotal"},
+						{"value": 4,"label": "San Pablo"},
+						{"value": 5,"label": "Porvenir"},
+						{"value": 6,"label": "Bejuco"}
+					]
+				},
+				{
+                    "value": 10,
+					"label": "La Cruz",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "La Cruz"},
+						{"value": 2,"label": "Santa Cecilia"},
+						{"value": 3,"label": "Garita"},
+						{"value": 4,"label": "Santa Elena"}
+					]
+				},
+				{
+                    "value": 11,
+					"label": "Hojancha",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Hojancha"},
+						{"value": 2,"label": "Monte Romo"},
+						{"value": 3,"label": "Puerto Carrillo"},
+						{"value": 4,"label": "Huacas"}
+					]
+				}
+			]
+		},
+		{
+            "value": 6,
+			"label": "Puntarenas",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Puntarenas",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Puntarenas"},
+						{"value": 2,"label": "Pitahaya"},
+						{"value": 3,"label": "Chomes"},
+						{"value": 4,"label": "Lepanto"},
+						{"value": 5,"label": "Paquera"},
+						{"value": 6,"label": "Manzanillo"},
+						{"value": 7,"label": "Guacimal"},
+						{"value": 8,"label": "Barranca"},
+						{"value": 9,"label": "Monte Verde"},
+						{"value": 10,"label": "Isla del Coco"},
+						{"value": 11,"label": "Cóbano"},
+						{"value": 12,"label": "Chacarita"},
+						{"value": 13,"label": "Chira"},
+						{"value": 14,"label": "Acapulco"},
+						{"value": 15,"label": "Roble"},
+						{"value": 16,"label": "Arancibia"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Esparza",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Espíritu Santo"},
+						{"value": 2,"label": "San Juan Grande"},
+						{"value": 3,"label": "Macacona"},
+						{"value": 4,"label": "San Rafael"},
+						{"value": 5,"label": "San Jerónimo"},
+						{"value": 6,"label": "Caldera"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Buenos Aires",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Buenos Aires"},
+						{"value": 2,"label": "Volcán"},
+						{"value": 3,"label": "Potrero Grande"},
+						{"value": 4,"label": "Boruca"},
+						{"value": 5,"label": "Pilas"},
+						{"value": 6,"label": "Colinas"},
+						{"value": 7,"label": "Chánguena"},
+						{"value": 8,"label": "Bioley"},
+						{"value": 9,"label": "Brunka"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Montes de Oro",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Miramar"},
+						{"value": 2,"label": "Unión"},
+						{"value": 3,"label": "San Isidro"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Osa",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Puerto Cortés"},
+						{"value": 2,"label": "Palmar"},
+						{"value": 3,"label": "Sierpe"},
+						{"value": 4,"label": "Bahía Ballena"},
+						{"value": 5,"label": "Piedras Blancas"},
+						{"value": 6,"label": "Bahía Drake"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Quepos",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Quepos"},
+						{"value": 2,"label": "Savegre"},
+						{"value": 3,"label": "Naranjito"}
+					]
+				},
+				{
+                    "value": 7,
+					"label": "Golfito",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Golfito"},
+						{"value": 2,"label": "Puerto Jiménez"},
+						{"value": 3,"label": "Guaycará"},
+						{"value": 4,"label": "Pavón"}
+					]
+				},
+				{
+                    "value": 8,
+					"label": "Coto Brus",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "San Vito"},
+						{"value": 2,"label": "Sabalito"},
+						{"value": 3,"label": "Agua Buena"},
+						{"value": 4,"label": "Limoncito"},
+						{"value": 5,"label": "Pittier"},
+						{"value": 6,"label": "Gutiérrez Brown"}
+					]
+				},
+				{
+                    "value": 9,
+					"label": "Parrita",
+					"children": [
+						{"value": 1,"label": "Parrita"}
+					]
+				},
+				{
+                    "value": 10,
+					"label": "Corredores",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Corredores"},
+						{"value": 2,"label": "La Cuesta"},
+						{"value": 3,"label": "Paso Canoas"},
+						{"value": 4,"label": "Laurel"}
+					]
+				},
+				{
+                    "value": 11,
+					"label": "Garabito",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 2,"label": "Jacó"},
+						{"value": 3,"label": "Tárcoles"}
+					]
+				}
+			]
+		},
+		{
+            "value": 7,
+			"label": "Limón",
+			"children": [
+                {"value": 0,"label": "Desconocido"},
+				{
+                    "value": 1,
+					"label": "Limón",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Limón"},
+						{"value": 2,"label": "Valle La Estrella"},
+						{"value": 3,"label": "Río Blanco"},
+						{"value": 4,"label": "Matama"}
+					]
+				},
+				{
+                    "value": 2,
+					"label": "Pococí",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Guápiles"},
+						{"value": 2,"label": "Jiménez"},
+						{"value": 3,"label": "Rita"},
+						{"value": 4,"label": "Roxana"},
+						{"value": 5,"label": "Cariari"},
+						{"value": 6,"label": "Colorado"},
+						{"value": 7,"label": "La Colonia"}
+					]
+				},
+				{
+                    "value": 3,
+					"label": "Siquirres",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Siquirres"},
+						{"value": 2,"label": "Pacuarito"},
+						{"value": 3,"label": "Florida"},
+						{"value": 4,"label": "Germania"},
+						{"value": 5,"label": "Cairo"},
+						{"value": 6,"label": "Alegría"}
+					]
+				},
+				{
+                    "value": 4,
+					"label": "Talamanca",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Bratsi"},
+						{"value": 2,"label": "Sixaola"},
+						{"value": 3,"label": "Cahuita"},
+						{"value": 4,"label": "Telire"}
+					]
+				},
+				{
+                    "value": 5,
+					"label": "Matina",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Matina"},
+						{"value": 2,"label": "Batán"},
+						{"value": 3,"label": "Carrandí"}
+					]
+				},
+				{
+                    "value": 6,
+					"label": "Guácimo",
+					"children": [
+                        {"value": 0,"label": "Desconocido"},
+						{"value": 1,"label": "Guácimo"},
+						{"value": 2,"label": "Mercedes"},
+						{"value": 3,"label": "Pocora"},
+						{"value": 4,"label": "Río Jiménez"},
+						{"value": 5,"label": "Duacarí"}
+					]
+				}
+			]
+		}
+	]
+}
