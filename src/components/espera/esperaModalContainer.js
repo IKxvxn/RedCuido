@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button, Row } from 'antd';
 import Form from './esperaModalContaint'
 
-class App extends React.Component {
+class esperaContainer extends React.Component {
   state = {
     modalVisible: false,
   }
@@ -35,4 +35,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default esperaContainer

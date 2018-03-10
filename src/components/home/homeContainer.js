@@ -10,7 +10,7 @@ const {Content, Footer } = Layout;
 
 
 
-class NormalLoginForm extends React.Component {
+class homeContainer extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -41,11 +41,11 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-NormalLoginForm.propTypes = {
+homeContainer.propTypes = {
   ExampleFunction: PropTypes.func
 }
 
-NormalLoginForm.defaultProps = {
+homeContainer.defaultProps = {
   ExampleFunction: () => {}
 }
 
@@ -61,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm)
+export default connect(mapStateToProps,mapDispatchToProps)(homeContainer)

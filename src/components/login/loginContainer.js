@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Row, Layout  } from 'antd';
 
+import * as Mensajes from '../../assets/mensajes'
 import logo from '../../images/logo.png'
 import '../../style/login.css'
 import * as exampleActions from './loginActions'
 
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component {
+class loginContainer extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -28,14 +29,14 @@ class NormalLoginForm extends React.Component {
           </FormItem>
           <FormItem>
             {getFieldDecorator('Usuario', {
-              rules: [{ required: true, message: 'Este campo es requerido' }],
+              rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="user" style={{ color: '#007A3B' }} />} placeholder="Usuario" />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('Contraseña', {
-              rules: [{ required: true, message: 'Este campo es requerido' }],
+              rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="lock" style={{ color: '#007A3B' }} />} type="password" placeholder="Contraseña" />
             )}
@@ -52,11 +53,11 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-NormalLoginForm.propTypes = {
+loginContainer.propTypes = {
   ExampleFunction: PropTypes.func
 }
 
-NormalLoginForm.defaultProps = {
+loginContainer.defaultProps = {
   ExampleFunction: () => {}
 }
 
@@ -72,5 +73,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
-export default connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm)
+const WrappedloginContainer = Form.create()(loginContainer);
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedloginContainer)

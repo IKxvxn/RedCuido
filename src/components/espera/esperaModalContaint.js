@@ -1,9 +1,12 @@
 import React from 'react';
 import { Form, Input, Cascader, Select, Button } from 'antd';
+import * as Mensajes from '../../assets/mensajes'
 const domicilios =  require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
-class RegistrationForm extends React.Component {
+
+
+class editForm extends React.Component {
   state = {
       edit:true
   };
@@ -63,7 +66,7 @@ class RegistrationForm extends React.Component {
           label="Cédula"
         >
           {getFieldDecorator('cedula', {
-            rules: [{pattern: '^[1-9][0-9]*$', message: 'No se detectó una cédula válida'}],
+            rules: [{pattern: '^[1-9][0-9]*$', message: Mensajes.cedula}],
           })(<Input disabled={!this.state.edit} />)}
         </FormItem>
         <FormItem
@@ -71,7 +74,7 @@ class RegistrationForm extends React.Component {
           label="Nombre"
         >
           {getFieldDecorator('nombre', {
-            rules: [{pattern: '^[a-zA-ZÀ-ž ]*$', message: 'No se permiten números, ni caracteres especiales'}],
+            rules: [{pattern: '^[a-zA-ZÀ-ž ]*$', message: Mensajes.letras}],
           })(
             <Input disabled={!this.state.edit} />
           )}
@@ -81,7 +84,7 @@ class RegistrationForm extends React.Component {
           label="Apellidos"
         >
           {getFieldDecorator('apellidos', {
-            rules: [{pattern: '^[a-zA-ZÀ-ž ]*$', message: 'No se permiten números, ni caracteres especiales'}],
+            rules: [{pattern: '^[a-zA-ZÀ-ž ]*$', message: Mensajes.letras}],
           })(
             <Input disabled={!this.state.edit} />
           )}
@@ -92,7 +95,7 @@ class RegistrationForm extends React.Component {
           extra="La búsqueda es sensible a las mayúsculas."
         >
           {getFieldDecorator('domicilio', {
-            rules: [{ type: 'array', required: true, message: 'Si no lo conoce, marque "Desconocido" '}],
+            rules: [{ type: 'array', required: true, message: Mensajes.desconocido}],
           })(
             <Cascader disabled={!this.state.edit} options={domicilios} placeholder="" changeOnSelect showSearch notFoundContent="No encontrado" />
           )}
@@ -110,7 +113,7 @@ class RegistrationForm extends React.Component {
           label="Teléfono"
         >
           {getFieldDecorator('telefono', {
-            rules: [{ pattern: '^[0-9]*$', message: 'No se permiten letras ni caracteres especiales' }],
+            rules: [{ pattern: '^[0-9]*$', message: Mensajes.numeros }],
           })(
             <Input disabled={!this.state.edit} />
           )}
@@ -154,6 +157,6 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm);
+const WrappededitForm = Form.create()(editForm);
 
-export default WrappedRegistrationForm
+export default WrappededitForm
