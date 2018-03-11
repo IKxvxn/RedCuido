@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button } from 'antd';
+import { Form, Input, Cascader, Select, Button, message } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 const domicilios =  require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
@@ -8,7 +8,8 @@ const Option = Select.Option;
 
 class editForm extends React.Component {
   state = {
-      edit:true
+      edit:false,
+      loading:false,
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +19,11 @@ class editForm extends React.Component {
       }
     });
   }
+  enterLoading = () => {
+      this.setState({ edit: true});
+      message.error(Mensajes.alreadyEditing);
+    }
+  
   componentDidMount(){
     this.props.form.setFieldsValue({
         cedula:this.props.row.cedula,
@@ -53,14 +59,17 @@ class editForm extends React.Component {
           offset: 0,
         },
         sm: {
-          span: 16,
-          offset: 8,
+          span: 5,
+          offset: 19,
         },
       },
     };
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        <FormItem {...tailFormItemLayout}>
+          <Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button>
+        </FormItem>
         <FormItem
           {...formItemLayout}
           label="Cédula"

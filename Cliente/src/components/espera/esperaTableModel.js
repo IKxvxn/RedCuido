@@ -1,4 +1,5 @@
 import React from 'react';
+import {Row} from 'antd';
 import Modal from './esperaModalContainer'
 
 export const columns = [{
