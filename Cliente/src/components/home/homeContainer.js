@@ -34,7 +34,7 @@ class homeContainer extends React.Component {
           <Menu.Item key="1">Espera</Menu.Item>
           <Menu.Item key="2">Activos</Menu.Item>
           <Menu.Item key="3">Rechazados</Menu.Item>
-          <Menu.Item key="4">Excluhidos</Menu.Item>
+          <Menu.Item key="4">Excluidos</Menu.Item>
         </Menu>
       </Layout>
     );

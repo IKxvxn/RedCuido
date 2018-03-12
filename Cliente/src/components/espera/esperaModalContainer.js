@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Row } from 'antd';
+import { Modal, Button, Row, Col } from 'antd';
 import Form from './esperaModalContaint'
 
 class esperaContainer extends React.Component {
@@ -22,9 +22,9 @@ class esperaContainer extends React.Component {
           closable={false}
           onCancel={() => this.setmodalVisible(false)}
           footer={[
-            <Row>
-                <Button style={{width:"10rem"}} type="primary" ghost onClick={() => this.setmodalVisible(false)}>Aceptar Caso</Button>
-                <Button style={{width:"10rem"}} type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button>
+            <Row gutter={8} type="flex" justify="end">
+              <Col xs={12} sm={6}><Button type="primary" ghost onClick={() => this.setmodalVisible(false)}>Aceptar Caso</Button></Col>
+              <Col xs={12} sm={6}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button></Col>
             </Row>,
           ]}
         >

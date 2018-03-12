@@ -30,6 +30,12 @@ export const columns = [{
     sorter: (a, b) => new Date(b.postulado) - new Date(a.postulado),
   
   }, {
+    title: 'Sede',
+    dataIndex: 'sede',
+    key: 'sede',
+    filters: [{text: 'Sede en Heredia', value: 'Heredia'}, {text: 'Sede en Desamparados',value: 'Desamparados'}],
+    onFilter: (value, record) => record.sede.indexOf(value) === 0,
+  },{
     title: 'Prioridad',
     dataIndex: 'prioridad',
     key: 'prioridad',
@@ -53,6 +59,7 @@ export const data = [{
     direccion: 'Contiguo a la Escuela, Santo Tomás, Heredia, Santo Domingo, 40302',
     telefono: '85174176',
     postulado: '2018-03-07',
+    sede: 'Desamparados',
     prioridad: 'Alta',
   }, {
     key: '2',
@@ -63,6 +70,7 @@ export const data = [{
     direccion:'1 KM este de Bomba la Galera carretera a Tres Ríos, San José, Curridabat, 11803',
     telefono: '89425128',
     postulado: '2016-01-03',
+    sede: 'Heredia',
     problemas:["Otros"],
     prioridad: 'Baja',
     notas:"Aiudenla\n\nProbando saldo de línea.\n\n:D",
@@ -74,6 +82,7 @@ export const data = [{
     direccion: 'Frente a Intersección de la Antigua Fabrica Gallito, Circunvalación, San José, Guadalupe',
     telefono: '84679453',
     postulado: '2017-12-01',
+    sede: 'Desamparados',
     prioridad: 'Media',
   }];
   

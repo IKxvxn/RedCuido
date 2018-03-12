@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, message } from 'antd';
+import { Form, Input, Cascader, Select, Button,Row, Col, message } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 const domicilios =  require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
@@ -32,6 +32,7 @@ class editForm extends React.Component {
         telefono:this.props.row.telefono,
         domicilio:this.props.row.domicilio,
         señas:this.props.row.direccion,
+        sede:this.props.row.sede,
         prioridad:this.props.row.prioridad,
         problemas:this.props.row.problemas,
         notas:this.props.row.notas
@@ -52,24 +53,9 @@ class editForm extends React.Component {
         sm: { span: 20 },
       },
     };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 5,
-          offset: 19,
-        },
-      },
-    };
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <FormItem {...tailFormItemLayout}>
-          <Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button>
-        </FormItem>
         <FormItem
           {...formItemLayout}
           label="Cédula"
@@ -143,6 +129,17 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
+          label="Sede"
+        >
+          {getFieldDecorator('sede')(
+            <Select disabled={!this.state.edit}>
+              <Option value="Desamparados">Desamparados</Option>
+              <Option value="Heredia">Heredia</Option>
+            </Select>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
           label="Prioridad"
         >
           {getFieldDecorator('prioridad')(
@@ -160,6 +157,17 @@ class editForm extends React.Component {
           {getFieldDecorator('notas')(
             <Input.TextArea Rows={8} maxRows={8} disabled={!this.state.edit} />
           )}
+        </FormItem>
+        <FormItem>
+          <Row gutter={8}>
+              <Col xs={24} sm={6}><Button icon="edit"  onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+              <Col xs={12} sm={9}>
+                  <Button icon="upload" type="secondary">Subir Archivo</Button>
+              </Col>
+              <Col xs={12} sm={9}>
+                  <Button icon="download" type="secondary">Bajar Archivos</Button>
+              </Col>
+          </Row>
         </FormItem>
       </Form>
     );

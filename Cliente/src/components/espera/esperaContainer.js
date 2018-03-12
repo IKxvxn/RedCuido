@@ -2,22 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as exampleActions from './esperaActions'
 import PropTypes from 'prop-types';
-import { Table } from 'antd';
+import { Table, Row, Col } from 'antd';
 import {columns, data} from './esperaTableModel'
-
-
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-};
+import Descarga from '../home/botonDescarga'
 
 
 class NormalLoginForm extends React.Component {
   
+  state = {
+    selectedRowKeys:[],
+    selectedRows:[]
+  }
+
+  rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      this.setState({selectedRowKeys:selectedRowKeys,selectedRows:selectedRows})
+    },
+  };
+  
+
   render() {
     return (
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} size= "middle" scroll={{ x: "80rem", /*y: 300*/ }} /*pagination={{ pageSize:  }}*/  />
+      <div>
+      <Row gutter={8} type="flex" justify="end" style={{margin:"1rem 0"}}>
+        <Col xs={24} sm={5}>
+          <Descarga seleccionadas={this.state.selectedRows} todos={data} />
+        </Col>
+      </Row>
+      <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} size= "middle" scroll={{ x: "90rem", /*y: 300*/ }} /*pagination={{ pageSize:  }}*/  />
+      </div>
     );
   }
 }
