@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { Table, Row, Col } from 'antd';
 import {columns, data} from './esperaTableModel'
 import Descarga from '../home/botonDescarga'
+import Modal from './esperaModalContainer'
+
 
 
 class NormalLoginForm extends React.Component {
@@ -25,8 +27,11 @@ class NormalLoginForm extends React.Component {
     return (
       <div>
       <Row gutter={8} type="flex" justify="end" style={{margin:"1rem 0"}}>
-        <Col xs={24} sm={5}>
+        <Col xs={12} sm={5}>
           <Descarga seleccionadas={this.state.selectedRows} todos={data} />
+        </Col>
+        <Col xs={12} sm={5}>
+          <Modal modo="crear" />
         </Col>
       </Row>
       <Table rowSelection={this.rowSelection} columns={columns} dataSource={data} size= "middle" scroll={{ x: "90rem", /*y: 300*/ }} /*pagination={{ pageSize:  }}*/  />

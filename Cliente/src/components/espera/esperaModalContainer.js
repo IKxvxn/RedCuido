@@ -10,6 +10,25 @@ class esperaContainer extends React.Component {
     this.setState({ modalVisible });
   }
 
+  handleSubmit = () =>{this.form.handleSubmit()}
+
+  handleModoFooter(){
+    if (this.props.modo==="ver"){
+      return(
+        <Row gutter={8} type="flex" justify="end">
+              <Col xs={12} sm={6}><Button type="primary" ghost onClick={() => this.setmodalVisible(false)}>Aceptar Caso</Button></Col>
+              <Col xs={12} sm={6}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button></Col>
+        </Row>
+      )
+    }
+    return(
+      <Row gutter={8} type="flex" justify="end">
+            <Col xs={12} sm={6}><Button type="primary" ghost onClick={this.handleSubmit}>Postular Caso</Button></Col>
+            <Col xs={12} sm={6}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
+      </Row>
+    )
+  }
+
   render() {
     return (
       <Row>
@@ -22,13 +41,10 @@ class esperaContainer extends React.Component {
           closable={false}
           onCancel={() => this.setmodalVisible(false)}
           footer={[
-            <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={6}><Button type="primary" ghost onClick={() => this.setmodalVisible(false)}>Aceptar Caso</Button></Col>
-              <Col xs={12} sm={6}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button></Col>
-            </Row>,
+            this.handleModoFooter()
           ]}
         >
-          <Form row={this.props.row} />
+          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} />
         </Modal>
       </Row>
     );

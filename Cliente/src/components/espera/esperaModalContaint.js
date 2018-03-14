@@ -8,15 +8,19 @@ const Option = Select.Option;
 
 class editForm extends React.Component {
   state = {
-      edit:false,
+      edit:true,
       loading:false,
   };
   handleSubmit = (e) => {
-    e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        if(values.cedula === undefined && (values.nombre === undefined || values.apellidos === undefined) 
+           && values.señas === undefined && values.telefono === undefined){
+            message.error(Mensajes.minNecesario)
+           }
+        else{console.log('Received values of form: ', values);}
       }
+      else{message.error(Mensajes.verificar)}
     });
   }
   enterLoading = () => {
@@ -24,19 +28,46 @@ class editForm extends React.Component {
       message.error(Mensajes.alreadyEditing);
     }
   
+  handleOptionsMode(){
+    if(this.props.modo==="ver"){
+      return(
+        <Row gutter={8}>
+            <Col xs={24} sm={6}><Button icon="edit"  onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+            <Col xs={12} sm={9}>
+                      <Button icon="upload" type="secondary">Subir Archivo</Button>
+            </Col>
+            <Col xs={12} sm={9}>
+                      <Button icon="download" type="secondary">Bajar Archivos</Button>
+           </Col>
+        </Row>
+      )
+    }
+    return(
+      <Row gutter={8} type="flex" justify="end">
+          <Col xs={24} sm={20}>
+            <Button icon="upload" type="secondary">Subir Archivo</Button>
+          </Col>
+      </Row>
+    )
+  }
+  
   componentDidMount(){
-    this.props.form.setFieldsValue({
-        cedula:this.props.row.cedula,
-        nombre:this.props.row.nombre,
-        apellidos:this.props.row.apellidos,
-        telefono:this.props.row.telefono,
-        domicilio:this.props.row.domicilio,
-        señas:this.props.row.direccion,
-        sede:this.props.row.sede,
-        prioridad:this.props.row.prioridad,
-        problemas:this.props.row.problemas,
-        notas:this.props.row.notas
-    })
+    this.props.onRef(this)
+    if(this.props.modo==="ver")
+      {this.props.form.setFieldsValue({
+          cedula:this.props.row.cedula,
+          nombre:this.props.row.nombre,
+          apellidos:this.props.row.apellidos,
+          telefono:this.props.row.telefono,
+          domicilio:this.props.row.domicilio,
+          señas:this.props.row.direccion,
+          sede:this.props.row.sede,
+          prioridad:this.props.row.prioridad,
+          problemas:this.props.row.problemas,
+          notas:this.props.row.notas
+      })
+      this.setState({edit:false})
+    }
   }
 
   render() {
@@ -90,6 +121,7 @@ class editForm extends React.Component {
           extra="La búsqueda es sensible a las mayúsculas."
         >
           {getFieldDecorator('domicilio', {
+            initialValue:[0],
             rules: [{ type: 'array', required: true, message: Mensajes.desconocido}],
           })(
             <Cascader disabled={!this.state.edit} options={domicilios} placeholder="" changeOnSelect showSearch notFoundContent="No encontrado" />
@@ -131,7 +163,7 @@ class editForm extends React.Component {
           {...formItemLayout}
           label="Sede"
         >
-          {getFieldDecorator('sede')(
+          {getFieldDecorator('sede',{initialValue:"Desamparados"})(
             <Select disabled={!this.state.edit}>
               <Option value="Desamparados">Desamparados</Option>
               <Option value="Heredia">Heredia</Option>
@@ -142,7 +174,7 @@ class editForm extends React.Component {
           {...formItemLayout}
           label="Prioridad"
         >
-          {getFieldDecorator('prioridad')(
+          {getFieldDecorator('prioridad',{initialValue:"Baja"})(
             <Select disabled={!this.state.edit}>
               <Option value="Alta">Alta</Option>
               <Option value="Media">Media</Option>
@@ -159,15 +191,7 @@ class editForm extends React.Component {
           )}
         </FormItem>
         <FormItem>
-          <Row gutter={8}>
-              <Col xs={24} sm={6}><Button icon="edit"  onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
-              <Col xs={12} sm={9}>
-                  <Button icon="upload" type="secondary">Subir Archivo</Button>
-              </Col>
-              <Col xs={12} sm={9}>
-                  <Button icon="download" type="secondary">Bajar Archivos</Button>
-              </Col>
-          </Row>
+          {this.handleOptionsMode()}
         </FormItem>
       </Form>
     );

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row} from 'antd';
 import Modal from './esperaModalContainer'
 
 export const columns = [{
@@ -46,7 +45,7 @@ export const columns = [{
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal row={row} />,
+    render: (text, row) => <Modal modo="ver" row={row} />,
     fixed: 'right',
     width: "5rem",
   }];
