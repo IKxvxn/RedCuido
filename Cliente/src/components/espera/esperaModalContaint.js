@@ -11,14 +11,15 @@ class editForm extends React.Component {
       edit:true,
       loading:false,
   };
-  handleSubmit = (e) => {
-    this.props.form.validateFieldsAndScroll((err, values) => {
+  handleSubmit = (handleCreate) => {
+
+    this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
-        if(values.cedula === undefined && (values.nombre === undefined || values.apellidos === undefined) 
-           && values.señas === undefined && values.telefono === undefined){
+        if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
+           && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{console.log('Received values of form: ', values);}
+        else{handleCreate(caso,this.props.form.resetFields)}
       }
       else{message.error(Mensajes.verificar)}
     });

@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from './esperaModalContainer'
+var dateFormat = require('dateformat');
 
 export const columns = [{
     title: 'Cedula',
@@ -16,8 +17,8 @@ export const columns = [{
     key: 'nombre',
   },{
     title: 'Dirección',
-    dataIndex: 'direccion',
-    key: 'direccion',
+    dataIndex: 'señas',
+    key: 'señas',
   },{
     title: 'Teléfono',
     dataIndex: 'telefono',
@@ -26,6 +27,7 @@ export const columns = [{
     title: 'Postulado',
     dataIndex: 'postulado',
     key: 'postulado',
+    render: (text) => <span>{dateFormat(new Date(text),"yyyy-mm-dd")}</span>,
     sorter: (a, b) => new Date(b.postulado) - new Date(a.postulado),
   
   }, {
