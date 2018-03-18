@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <Layout  className="body">
-          <Home />
+          <Login />
       </Layout>
     );
   }
