@@ -24,19 +24,6 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
-  handleAccept = (acceptCaso) => {
-
-    this.props.form.validateFieldsAndScroll((err, caso) => {
-      if (!err) {
-        if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
-           && caso.señas === undefined && caso.telefono === undefined){
-            message.error(Mensajes.minNecesario)
-           }
-        else{acceptCaso(caso)}
-      }
-      else{message.error(Mensajes.verificar)}
-    });
-  }
   enterLoading = () => {
       this.setState({ edit: true});
       message.error(Mensajes.alreadyEditing);

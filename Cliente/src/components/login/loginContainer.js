@@ -7,6 +7,7 @@ import * as Mensajes from '../../assets/mensajes'
 import logo from '../../images/logo.png'
 import '../../style/login.css'
 import * as exampleActions from './loginActions'
+import { Link } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
@@ -43,7 +44,7 @@ class loginContainer extends React.Component {
           </FormItem>
           <Row>
             <Button type="primary"  htmlType="submit" className="login-form-button">
-                Ingresar
+            <Link to='/home'>Ingresar</Link>
             </Button>
           </Row>
             

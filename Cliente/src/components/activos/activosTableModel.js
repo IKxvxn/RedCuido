@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './esperaModalContainer'
+import Modal from './activosModalContainer'
 var dateFormat = require('dateformat');
 
 export const columns = [{
@@ -16,30 +16,24 @@ export const columns = [{
     dataIndex: 'nombre',
     key: 'nombre',
   },{
-    title: 'Dirección',
-    dataIndex: 'señas',
-    key: 'señas',
+    title: 'Fecha de Ingreso',
+    dataIndex: 'ingreso',
+    key: 'ingreso',
+    render: (text) => <span>{dateFormat(new Date(text),"yyyy-mm-dd")}</span>,
   },{
     title: 'Teléfono',
     dataIndex: 'telefono',
     key: 'telefono',
-  }, {
-    title: 'Postulado',
-    dataIndex: 'postulado',
-    key: 'postulado',
-    render: (text) => <span>{dateFormat(new Date(text),"yyyy-mm-dd")}</span>,
-    sorter: (a, b) => new Date(b.postulado) - new Date(a.postulado),
-  
-  }, {
+  },{
     title: 'Sede',
     dataIndex: 'sede',
     key: 'sede',
     filters: [{text: 'Sede en Heredia', value: 'Heredia'}, {text: 'Sede en Desamparados',value: 'Desamparados'}],
     onFilter: (value, record) => record.sede.indexOf(value) === 0,
   },{
-    title: 'Prioridad',
-    dataIndex: 'prioridad',
-    key: 'prioridad',
+    title: 'Riesgo Social',
+    dataIndex: 'riesgo',
+    key: 'riesgo',
     render: text => <div className={text+" prioridadFormat"}>{text}</div>,
     filters: [{text: 'Prioridad Alta', value: 'Alta'}, {text: 'Prioridad Media',value: 'Media'},{text: 'Prioridad Baja',value: 'Baja'}],
     onFilter: (value, record) => record.prioridad.indexOf(value) === 0,
@@ -47,7 +41,7 @@ export const columns = [{
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row}/>,
+    render: (text, row) => <Modal modo="ver" row={row} />,
     fixed: 'right',
     width: "5rem",
   }];

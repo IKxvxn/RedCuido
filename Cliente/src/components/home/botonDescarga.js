@@ -48,7 +48,6 @@ class bontonDescarga extends React.Component {
             <p style={{marginTop:"0.5rem"}}>Tipo de Descarga:</p>
           </Col>
           <Col>
-            <Button style={{width:"18rem"}} type="secondary">Todos los Casos -{this.props.todos.length}-</Button>
           </Col>
           <Col>
             <Button style={{width:"18rem"}} type="secondary">Sólo Seleccionados -{this.props.seleccionadas.length}-</Button>

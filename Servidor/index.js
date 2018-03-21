@@ -14,10 +14,9 @@ app.use(bodyParser.json())
 
 app.set('port', process.env.PORT || 8079)
 
-mongoose.connect(process.env.DBM)
+mongoose.connect(process.env.DBM || "mongodb://localhost:27017/RedCuido")
 
 app.use('/home', homeRoute)
-
 
 app.listen(app.get('port'), err => {
   if (err) return console.log(`Ha ocurrido un error ${err}`)

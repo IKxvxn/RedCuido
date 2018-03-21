@@ -4,6 +4,7 @@ import ReduxThunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import loginReducer from './components/login/loginReducer'
 import esperaReducer from './components/espera/esperaReducer'
+import activosReducer from './components/activos/activosReducer'
 
 const logger = createLogger({
   collapsed: true,
@@ -11,7 +12,7 @@ const logger = createLogger({
   diff: true,
 })
 
-const Store = createStore(combineReducers({loginReducer:loginReducer,esperaReducer:esperaReducer}),
+const Store = createStore(combineReducers({loginReducer:loginReducer,esperaReducer:esperaReducer,activosReducer:activosReducer}),
 composeWithDevTools(
   applyMiddleware(
     ReduxThunk,
