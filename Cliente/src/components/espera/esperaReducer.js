@@ -38,21 +38,6 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
             loading: false,
             error: action.error
         }
-        case 'ACCEPT_CASO_REQUEST':
-            return {
-                casosEspera: state.casosEspera,
-                loading: true    
-            }
-        case 'ACCEPT_CASO_FAILURE':
-            return {
-                casosEspera: state.casosEspera,
-                loading: false    
-            }
-        case 'ACCEPT_CASO_SUCCESS':
-            return {
-                casosEspera: [action.caso,...state.casosEspera],
-                loading: false    
-            }
         default:
             return state
             

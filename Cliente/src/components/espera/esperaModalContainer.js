@@ -10,7 +10,7 @@ class esperaContainer extends React.Component {
     this.setState({ modalVisible });
   }
 
-  handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso)}
+  handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
 
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
 

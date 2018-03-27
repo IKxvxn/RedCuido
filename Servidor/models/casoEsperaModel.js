@@ -7,7 +7,7 @@ const casosEsperaSchema = mongoose.Schema({
   domicilio: { type: Array},
   señas: { type: String},
   telefono: { type: String},
-  postulado: { type: Date, default: new Date()},
+  ingreso: { type: Date, default: new Date()},
   problemas: { type: Array},
   sede: { type: String},
   prioridad: { type: String},
