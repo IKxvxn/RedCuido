@@ -146,7 +146,7 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Problemas"
+          label="Alternativas"
         >
           {getFieldDecorator('altv_aprobadas')(
             <Input.TextArea Rows={5} disabled={!this.state.edit} />

@@ -7,7 +7,7 @@ import { Layout, Menu, Icon, notification } from 'antd';
 import Excluidos from '../excluidos/excluidosContainer'
 import Espera from '../espera/esperaContainer'
 import Activos from '../activos/activosContainer'
-import { Route, Switch,Link } from 'react-router-dom'
+import { BrowserRouter, Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
 const {Content, Footer } = Layout;
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Layout} from 'antd';
 import Login from './components/login/loginContainer'
 import Home from './components/home/homeContainer'
+import Exc from './components/excluidos/excluidosContainer'
 import { Route, Switch } from 'react-router-dom'
 
 class App extends Component {
@@ -10,7 +11,9 @@ class App extends Component {
       <Layout  className="body">
       <Switch>
         <Route exact strict path='/' component={Login}/>
-        <Route exact strict path='/home' component={Home}/>
+        <Route exact strict path='/home' component={Home}>
+        </Route>
+        
       </Switch>
       </Layout>
     );

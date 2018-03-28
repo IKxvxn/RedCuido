@@ -35,7 +35,7 @@ class excluidosContainer extends React.Component {
     if (this.props.modo==="ver"){
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
-    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Aceptar</Button>
+    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
   }
 
   handleModoFooter(){
