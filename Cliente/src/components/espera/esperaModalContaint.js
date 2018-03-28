@@ -24,7 +24,8 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
-  handleAccept = (acceptCaso) => {
+
+  handleAcceptCaso = (acceptCaso) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
@@ -36,10 +37,32 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
+  
   enterLoading = () => {
+    if (this.state.edit === false){
       this.setState({ edit: true});
       message.error(Mensajes.alreadyEditing);
     }
+    else{
+      this.props.form.validateFieldsAndScroll((err, caso) =>{
+        if (!err) {
+          if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
+             && caso.señas === undefined && caso.telefono === undefined){
+              message.error(Mensajes.minNecesario)
+             }
+          else{
+            this.setState({ edit: false});
+            this.props.editCaso(caso,this.props.row._id,this.props.form.resetFields)
+          }
+        }
+        else{message.error(Mensajes.verificar)}
+      });
+      
+      }
+    }
+    
+    
+    
   
   handleOptionsMode(){
     if(this.props.modo==="ver"){

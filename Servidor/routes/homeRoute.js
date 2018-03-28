@@ -5,8 +5,10 @@ const casoExcluidoController = require('../controllers/casoExcluidoController')
 const router = express.Router()
 
 
-router.get('/', casoEsperaController.getCasosEspera)
-router.post('/casoEspera', casoEsperaController.createCasoEspera)
+router.get('/espera', casoEsperaController.getCasosEspera)
+router.post('/espera/casoEspera', casoEsperaController.createCasoEspera)
+router.put('/espera/edit/:id', casoEsperaController.editCasoEspera)
+router.post('/espera/accept/:id', casoEsperaController.acceptCasoEspera)
 
 router.get('/casoActivo', casoActivoController.getCasosActivos)
 router.post('/casoActivo', casoActivoController.createCasoActivo)

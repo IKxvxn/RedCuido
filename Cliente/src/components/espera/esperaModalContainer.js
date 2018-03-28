@@ -10,11 +10,8 @@ class esperaContainer extends React.Component {
     this.setState({ modalVisible });
   }
 
-  handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
-
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
-
-
+  handleAcceptCaso = () =>{this.form.handleAcceptCaso(this.props.acceptCaso);}
 
 
   handleModoTitle(){
@@ -44,7 +41,7 @@ class esperaContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={this.handleAccept}>Aceptar Caso</Button></Col>
+              <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={this.handleAcceptCaso}>Aceptar Caso</Button></Col>
               <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button></Col>
         </Row>
       )
@@ -72,7 +69,7 @@ class esperaContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} acceptCaso={this.props.acceptCaso}/>
+          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
         </Modal>
       </Row>
     );

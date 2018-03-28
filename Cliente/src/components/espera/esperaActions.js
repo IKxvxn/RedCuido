@@ -8,27 +8,32 @@ const NEW_CASO_SUCCESS = 'NEW_CASO_SUCCESS'
 const NEW_CASO_FAILURE = 'NEW_CASO_FAILURE'
 const GET_CASOS_REQUEST = 'GET_CASOS_REQUEST'
 const GET_CASOS_SUCCESS = 'GET_CASOS_SUCCESS'
-const GET_CASOS_FAILURE = 'GET_CASOS_FAILURE'
-
+const GET_CASOS_FAILURE = 'GET_CASO_FAILURE'
+const EDIT_CASO_REQUEST = 'EDIT_CASO_REQUEST'
+const EDIT_CASO_SUCCESS = 'EDIT_CASO_SUCCESS'
+const EDIT_CASO_FAILURE = 'EDIT_CASO_FAILURE'
+const ACCEPT_CASO_REQUEST = 'ACCEPT_CASO_REQUEST'
+const ACCEPT_CASO_SUCCESS = 'ACCEPT_CASO_SUCCESS'
+const ACCEPT_CASO_FAILURE = 'ACCEPT_CASO_FAILURE'
 
 export function createCaso(caso,reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
     })
-    fetch(API_URL+"/casoEspera", {
+    fetch(API_URL+"/espera/casoEspera", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(caso),
     })
       .then(response =>response.json())
-      .then(caso => {
-        message.success("El caso ha sido postulado con éxito")       
-        reset()
+      .then(caso => {    
         dispatch({
           type: NEW_CASO_SUCCESS,
           caso: {...caso.caso, key:caso.caso._id}
         })
+        message.success("El caso ha sido postulado con éxito")
+        reset()
       })
       .catch(error => {
         message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
@@ -45,7 +50,7 @@ export function getCasos(){
   dispatch({
     type: GET_CASOS_REQUEST
   })
-  fetch(API_URL)
+  fetch(API_URL+"/espera")
     .then(response => response.json())
     .then(data => {
       for(let i = 0; i < data.casos.length; i++){
@@ -67,5 +72,60 @@ export function getCasos(){
 }
 }
 
-export function acceptCaso(){
+export function editCaso(caso, _id, reset) {
+  return function (dispatch) {
+  dispatch({
+    type: EDIT_CASO_REQUEST
+  })
+  fetch(`${API_URL}/espera/edit/${_id.valueOf()}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(caso),
+  })
+    .then(response => response.json())
+    .then(data => {
+      reset()
+      dispatch({
+        type: EDIT_CASO_SUCCESS,
+        caso: data
+      })
+      message.success("El caso ha sido modificado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: EDIT_CASO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
+}
+
+
+export function acceptCaso(caso) {
+  return function (dispatch) {
+  dispatch({
+    type: ACCEPT_CASO_REQUEST
+  })
+  fetch(`${API_URL}/espera/accept/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(caso),
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: ACCEPT_CASO_SUCCESS,
+        id: caso._id
+      })
+      message.success("El caso ha sido aceptado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: ACCEPT_CASO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
 }

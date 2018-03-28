@@ -4,7 +4,7 @@ const DEFAULT_STATE = {
     loading: false,
 }
 
-const exampleReducer = (state = DEFAULT_STATE, action) => {
+const esperaReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'NEW_CASO_REQUEST':
             return {
@@ -38,6 +38,44 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
             loading: false,
             error: action.error
         }
+        case 'EDIT_CASO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'EDIT_CASO_SUCCESS':
+        var casos= state.casosEspera.map((caso) => {
+            if(caso._id=== action.caso._id){return action.caso}
+            else{return caso}})
+        return {
+            ...state,
+            casosEspera: casos,
+            loading: false
+            }
+        case 'EDIT_CASO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          caso: {},
+          error: action.error
+        }
+        case 'ACCEPT_CASO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'ACCEPT_CASO_SUCCESS':
+        return {
+            ...state,
+            casosEspera: state.casosEspera.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'ACCEPT_CASO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
             
@@ -45,4 +83,4 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
 
 }
 
-export default exampleReducer
+export default esperaReducer

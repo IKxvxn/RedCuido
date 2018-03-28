@@ -4,35 +4,35 @@ const DEFAULT_STATE = {
     loading: false,
 }
 
-const exampleReducer = (state = DEFAULT_STATE, action) => {
+const excluidosReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'NEW_CASO_REQUEST':
+        case 'NEW_EXCLUIDO_REQUEST':
             return {
                 casosExcluidos: state.casosExcluidos,
                 loading: true    
             }
-        case 'NEW_CASO_FAILURE':
+        case 'NEW_EXCLUIDO_FAILURE':
             return {
                 casosExcluidos: state.casosExcluidos,
                 loading: false    
             }
-        case 'NEW_CASO_SUCCESS':
+        case 'NEW_EXCLUIDO_SUCCESS':
             return {
                 casosExcluidos: [action.caso,...state.casosExcluidos],
                 loading: false    
             }
-        case 'GET_CASOS_REQUEST':
+        case 'GET_EXCLUIDOS_REQUEST':
         return {
             ...state,
             loading: true
         }
-        case 'GET_CASOS_SUCCESS':
+        case 'GET_EXCLUIDOS_SUCCESS':
         return {
             ...state,
             loading: false,
             casosExcluidos: action.casosExcluidos
         }
-        case 'GET_CASOS_FAILURE':
+        case 'GET_EXCLUIDOS_FAILURE':
         return {
             ...state,
             loading: false,
@@ -45,4 +45,4 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
 
 }
 
-export default exampleReducer
+export default excluidosReducer

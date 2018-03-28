@@ -68,13 +68,7 @@ class NormalLoginForm extends React.Component {
     width: "5rem",
   }];
 
-  acceptCasos(row){
-    console.log(row)
-    //var id = event.target.parentNode.parentNode.getAttribute('id')
-   // this.props.acceptCaso(id)
-   }
-
-
+  
   render() {
     return (
       <div>

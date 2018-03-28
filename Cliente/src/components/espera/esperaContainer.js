@@ -34,7 +34,21 @@ class NormalLoginForm extends React.Component {
     title: 'Nombre',
     dataIndex: 'nombre',
     key: 'nombre',
-  },{
+  }, {
+    title: 'Fecha Ingreso',
+    dataIndex: 'ingreso',
+    key: 'ingreso',
+    render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
+    sorter: (a, b) => new Date(a.ingreso) - new Date(b.ingreso), 
+  }, {
+    title: 'Prioridad',
+    dataIndex: 'prioridad',
+    key: 'prioridad',
+    render: text => <div className={text+" prioridadFormat"}>{text}</div>,
+    filters: [{text: 'Prioridad Alta', value: 'Alta'}, {text: 'Prioridad Media',value: 'Media'},{text: 'Prioridad Baja',value: 'Baja'}],
+    onFilter: (value, record) => record.prioridad.indexOf(value) === 0,
+    width: "6.5rem",
+  }, {
     title: 'Dirección',
     dataIndex: 'señas',
     key: 'señas',
@@ -43,38 +57,18 @@ class NormalLoginForm extends React.Component {
     dataIndex: 'telefono',
     key: 'telefono',
   }, {
-    title: 'Fecha Ingreso',
-    dataIndex: 'ingreso',
-    key: 'ingreso',
-    render: (text) => <span>{dateFormat(new Date(text),"yyyy-mm-dd")}</span>,
-    sorter: (a, b) => new Date(b.ingreso) - new Date(a.ingreso), 
-  }, {
     title: 'Sede',
     dataIndex: 'sede',
     key: 'sede',
     filters: [{text: 'Sede en Heredia', value: 'Heredia'}, {text: 'Sede en Desamparados',value: 'Desamparados'}],
     onFilter: (value, record) => record.sede.indexOf(value) === 0,
   },{
-    title: 'Prioridad',
-    dataIndex: 'prioridad',
-    key: 'prioridad',
-    render: text => <div className={text+" prioridadFormat"}>{text}</div>,
-    filters: [{text: 'Prioridad Alta', value: 'Alta'}, {text: 'Prioridad Media',value: 'Media'},{text: 'Prioridad Baja',value: 'Baja'}],
-    onFilter: (value, record) => record.prioridad.indexOf(value) === 0,
-    width: "6.5rem",
-  },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} acceptCaso={this.acceptCasos}/>,
+    render: (text, row) => <Modal modo="ver" row={row} acceptCaso={this.props.acceptCaso} editCaso={this.props.editCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
-
-  acceptCasos(row){
-    console.log(row)
-    //var id = event.target.parentNode.parentNode.getAttribute('id')
-   // this.props.acceptCaso(id)
-   }
 
 
   render() {
@@ -112,6 +106,7 @@ function mapDispatchToProps(dispatch) {
     createCaso: (caso,closer)  => dispatch(esperaActions.createCaso(caso,closer)),
     acceptCaso: (caso) => dispatch(esperaActions.acceptCaso(caso)),
     getCasos: (value) => dispatch(esperaActions.getCasos(value)),
+    editCaso: (caso, id, reset) => dispatch(esperaActions.editCaso(caso, id, reset)),
   }
 }
 
