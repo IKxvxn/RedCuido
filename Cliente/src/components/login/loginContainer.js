@@ -44,7 +44,7 @@ class loginContainer extends React.Component {
           </FormItem>
           <Row>
             <Button type="primary"  htmlType="submit" className="login-form-button">
-            <Link to='/home'>Ingresar</Link>
+            <Link to='/home/espera'>Ingresar</Link>
             </Button>
           </Row>
             

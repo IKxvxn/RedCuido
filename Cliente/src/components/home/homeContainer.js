@@ -7,7 +7,7 @@ import { Layout, Menu, Icon, notification } from 'antd';
 import Excluidos from '../excluidos/excluidosContainer'
 import Espera from '../espera/esperaContainer'
 import Activos from '../activos/activosContainer'
-import { BrowserRouter, Route, Switch,Link } from 'react-router-dom'
+import { Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
 const {Content, Footer } = Layout;
 
@@ -98,9 +98,9 @@ class homeContainer extends React.Component {
         <Content style={Style.contenedor}>
           <div style={Style.contenido}>
             <Switch>
-              <Route exact strict path='/home' component={Espera}/>
-              <Route exact strict path='/activos' component={Activos}/>
-              <Route exact strict path='/excluidos' component={Excluidos}/>
+              <Route exact path='/home/espera' component={Espera}/>
+              <Route exact path='/home/activos' component={Activos}/>
+              <Route exact path='home/excluidos' component={Excluidos}/>
             </Switch>
           </div>
         </Content>
@@ -108,10 +108,10 @@ class homeContainer extends React.Component {
           Red de Cuido C.R. ©2018
         </Footer>
         <Menu mode="horizontal" theme="dark" selectedKeys={[this.state.current]} style={Style.menu} onClick={this.openNotification}>
-          <Menu.Item key="1"><Link to='/home'>Espera</Link></Menu.Item>
-          <Menu.Item key="2"><Link to='/activos'>Activos</Link></Menu.Item>
+          <Menu.Item key="1"><Link to='/home/espera'>Espera</Link></Menu.Item>
+          <Menu.Item key="2"><Link to='/home/activos'>Activos</Link></Menu.Item>
           <Menu.Item key="3">Rechazados</Menu.Item>
-          <Menu.Item key="4"><Link to='/excluidos'>Excluidos</Link></Menu.Item>
+          <Menu.Item key="4"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
           <Menu.Item key="5"><Icon type="mail"/>Notificaciones</Menu.Item>
         </Menu>
       </Layout>
