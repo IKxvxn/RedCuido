@@ -37,7 +37,6 @@ export const columns = [{
     render: text => <div className={text+" prioridadFormat"}>{text}</div>,
     filters: [{text: 'Prioridad Alta', value: 'Alta'}, {text: 'Prioridad Media',value: 'Media'},{text: 'Prioridad Baja',value: 'Baja'}],
     onFilter: (value, record) => record.prioridad.indexOf(value) === 0,
-    width: "6.5rem",
   },{
     title: 'Acciones',
     key: 'acciones',

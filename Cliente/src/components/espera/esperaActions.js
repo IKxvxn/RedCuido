@@ -72,12 +72,12 @@ export function getCasos(){
 }
 }
 
-export function editCaso(caso, _id, reset) {
+export function editCaso(caso, reset) {
   return function (dispatch) {
   dispatch({
     type: EDIT_CASO_REQUEST
   })
-  fetch(`${API_URL}/espera/edit/${_id.valueOf()}`, {
+  fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify(caso),
@@ -87,7 +87,7 @@ export function editCaso(caso, _id, reset) {
       reset()
       dispatch({
         type: EDIT_CASO_SUCCESS,
-        caso: data
+        caso: data.caso
       })
       message.success("El caso ha sido modificado con éxito")
     })

@@ -52,7 +52,7 @@ class editForm extends React.Component {
              }
           else{
             this.setState({ edit: false});
-            this.props.editCaso(caso,this.props.row._id,this.props.form.resetFields)
+            this.props.editCaso({...caso,_id:this.props.row._id,ingreso:this.props.rowingreso},this.props.form.resetFields)
           }
         }
         else{message.error(Mensajes.verificar)}

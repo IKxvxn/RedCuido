@@ -106,7 +106,7 @@ function mapDispatchToProps(dispatch) {
     createCaso: (caso,closer)  => dispatch(esperaActions.createCaso(caso,closer)),
     acceptCaso: (caso) => dispatch(esperaActions.acceptCaso(caso)),
     getCasos: (value) => dispatch(esperaActions.getCasos(value)),
-    editCaso: (caso, id, reset) => dispatch(esperaActions.editCaso(caso, id, reset)),
+    editCaso: (caso, reset) => dispatch(esperaActions.editCaso(caso, reset)),
   }
 }
 
