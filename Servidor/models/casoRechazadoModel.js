@@ -1,0 +1,16 @@
+const mongoose = require('mongoose')
+
+const casosRechazadoSchema = mongoose.Schema({
+  cedula: { type: String},
+  apellidos: { type: String},
+  nombre: { type: String},
+  domicilio: { type: Array},
+  señas: { type: String},
+  telefono: { type: String},
+  rechazo: { type: Date, default: new Date()},
+  sede: { type: String},
+  notas: { type: String},
+})
+
+const casoRechazadoModel = mongoose.model("rechazado", casosRechazadoSchema)
+module.exports = casoRechazadoModel

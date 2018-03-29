@@ -62,7 +62,6 @@ class editForm extends React.Component {
           domicilio:this.props.row.domicilio,
           señas:this.props.row.direccion,
           sede:this.props.row.sede,
-          altv_aprobadas:this.props.row.altv_aprobadas,
           notas:this.props.row.notas
       })
       this.setState({edit:false})
@@ -70,9 +69,7 @@ class editForm extends React.Component {
   }
 
   render() {
-    
     const { getFieldDecorator } = this.props.form;
-
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -142,14 +139,6 @@ class editForm extends React.Component {
             rules: [{ pattern: '^[0-9]*$', message: Mensajes.numeros }],
           })(
             <Input disabled={!this.state.edit} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Alternativas"
-        >
-          {getFieldDecorator('altv_aprobadas')(
-            <Input.TextArea Rows={5} disabled={!this.state.edit} />
           )}
         </FormItem>
         <FormItem

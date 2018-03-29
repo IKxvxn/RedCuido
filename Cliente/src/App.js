@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Layout} from 'antd';
 import Login from './components/login/loginContainer'
 import Home from './components/home/homeContainer'
-import Exc from './components/excluidos/excluidosContainer'
 import { Route, Switch } from 'react-router-dom'
 
 class App extends Component {

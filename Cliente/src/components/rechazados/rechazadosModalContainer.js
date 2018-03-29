@@ -1,8 +1,8 @@
 import React from 'react';
 import { Modal, Button, Row, Col } from 'antd';
-import Form from './excluidosModalContaint'
+import Form from './rechazadosModalContaint'
 
-class excluidosContainer extends React.Component {
+class rechazadosContainer extends React.Component {
   state = {
     modalVisible: false,
   }
@@ -10,7 +10,7 @@ class excluidosContainer extends React.Component {
     this.setState({ modalVisible });
   }
 
-  handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
+  //handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
 
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
 
@@ -50,8 +50,8 @@ class excluidosContainer extends React.Component {
     }else{
     return(
       <Row gutter={8} type="flex" justify="end">
-           <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar</Button></Col>
-           <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
+            <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar</Button></Col>
+            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
       </Row>
     )}
   }
@@ -78,4 +78,4 @@ class excluidosContainer extends React.Component {
   }
 }
 
-export default excluidosContainer
+export default rechazadosContainer

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import * as excluidosActions from './excluidosActions'
+import * as rechazadosActions from './rechazadosActions'
 import { Table, Row, Col } from 'antd';
 import Descarga from '../home/botonDescarga'
-import Modal from './excluidosModalContainer'
+import Modal from './rechazadosModalContainer'
 var dateFormat = require('dateformat');
 
 
@@ -35,18 +35,12 @@ class NormalLoginForm extends React.Component {
     dataIndex: 'nombre',
     key: 'nombre',
   },{
-    title: 'Fecha Exclusion',
-    dataIndex: 'exclusion',
-    key: 'exclusion',
+    title: 'Fecha Rechazo',
+    dataIndex: 'rechazo',
+    key: 'rechazo',
     render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
-    sorter: (a, b) => new Date(b.exclusion) - new Date(a.exclusion), 
+    sorter: (a, b) => new Date(b.rechazo) - new Date(a.rechazo), 
   }, {
-    title: 'Fecha Ingreso',
-    dataIndex: 'ingreso',
-    key: 'ingreso',
-    render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
-    sorter: (a, b) => new Date(b.ingreso) - new Date(a.ingreso), 
-  },{
     title: 'Dirección',
     dataIndex: 'señas',
     key: 'señas',
@@ -77,15 +71,15 @@ class NormalLoginForm extends React.Component {
             <Modal loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
           </Col>
           <Col xs={12} sm={4}>
-            <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosExcluidos} />
+            <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosRechazados} />
           </Col>
         </Row>
-        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={this.props.casosExcluidos} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={this.props.casosRechazados} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
 
-  //Carga casos de excluidos cuando se carga el componente.
+  //Carga casos de rechazados cuando se carga el componente.
   componentDidMount(){
     this.props.getCasos()
   }
@@ -94,15 +88,15 @@ class NormalLoginForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    casosExcluidos: state.excluidosReducer.casosExcluidos,
-    loading: state.excluidosReducer.loading
+    casosRechazados: state.rechazadosReducer.casosRechazados,
+    loading: state.rechazadosReducer.loading
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCaso: (caso,closer)  => dispatch(excluidosActions.createCaso(caso,closer)),
-    getCasos: (value) => dispatch(excluidosActions.getCasos(value)),
+    createCaso: (caso,closer)  => dispatch(rechazadosActions.createCaso(caso,closer)),
+    getCasos: (value) => dispatch(rechazadosActions.getCasos(value)),
   }
 }
 
