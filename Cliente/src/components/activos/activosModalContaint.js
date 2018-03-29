@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button,Row, Col, message } from 'antd';
+import { Form, Input, Cascader, Select, Button,Row, Col, message, DatePicker } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
+import moment from 'moment';
 const domicilios =  require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
+
 
 
 class editForm extends React.Component {
@@ -63,8 +65,8 @@ class editForm extends React.Component {
           domicilio:this.props.row.domicilio,
           señas:this.props.row.direccion,
           sede:this.props.row.sede,
-          prioridad:this.props.row.prioridad,
-          problemas:this.props.row.problemas,
+          alternativas:this.props.row.alternativas,
+          riesgo:this.props.row.riesgo,
           notas:this.props.row.notas
       })
       this.setState({edit:false})
@@ -118,6 +120,12 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
+          label="Ingreso"
+        >
+          <DatePicker defaultValue={moment()} format={'DD-MM-YYYY'} disabled={!this.state.edit}/>
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
           label="Domicilio"
           extra="La búsqueda es sensible a las mayúsculas."
         >
@@ -148,14 +156,16 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Problemas"
+          label="Alternativas"
         >
-          {getFieldDecorator('problemas')(
+          {getFieldDecorator('alternativas')(
             <Select mode="multiple" disabled={!this.state.edit}>
-              <Option value="Vivienda">Vivienda</Option>
-              <Option value="Alimentarios">Alimentarios</Option>
-              <Option value="Económicos">Económicos</Option>
-              <Option value="Vive Solo">Vive Solo</Option>
+              <Option value="Artículos de uso personal">Artículos de uso personal</Option>
+              <Option value="Ayuda técnica">Ayuda técnica</Option>
+              <Option value="Alquiler de vivienda">Alquiler de vivienda</Option>
+              <Option value="Asistente domiciliario">Asistente domiciliario</Option>
+              <Option value="Equipamiento de casa">Equipamiento de casa</Option>
+              <Option value="Institucionalización">Institucionalización</Option>
               <Option value="Otros">Otros</Option>
             </Select>
           )}
@@ -173,13 +183,14 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Prioridad"
+          label="Riesgo"
         >
-          {getFieldDecorator('prioridad',{initialValue:"Baja"})(
+          {getFieldDecorator('riesgo',{initialValue:"1"})(
             <Select disabled={!this.state.edit}>
-              <Option value="Alta">Alta</Option>
-              <Option value="Media">Media</Option>
-              <Option value="Baja">Baja</Option>
+              <Option value="4">4</Option>
+              <Option value="3">3</Option>
+              <Option value="2">2</Option>
+              <Option value="1">1</Option>
             </Select>
           )}
         </FormItem>

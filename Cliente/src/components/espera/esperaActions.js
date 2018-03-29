@@ -102,7 +102,7 @@ export function editCaso(caso, reset) {
 }
 
 
-export function acceptCaso(caso) {
+export function acceptCaso(caso, nota) {
   return function (dispatch) {
   dispatch({
     type: ACCEPT_CASO_REQUEST
@@ -110,7 +110,7 @@ export function acceptCaso(caso) {
   fetch(`${API_URL}/espera/accept/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(caso),
+    body: JSON.stringify({caso:caso, nota:nota}),
   })
     .then(response => response.json())
     .then(data => {

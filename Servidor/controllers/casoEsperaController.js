@@ -56,9 +56,9 @@ function acceptCasoEspera(req, res) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
       }
-      let newCaso = new casoActivoModel({cedula: req.body.cedula, apellidos: req.body.apellidos, 
-        nombre: req.body.nombre, domicilio: req.body.domicilio, telefono: req.body.telefono,
-        sede: req.body.sede, señas: req.body.señas})
+      let newCaso = new casoActivoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
+        sede: req.body.caso.sede, señas: req.body.señas, notas:req.body.nota})
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){

@@ -25,14 +25,14 @@ class editForm extends React.Component {
     });
   }
 
-  handleAcceptCaso = (acceptCaso) => {
+  handleAcceptCaso = (acceptCaso, nota) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
            && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{acceptCaso(this.props.row)}
+        else{acceptCaso(this.props.row, nota)}
       }
       else{message.error(Mensajes.verificar)}
     });

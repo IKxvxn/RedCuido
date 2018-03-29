@@ -21,6 +21,23 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
                 casosActivos: [action.caso,...state.casosActivos],
                 loading: false    
             }
+        case 'GET_ACTIVOS_REQUEST':
+        return {
+            ...state,
+            loading: true
+        }
+        case 'GET_ACTIVOS_SUCCESS':
+        return {
+            ...state,
+            loading: false,
+            casosActivos: action.casosActivos
+        }
+        case 'GET_ACTIVOS_FAILURE':
+        return {
+            ...state,
+            loading: false,
+            error: action.error
+        }
         default:
             return state
             

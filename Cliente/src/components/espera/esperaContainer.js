@@ -25,6 +25,7 @@ class NormalLoginForm extends React.Component {
     title: 'Cedula',
     dataIndex: 'cedula',
     key: 'cedula',
+    sorter: (a, b) => Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
   },{
     title: 'Apellidos',
     dataIndex: 'apellidos',
@@ -104,7 +105,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createCaso: (caso,closer)  => dispatch(esperaActions.createCaso(caso,closer)),
-    acceptCaso: (caso) => dispatch(esperaActions.acceptCaso(caso)),
+    acceptCaso: (caso, nota) => dispatch(esperaActions.acceptCaso(caso, nota)),
     getCasos: (value) => dispatch(esperaActions.getCasos(value)),
     editCaso: (caso, reset) => dispatch(esperaActions.editCaso(caso, reset)),
   }

@@ -13,7 +13,7 @@ const casosActivosSchema = mongoose.Schema({
   alternativas: { type: Array},
   sede: { type: String},
   riesgo: { type: String},
-  observaciones: { type: String},
+  notas: { type: String},
 })
 
 const casoActivoModel = mongoose.model("activo", casosActivosSchema)
