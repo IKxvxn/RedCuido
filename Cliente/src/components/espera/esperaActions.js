@@ -15,6 +15,9 @@ const EDIT_CASO_FAILURE = 'EDIT_CASO_FAILURE'
 const ACCEPT_CASO_REQUEST = 'ACCEPT_CASO_REQUEST'
 const ACCEPT_CASO_SUCCESS = 'ACCEPT_CASO_SUCCESS'
 const ACCEPT_CASO_FAILURE = 'ACCEPT_CASO_FAILURE'
+const REJECT_CASO_REQUEST = 'REJECT_CASO_REQUEST'
+const REJECT_CASO_SUCCESS = 'REJECT_CASO_SUCCESS'
+const REJECT_CASO_FAILURE = 'REJECT_CASO_FAILURE'
 
 export function createCaso(caso,reset) {
   return function (dispatch) {
@@ -123,6 +126,34 @@ export function acceptCaso(caso, nota) {
     .catch(error => {
       dispatch({
         type: ACCEPT_CASO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
+}
+
+export function rejectCaso(caso, nota) {
+  return function (dispatch) {
+  dispatch({
+    type: REJECT_CASO_REQUEST
+  })
+  fetch(`${API_URL}/espera/reject/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: REJECT_CASO_SUCCESS,
+        id: caso._id
+      })
+      message.success("El caso ha sido rechazado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: REJECT_CASO_FAILURE,
         error: error
       })
       message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")

@@ -10,6 +10,7 @@ router.get('/espera', casoEsperaController.getCasosEspera)
 router.post('/espera/casoEspera', casoEsperaController.createCasoEspera)
 router.put('/espera/edit/:id', casoEsperaController.editCasoEspera)
 router.post('/espera/accept/:id', casoEsperaController.acceptCasoEspera)
+router.post('/espera/reject/:id', casoEsperaController.rejectCasoEspera)
 
 router.get('/activos', casoActivoController.getCasosActivos)
 router.post('/casoActivo', casoActivoController.createCasoActivo)

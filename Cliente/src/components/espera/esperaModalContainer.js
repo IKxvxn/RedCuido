@@ -5,7 +5,8 @@ import Form from './esperaModalContaint'
 class esperaContainer extends React.Component {
   state = {
     modalVisible: false,
-    modal2Visible: false
+    modal2Visible: false,
+    modal3Visible: false
   }
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
@@ -15,8 +16,13 @@ class esperaContainer extends React.Component {
     this.setState({ modal2Visible });
   }
 
+  setmodal3Visible = (modal3Visible) => {
+    this.setState({ modal3Visible });
+  }
+
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
   handleAcceptCaso = (nota) =>{this.form.handleAcceptCaso(this.props.acceptCaso, nota)}
+  handleRejectCaso = (nota) =>{this.form.handleRejectCaso(this.props.rejectCaso, nota)}
 
 
   handleModoTitle(){
@@ -47,7 +53,7 @@ class esperaContainer extends React.Component {
       return(
         <Row gutter={8} type="flex" justify="end">
               <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Caso</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Rechazar Caso</Button></Col>
+              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Caso</Button></Col>
         </Row>
       )
     }
@@ -66,8 +72,17 @@ class esperaContainer extends React.Component {
               <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.set2modalVisible(false)}>Cancelar</Button></Col>
         </Row>
       )
-
   }
+
+  handleRechazarFooter(){
+    return(
+      <Row gutter={8} type="flex" justify="end">
+            <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleRejectCaso(document.getElementById("nota").value)}>Aceptar</Button></Col>
+            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.set3modalVisible(false)}>Cancelar</Button></Col>
+      </Row>
+    )
+
+}
 
   render() {
     return (
@@ -97,6 +112,20 @@ class esperaContainer extends React.Component {
           onCancel={()=>this.setmodal2Visible(false)}
           footer={[
             this.handleAceptarFooter()
+          ]}
+        >
+        <Input.TextArea rows={4} id="nota"/>
+        </Modal>
+      </Row>
+      <Row>
+      <Modal
+          title="Añada una nota antes de proceder:"
+          visible={this.state.modal3Visible}
+          destroyOnClose
+          closable={false}
+          onCancel={()=>this.setmodal3Visible(false)}
+          footer={[
+            this.handleRechazarFooter()
           ]}
         >
         <Input.TextArea rows={4} id="nota"/>

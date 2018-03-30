@@ -77,6 +77,23 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'REJECT_CASO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'REJECT_CASO_SUCCESS':
+        return {
+            ...state,
+            casosEspera: state.casosEspera.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'REJECT_CASO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
             
