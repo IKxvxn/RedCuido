@@ -69,7 +69,7 @@ class esperaContainer extends React.Component {
       return(
         <Row gutter={8} type="flex" justify="end">
               <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleAcceptCaso(document.getElementById("nota").value)}>Aceptar</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.set2modalVisible(false)}>Cancelar</Button></Col>
+              <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal2Visible(false)}>Cancelar</Button></Col>
         </Row>
       )
   }
@@ -78,7 +78,7 @@ class esperaContainer extends React.Component {
     return(
       <Row gutter={8} type="flex" justify="end">
             <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleRejectCaso(document.getElementById("nota").value)}>Aceptar</Button></Col>
-            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.set3modalVisible(false)}>Cancelar</Button></Col>
+            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal3Visible(false)}>Cancelar</Button></Col>
       </Row>
     )
 
@@ -113,7 +113,7 @@ class esperaContainer extends React.Component {
           footer={[
             this.handleAceptarFooter()
           ]}
-        >
+          >
         <Input.TextArea rows={4} id="nota"/>
         </Modal>
       </Row>

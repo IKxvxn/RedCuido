@@ -59,9 +59,25 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
           caso: {},
           error: action.error
         }
+        case 'EXCLUDE_CASO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'EXCLUDE_CASO_SUCCESS':
+        return {
+            ...state,
+            casosActivos: state.casosActivos.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'EXCLUDE_CASO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
-            
     }
 
 }

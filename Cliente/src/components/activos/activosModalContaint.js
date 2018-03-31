@@ -49,6 +49,19 @@ class editForm extends React.Component {
       }
     }
   
+    handleExcludeCaso = (excludeCaso, nota) => {
+      this.props.form.validateFieldsAndScroll((err, caso) => {
+        if (!err) {
+          if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
+             && caso.señas === undefined && caso.telefono === undefined && caso.alternativas === undefined){
+              message.error(Mensajes.minNecesario)
+             }
+          else{excludeCaso(this.props.row, nota)}
+        }
+        else{message.error(Mensajes.verificar)}
+      });
+    }
+
   handleOptionsMode(){
     if(this.props.modo==="ver"){
       return(

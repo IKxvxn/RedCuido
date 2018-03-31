@@ -1,4 +1,5 @@
 const casoActivoModel = require('../models/casoActivoModel')
+const casoExcluidoModel = require('../models/casoExcluidoModel')
 const mongoose = require('mongoose')
 const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
@@ -43,8 +44,34 @@ function editCasoActivo(req, res) {
     })
 }
 
+function excludeCasoActivo(req, res) {
+  casoActivoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send(`Ocurrió un error 💩 ${err}`)
+      }
+      let newCaso = new casoExcluidoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
+        ingreso: req.body.caso.ingreso, altv_aprobadas: req.body.caso.alternativas,
+        sede: req.body.caso.sede, notas:req.body.caso.notas})
+      let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"activo",action:"accepted", caseId:newCaso._id}
+      newCaso.save((err, resp) => {
+        if(err){
+          res.status(500)
+          res.send({error:true})
+        }
+        else{
+          usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+        }
+      })
+      res.status(300)
+      res.json(caso)
+    })
+}
+
 module.exports = {
-  getCasosActivos,createCasoActivo,editCasoActivo
+  getCasosActivos,createCasoActivo,editCasoActivo, excludeCasoActivo
 }
 
 

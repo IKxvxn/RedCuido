@@ -60,7 +60,7 @@ function acceptCasoEspera(req, res) {
       }
       let newCaso = new casoActivoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:req.body.caso.nota})
+        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:req.body.caso.notas})
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){
@@ -85,7 +85,7 @@ function rejectCasoEspera(req, res) {
       }
       let newCaso = new casoRechazadoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, notas:req.body.caso.nota})
+        sede: req.body.caso.sede, notas:req.body.caso.notas})
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){
