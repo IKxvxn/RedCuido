@@ -4,6 +4,7 @@ const casoRechazadoModel = require('../models/casoRechazadoModel')
 const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
 
+
 const mongoose = require('mongoose')
 
 function getCasosEspera(req, res) {
@@ -36,7 +37,7 @@ function createCasoEspera(req,res){
 
 function editCasoEspera(req, res) {
   let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"update",caseId:req.body._id}
-  casoEsperaModel.updateOne({_id: new mongoose.Types.ObjectId(req.body._id)},{ returnNewDocument : true }, {$set: req.body})
+  casoEsperaModel.updateOne({_id: new mongoose.Types.ObjectId(req.body._id)}, {$set: req.body})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
@@ -59,7 +60,7 @@ function acceptCasoEspera(req, res) {
       }
       let newCaso = new casoActivoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.señas, notas:req.body.nota})
+        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:req.body.caso.nota})
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){
@@ -83,8 +84,8 @@ function rejectCasoEspera(req, res) {
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       let newCaso = new casoRechazadoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
-        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.señas, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, notas:req.body.nota})
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
+        sede: req.body.caso.sede, notas:req.body.caso.nota})
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){

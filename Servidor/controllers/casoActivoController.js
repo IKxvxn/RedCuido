@@ -1,5 +1,7 @@
 const casoActivoModel = require('../models/casoActivoModel')
 const mongoose = require('mongoose')
+const usuarioModel = require('../models/usuarioModel')
+const uuidv4 = require('uuid/v4');
 
 function getCasosActivos(req, res) {
   casoActivoModel.find()
@@ -25,8 +27,24 @@ function createCasoActivo(req,res){
   res.send({error:false, caso:newCaso})
 }
 
+function editCasoActivo(req, res) {
+  let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"activos",action:"update",caseId:req.body._id}
+  casoActivoModel.updateOne({_id: new mongoose.Types.ObjectId(req.body._id)}, {$set: req.body})
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send({error:false})
+      }
+      else{
+        res.status(200)
+        res.send({error:false,caso:{...req.body,ingreso:new Date(req.body.ingreso)}})
+        usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+      }
+    })
+}
+
 module.exports = {
-  getCasosActivos,createCasoActivo
+  getCasosActivos,createCasoActivo,editCasoActivo
 }
 
 

@@ -38,6 +38,27 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
             loading: false,
             error: action.error
         }
+        case 'EDIT_ACTIVO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'EDIT_ACTIVO_SUCCESS':
+        var casos= state.casosActivos.map((caso) => {
+            if(caso._id=== action.caso._id){return action.caso}
+            else{return {...caso,key:caso._id}}})
+        return {
+            ...state,
+            casosActivos: casos,
+            loading: false
+            }
+        case 'EDIT_ACTIVO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          caso: {},
+          error: action.error
+        }
         default:
             return state
             

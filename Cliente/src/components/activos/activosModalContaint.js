@@ -27,8 +27,26 @@ class editForm extends React.Component {
     });
   }
   enterLoading = () => {
+    if (this.state.edit === false){
       this.setState({ edit: true});
       message.error(Mensajes.alreadyEditing);
+    }
+    else{
+      this.props.form.validateFieldsAndScroll((err, caso) =>{
+        if (!err) {
+          if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
+             && caso.señas === undefined && caso.telefono === undefined){
+              message.error(Mensajes.minNecesario)
+             }
+          else{
+            this.setState({ edit: false});
+            this.props.editCaso({...caso,_id:this.props.row._id,ingreso:this.props.rowingreso},this.props.form.resetFields)
+          }
+        }
+        else{message.error(Mensajes.verificar)}
+      });
+      
+      }
     }
   
   handleOptionsMode(){
@@ -61,9 +79,11 @@ class editForm extends React.Component {
           cedula:this.props.row.cedula,
           nombre:this.props.row.nombre,
           apellidos:this.props.row.apellidos,
+          ingreso:moment(this.props.row.ingreso),
+          nacimiento:moment(this.props.row.nacimiento),
           telefono:this.props.row.telefono,
           domicilio:this.props.row.domicilio,
-          señas:this.props.row.direccion,
+          señas:this.props.row.señas,
           sede:this.props.row.sede,
           alternativas:this.props.row.alternativas,
           riesgo:this.props.row.riesgo,
@@ -122,7 +142,17 @@ class editForm extends React.Component {
           {...formItemLayout}
           label="Ingreso"
         >
-          <DatePicker defaultValue={moment()} format={'DD-MM-YYYY'} disabled={!this.state.edit}/>
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Nacimiento"
+        >
+          {getFieldDecorator('nacimiento', {
+        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
+        )}
         </FormItem>
         <FormItem
           {...formItemLayout}

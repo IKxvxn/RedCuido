@@ -25,6 +25,7 @@ class NormalLoginForm extends React.Component {
     title: 'Cedula',
     dataIndex: 'cedula',
     key: 'cedula',
+    sorter: (a, b) => Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
   },{
     title: 'Apellidos',
     dataIndex: 'apellidos',

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var dateFormat = require('dateformat');
 
 const casosRechazadoSchema = mongoose.Schema({
   cedula: { type: String},

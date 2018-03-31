@@ -60,7 +60,7 @@ class editForm extends React.Component {
           apellidos:this.props.row.apellidos,
           telefono:this.props.row.telefono,
           domicilio:this.props.row.domicilio,
-          señas:this.props.row.direccion,
+          señas:this.props.row.señas,
           sede:this.props.row.sede,
           altv_aprobadas:this.props.row.altv_aprobadas,
           notas:this.props.row.notas

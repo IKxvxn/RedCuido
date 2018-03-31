@@ -60,7 +60,7 @@ class ActivosForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} />,
+    render: (text, row) => <Modal modo="ver" row={row} editCaso={this.props.editCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -101,6 +101,7 @@ function mapDispatchToProps(dispatch) {
   return {
     activarCaso: (caso,closer)  => dispatch(activosActions.activarCaso(caso,closer)),
     getCasos: (value) => dispatch(activosActions.getCasos(value)),
+    editCaso: (caso, reset) => dispatch(activosActions.editCaso(caso, reset)),
   }
 }
 
