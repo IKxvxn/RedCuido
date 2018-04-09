@@ -38,6 +38,28 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
             loading: false,
             error: action.error
         }
+        case 'EDIT_EXCLUIDO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'EDIT_EXCLUIDO_SUCCESS':
+        console.log(action.caso)
+        var casos= state.casosExcluidos.map((caso) => {
+            if(caso._id=== action.caso._id){return action.caso}
+            else{return {...caso,key:caso._id}}})
+        return {
+            ...state,
+            casosExcluidos: casos,
+            loading: false
+            }
+        case 'EDIT_EXCLUIDO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          caso: {},
+          error: action.error
+        }
         default:
             return state
             

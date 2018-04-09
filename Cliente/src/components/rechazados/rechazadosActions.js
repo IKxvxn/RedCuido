@@ -9,6 +9,9 @@ const NEW_RECHAZADO_FAILURE = 'NEW_RECHAZADO_FAILURE'
 const GET_RECHAZADO_REQUEST = 'GET_RECHAZADO_REQUEST'
 const GET_RECHAZADO_SUCCESS = 'GET_RECHAZADO_SUCCESS'
 const GET_RECHAZADO_FAILURE = 'GET_RECHAZADO_FAILURE'
+const EDIT_RECHAZADO_REQUEST = 'EDIT_RECHAZADO_REQUEST'
+const EDIT_RECHAZADO_SUCCESS = 'EDIT_RECHAZADO_SUCCESS'
+const EDIT_RECHAZADO_FAILURE = 'EDIT_RECHAZADO_FAILURE'
 
 
 export function createCaso(caso,reset) {
@@ -67,5 +70,32 @@ export function getCasos(){
 }
 }
 
-export function acceptCaso(){
+
+export function editCaso(caso, reset) {
+  return function (dispatch) {
+  dispatch({
+    type: EDIT_RECHAZADO_REQUEST
+  })
+  fetch(`${API_URL}/rechazado/edit/${caso._id.valueOf()}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(caso),
+  })
+    .then(response => response.json())
+    .then(data => {
+      reset()
+      dispatch({
+        type: EDIT_RECHAZADO_SUCCESS,
+        caso: data.caso
+      })
+      message.success("El perfil ha sido modificado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: EDIT_RECHAZADO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
 }

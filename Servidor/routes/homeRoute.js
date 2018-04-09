@@ -19,9 +19,11 @@ router.post('/activos/exclude/:id', casoActivoController.excludeCasoActivo)
 
 router.get('/casoExcluido', casoExcluidoController.getCasosExcluidos)
 router.post('/casoExcluido', casoExcluidoController.createCasoExcluidos)
+router.put('/excluido/edit/:id', casoExcluidoController.editCasoExcluido)
 
 
 router.get('/casoRechazado', casoRechazadoController.getCasosRechazados)
 router.post('/casoRechazado', casoRechazadoController.createCasoRechazado)
+router.put('/rechazado/edit/:id', casoRechazadoController.editCasoRechazado)
 
 module.exports = router

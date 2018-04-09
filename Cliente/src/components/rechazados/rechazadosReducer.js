@@ -38,6 +38,28 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
             loading: false,
             error: action.error
         }
+        case 'EDIT_RECHAZADO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'EDIT_RECHAZADO_SUCCESS':
+        console.log(action.caso)
+        var casos= state.casosRechazados.map((caso) => {
+            if(caso._id=== action.caso._id){return action.caso}
+            else{return {...caso,key:caso._id}}})
+        return {
+            ...state,
+            casosRechazados: casos,
+            loading: false
+            }
+        case 'EDIT_RECHAZADO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          caso: {},
+          error: action.error
+        }
         default:
             return state
             

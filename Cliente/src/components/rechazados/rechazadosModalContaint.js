@@ -36,9 +36,28 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
+  
   enterLoading = () => {
+    if (this.state.edit === false){
       this.setState({ edit: true});
       message.error(Mensajes.alreadyEditing);
+    }
+    else{
+      this.props.form.validateFieldsAndScroll((err, caso) =>{
+        if (!err) {
+          if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
+             && caso.señas === undefined && caso.telefono === undefined){
+              message.error(Mensajes.minNecesario)
+             }
+          else{
+            this.setState({ edit: false});
+            this.props.editCaso({...caso,_id:this.props.row._id,rechazo:this.props.row.rechazo},this.props.form.resetFields)
+          }
+        }
+        else{message.error(Mensajes.verificar)}
+      });
+      
+      }
     }
   
   handleOptionsMode(){

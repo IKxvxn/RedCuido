@@ -10,7 +10,7 @@ class excluidosContainer extends React.Component {
     this.setState({ modalVisible });
   }
 
-  handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
+  //handleAccept = () =>{this.form.handleAccept(this.props.acceptCaso);}
 
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
 
@@ -71,7 +71,7 @@ class excluidosContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} acceptCaso={this.props.acceptCaso}/>
+          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
         </Modal>
       </Row>
     );
