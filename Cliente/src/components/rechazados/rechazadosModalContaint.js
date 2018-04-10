@@ -24,18 +24,20 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
-  handleAccept = (acceptCaso) => {
+
+  handleReactivateCaso = (reactivateCaso, nota) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
            && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{acceptCaso(this.props.row)}
+        else{reactivateCaso(this.props.row, nota)}
       }
       else{message.error(Mensajes.verificar)}
     });
   }
+
   
   enterLoading = () => {
     if (this.state.edit === false){
@@ -60,15 +62,23 @@ class editForm extends React.Component {
       }
     }
   
-  handleOptionsMode(){
-    if(this.props.modo==="ver"){
-      return(
-        <Row gutter={8}>
-            <Col xs={24} sm={24}><Button icon="edit"  onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
-        </Row>
-      )
+    handleOptionsMode() {
+      if (this.props.modo === "ver") {
+        if (this.state.edit === false) {
+          return (
+            <Row gutter={8} type="flex" justify="end">
+              <Col xs={24} sm={7}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+            </Row>
+          )
+        } else {
+          return (
+            <Row gutter={8} type="flex" justify="end">
+              <Col xs={12} sm={7}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
+            </Row>
+          )
+        }
+      }
     }
-  }
   
   componentDidMount(){
     this.props.onRef(this)

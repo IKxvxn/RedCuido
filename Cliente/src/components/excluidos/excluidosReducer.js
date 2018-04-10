@@ -60,6 +60,23 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
           caso: {},
           error: action.error
         }
+        case 'REACTIVATE_EXCLUIDO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'REACTIVATE_EXCLUIDO_SUCCESS':
+        return {
+            ...state,
+            casosExcluidos: state.casosExcluidos.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'REACTIVATE_EXCLUIDO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
             

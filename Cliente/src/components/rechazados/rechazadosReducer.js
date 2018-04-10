@@ -60,6 +60,23 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
           caso: {},
           error: action.error
         }
+        case 'REACTIVATE_RECHAZADO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'REACTIVATE_RECHAZADO_SUCCESS':
+        return {
+            ...state,
+            casosRechazados: state.casosRechazados.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'REACTIVATE_RECHAZADO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
             

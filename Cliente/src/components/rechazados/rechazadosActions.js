@@ -12,6 +12,9 @@ const GET_RECHAZADO_FAILURE = 'GET_RECHAZADO_FAILURE'
 const EDIT_RECHAZADO_REQUEST = 'EDIT_RECHAZADO_REQUEST'
 const EDIT_RECHAZADO_SUCCESS = 'EDIT_RECHAZADO_SUCCESS'
 const EDIT_RECHAZADO_FAILURE = 'EDIT_RECHAZADO_FAILURE'
+const REACTIVATE_RECHAZADO_REQUEST = 'REACTIVATE_RECHAZADO_REQUEST'
+const REACTIVATE_RECHAZADO_SUCCESS = 'REACTIVATE_RECHAZADO_SUCCESS'
+const REACTIVATE_RECHAZADO_FAILURE = 'REACTIVATE_RECHAZADO_FAILURE'
 
 
 export function createCaso(caso,reset) {
@@ -93,6 +96,35 @@ export function editCaso(caso, reset) {
     .catch(error => {
       dispatch({
         type: EDIT_RECHAZADO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
+}
+
+
+export function reactivateCaso(caso, nota) {
+  return function (dispatch) {
+  dispatch({
+    type: REACTIVATE_RECHAZADO_REQUEST
+  })
+  fetch(`${API_URL}/rechazado/reactivate/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: REACTIVATE_RECHAZADO_SUCCESS,
+        id: caso._id
+      })
+      message.success("El caso ha sido reactivado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: REACTIVATE_RECHAZADO_FAILURE,
         error: error
       })
       message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")

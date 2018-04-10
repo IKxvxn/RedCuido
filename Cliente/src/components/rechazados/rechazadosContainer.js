@@ -57,7 +57,7 @@ class NormalLoginForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} acceptCaso={this.acceptCasos}  editCaso={this.props.editCaso}/>,
+    render: (text, row) => <Modal modo="ver" row={row} reactivateCaso={this.props.reactivateCaso} editCaso={this.props.editCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -98,6 +98,7 @@ function mapDispatchToProps(dispatch) {
     createCaso: (caso,closer)  => dispatch(rechazadosActions.createCaso(caso,closer)),
     getCasos: (value) => dispatch(rechazadosActions.getCasos(value)),
     editCaso: (caso, reset) => dispatch(rechazadosActions.editCaso(caso, reset)),
+    reactivateCaso: (caso, nota) => dispatch(rechazadosActions.reactivateCaso(caso, nota)),
   }
 }
 

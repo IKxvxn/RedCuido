@@ -28,7 +28,7 @@ class activosContainer extends React.Component {
     if (this.props.modo==="ver"){
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
-    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Activar</Button>
+    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
 
   }
 
@@ -42,7 +42,7 @@ class activosContainer extends React.Component {
     }
     return(
       <Row gutter={8} type="flex" justify="end">
-            <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Postular Caso</Button></Col>
+            <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar</Button></Col>
             <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
       </Row>
     )

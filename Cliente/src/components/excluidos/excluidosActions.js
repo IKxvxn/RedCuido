@@ -12,6 +12,9 @@ const GET_EXCLUIDOS_FAILURE = 'GET_EXCLUIDOS_FAILURE'
 const EDIT_EXCLUIDO_REQUEST = 'EDIT_EXCLUIDO_REQUEST'
 const EDIT_EXCLUIDO_SUCCESS = 'EDIT_EXCLUIDO_SUCCESS'
 const EDIT_EXCLUIDO_FAILURE = 'EDIT_EXCLUIDO_FAILURE'
+const REACTIVATE_EXCLUIDO_REQUEST = 'REACTIVATE_EXCLUIDO_REQUEST'
+const REACTIVATE_EXCLUIDO_SUCCESS = 'REACTIVATE_EXCLUIDO_SUCCESS'
+const REACTIVATE_EXCLUIDO_FAILURE = 'REACTIVATE_EXCLUIDO_FAILURE'
 
 
 export function createCaso(caso, reset) {
@@ -98,4 +101,33 @@ export function editCaso(caso, reset) {
         message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
       })
   }
+}
+
+
+export function reactivateCaso(caso, nota) {
+  return function (dispatch) {
+  dispatch({
+    type: REACTIVATE_EXCLUIDO_REQUEST
+  })
+  fetch(`${API_URL}/excluido/reactivate/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({
+        type: REACTIVATE_EXCLUIDO_SUCCESS,
+        id: caso._id
+      })
+      message.success("El caso ha sido reactivado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: REACTIVATE_EXCLUIDO_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
 }
