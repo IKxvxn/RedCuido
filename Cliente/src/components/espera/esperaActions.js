@@ -18,8 +18,12 @@ const ACCEPT_CASO_FAILURE = 'ACCEPT_CASO_FAILURE'
 const REJECT_CASO_REQUEST = 'REJECT_CASO_REQUEST'
 const REJECT_CASO_SUCCESS = 'REJECT_CASO_SUCCESS'
 const REJECT_CASO_FAILURE = 'REJECT_CASO_FAILURE'
+const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST'
+const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
+const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 
-export function createCaso(caso,reset) {
+export function createCaso(caso,archivos,reset) {
+  console.log(archivos)
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
@@ -160,3 +164,33 @@ export function rejectCaso(caso, nota) {
     })
 }
 }
+
+export function uploadFile(caso,  reset) {
+  return function (dispatch) {
+  dispatch({
+    type: UPLOAD_FILE_REQUEST
+  })
+  fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(caso),
+  })
+    .then(response => response.json())
+    .then(data => {
+      reset()
+      dispatch({
+        type: UPLOAD_FILE_SUCCESS,
+        caso: data.caso
+      })
+      message.success("El caso ha sido modificado con éxito")
+    })
+    .catch(error => {
+      dispatch({
+        type: UPLOAD_FILE_FAILURE,
+        error: error
+      })
+      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
+}
+

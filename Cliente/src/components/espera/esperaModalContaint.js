@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message } from 'antd';
+import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 const domicilios = require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
@@ -10,6 +10,8 @@ class editForm extends React.Component {
   state = {
     edit: true,
     loading: false,
+    fileList: [],
+    uploading: false,
   };
   handleSubmit = (handleCreate) => {
 
@@ -19,7 +21,29 @@ class editForm extends React.Component {
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { handleCreate(caso, this.props.form.resetFields) }
+        else { 
+          //carga archivos del estado
+          this.setState({
+            uploading: true,
+          });
+          const { fileList } = this.state;
+          let archivos = []
+          fileList.forEach((file) => {
+            const formData = new FormData();
+            formData.append(file.name, file);
+            archivos.push(formData)
+          });
+          console.log(fileList)
+          this.setState({
+            uploading: false,
+            fileList: []
+          });
+          let jsonObject = {};
+
+    
+          console.log(archivos)
+          handleCreate(caso,archivos, this.props.form.resetFields) 
+        }
       }
       else { message.error(Mensajes.verificar) }
     });
@@ -76,15 +100,41 @@ class editForm extends React.Component {
 
 
 
-
   handleOptionsMode() {
+    const { uploading } = this.state;
+    const props = {
+      multiple: true,
+      action: '//jsonplaceholder.typicode.com/posts/',
+      onRemove: (file) => {
+        this.setState(({ fileList }) => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          return {
+            fileList: newFileList,
+          };
+        });
+      },
+      beforeUpload: (file) => {
+        this.setState(({ fileList }) => ({
+          fileList: [...fileList, file],
+        }));
+        return false;
+      },
+      fileList: this.state.fileList,
+    };
+
     if (this.props.modo === "ver") {
       if (this.state.edit === false) {
         return (
           <Row gutter={8}>
             <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
             <Col xs={12} sm={9}>
-              <Button icon="upload" type="secondary">Subir Archivo</Button>
+            <Upload {...props} >
+              <Button>
+                <Icon type="upload" /> Añadir archivo
+              </Button>
+            </Upload>
             </Col>
             <Col xs={12} sm={9}>
               <Button icon="download" type="secondary">Bajar Archivos</Button>
@@ -108,7 +158,11 @@ class editForm extends React.Component {
     return (
       <Row gutter={8} type="flex" justify="end">
         <Col xs={24} sm={20}>
-          <Button icon="upload" type="secondary">Subir Archivo</Button>
+        <Upload {...props} >
+              <Button>
+                <Icon type="upload" /> Añadir archivo
+              </Button>
+        </Upload>
         </Col>
       </Row>
     )
@@ -133,6 +187,8 @@ class editForm extends React.Component {
     }
   }
 
+  
+
   render() {
 
     const { getFieldDecorator } = this.props.form;
@@ -147,6 +203,8 @@ class editForm extends React.Component {
         sm: { span: 20 },
       },
     };
+
+    
 
     return (
       <Form onSubmit={this.handleSubmit}>

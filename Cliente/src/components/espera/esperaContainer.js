@@ -104,7 +104,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCaso: (caso,closer)  => dispatch(esperaActions.createCaso(caso,closer)),
+    createCaso: (caso,archivos,closer)  => dispatch(esperaActions.createCaso(caso,archivos,closer)),
     acceptCaso: (caso, nota) => dispatch(esperaActions.acceptCaso(caso, nota)),
     rejectCaso: (caso, nota) => dispatch(esperaActions.rejectCaso(caso, nota)),
     getCasos: (value) => dispatch(esperaActions.getCasos(value)),
