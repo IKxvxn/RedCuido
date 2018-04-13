@@ -22,16 +22,16 @@ const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST'
 const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
 const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 
-export function createCaso(caso,archivos,reset) {
-  console.log(archivos)
+export function createCaso(caso,data,reset) {
+  data.append('caso',JSON.stringify(caso))
+  console.log(JSON.stringify(caso))
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
     })
     fetch(API_URL+"/espera/casoEspera", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(caso),
+      body: data
     })
       .then(response =>response.json())
       .then(caso => {    

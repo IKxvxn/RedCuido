@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const homeRoute = require('./routes/homeRoute')
 const app = express()
@@ -11,6 +12,7 @@ const app = express()
 app.use(cors())
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
+app.use(fileUpload());
 
 app.set('port', process.env.PORT || 8079)
 

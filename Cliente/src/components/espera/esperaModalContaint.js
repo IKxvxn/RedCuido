@@ -27,22 +27,16 @@ class editForm extends React.Component {
             uploading: true,
           });
           const { fileList } = this.state;
-          let archivos = []
-          fileList.forEach((file) => {
-            const formData = new FormData();
+          const formData = new FormData();
+          fileList.forEach((file) => {           
             formData.append(file.name, file);
-            archivos.push(formData)
+            formData.append('filename', file.name);
           });
-          console.log(fileList)
           this.setState({
             uploading: false,
             fileList: []
           });
-          let jsonObject = {};
-
-    
-          console.log(archivos)
-          handleCreate(caso,archivos, this.props.form.resetFields) 
+          handleCreate(caso,formData, this.props.form.resetFields) 
         }
       }
       else { message.error(Mensajes.verificar) }
@@ -104,7 +98,8 @@ class editForm extends React.Component {
     const { uploading } = this.state;
     const props = {
       multiple: true,
-      action: '//jsonplaceholder.typicode.com/posts/',
+      enctype: "multipart/form-data",
+      action: '',
       onRemove: (file) => {
         this.setState(({ fileList }) => {
           const index = fileList.indexOf(file);

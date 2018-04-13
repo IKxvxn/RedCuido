@@ -20,7 +20,8 @@ function getCasosEspera(req, res) {
 }
 
 function createCasoEspera(req,res){
-  let newCaso = new casoEsperaModel(req.body)
+  console.log(req.files)
+  let newCaso = new casoEsperaModel(JSON.parse(req.body.caso))
   let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"create", caseId:newCaso._id}
   newCaso.save((err, resp) => {
     if(err){
