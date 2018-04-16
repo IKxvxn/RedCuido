@@ -22,8 +22,7 @@ const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST'
 const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
 const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 
-export function createCaso(caso,data,reset) {
-  console.log(JSON.stringify(caso))
+export function createCaso(data,reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST

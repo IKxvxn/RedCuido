@@ -22,6 +22,7 @@ class editForm extends React.Component {
           message.error(Mensajes.minNecesario)
         }
         else { 
+
           //carga archivos del estado
           this.setState({
             uploading: true,
@@ -35,8 +36,10 @@ class editForm extends React.Component {
             uploading: false,
             fileList: []
           });
+
+          //agrega caso al formdata y envia el caso y los files juntos
           formData.append('caso', JSON.stringify(caso))
-          handleCreate(caso,formData, this.props.form.resetFields) 
+          handleCreate(formData, this.props.form.resetFields) 
         }
       }
       else { message.error(Mensajes.verificar) }
@@ -95,7 +98,7 @@ class editForm extends React.Component {
 
 
   handleOptionsMode() {
-    const { uploading } = this.state;
+    //props para el componente de Upload de archivos
     const props = {
       multiple: true,
       enctype: "multipart/form-data",
