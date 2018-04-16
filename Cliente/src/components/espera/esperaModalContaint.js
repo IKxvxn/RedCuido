@@ -30,12 +30,12 @@ class editForm extends React.Component {
           const formData = new FormData();
           fileList.forEach((file) => {           
             formData.append(file.name, file);
-            formData.append('filename', file.name);
           });
           this.setState({
             uploading: false,
             fileList: []
           });
+          formData.append('caso', JSON.stringify(caso))
           handleCreate(caso,formData, this.props.form.resetFields) 
         }
       }

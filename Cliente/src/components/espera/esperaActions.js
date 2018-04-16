@@ -23,7 +23,6 @@ const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
 const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 
 export function createCaso(caso,data,reset) {
-  data.append('caso',JSON.stringify(caso))
   console.log(JSON.stringify(caso))
   return function (dispatch) {
     dispatch({

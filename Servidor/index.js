@@ -5,9 +5,10 @@ const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-
 const homeRoute = require('./routes/homeRoute')
 const app = express()
+
+
 
 app.use(cors())
 app.use(morgan('tiny'))
@@ -24,6 +25,7 @@ app.listen(app.get('port'), err => {
   if (err) return console.log(`Ha ocurrido un error ${err}`)
   console.log(`server listening on ${app.get('port')}`)
 })
+
 
 
 

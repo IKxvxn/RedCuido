@@ -12,6 +12,7 @@ const casosEsperaSchema = mongoose.Schema({
   sede: { type: String},
   prioridad: { type: String},
   notas: { type: String},
+  files: { type: Array}
 })
 
 const casoEsperaModel = mongoose.model("espera", casosEsperaSchema)

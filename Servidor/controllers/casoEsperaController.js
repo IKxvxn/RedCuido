@@ -3,9 +3,9 @@ const casoActivoModel = require('../models/casoActivoModel')
 const casoRechazadoModel = require('../models/casoRechazadoModel')
 const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
-
-
+const crypto = require('crypto');
 const mongoose = require('mongoose')
+const path = require('path');
 
 function getCasosEspera(req, res) {
   casoEsperaModel.find()
@@ -20,20 +20,71 @@ function getCasosEspera(req, res) {
 }
 
 function createCasoEspera(req,res){
-  console.log(req.files)
-  let newCaso = new casoEsperaModel(JSON.parse(req.body.caso))
-  let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"create", caseId:newCaso._id}
-  newCaso.save((err, resp) => {
+  //Toma el caso del body (que viene en form data)
+  let info  = JSON.parse(req.body.caso);
+  info["files"] = []
+  //Crea caso
+  let newCaso = new casoEsperaModel(info)
+    let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"espera",action:"create", caseId:newCaso._id}
+    newCaso.save((err, resp) => {
     if(err){
       res.status(500)
       res.send({error:true})
     }
     else{
+    //Agrega notificacion
     usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+
+    //Recorre req.files en caso de que se haya subido algo
+    var files = [];
+    var archivos = [];
+    if (req.files != undefined){
+      var fileKeys = Object.keys(req.files);
+
+      fileKeys.forEach(function(key) {
+          files.push(req.files[key]);
+      });
+
+    }
+    var i = 0;
+    while ( i < files.length ){  
+    let file = files[i];
+    //Genera random bytes por si hay archivos con mismo nombre
+     crypto.randomBytes(8, (err, buf) => {
+        if (err) {
+          console.log(err);
+        }
+        var filename = buf.toString('hex') + '-' + file.name   
+        //Va guardando nombres de archivos para asignarselos al caso.  
+        archivos[archivos.length] = filename;
+
+        //Si ya se leyeron todos los files, se le asignan al caso
+        if(archivos.length == files.length){
+          casoEsperaModel.updateOne({_id: new mongoose.Types.ObjectId(newCaso._id)}, {$set:  {"files" : archivos}})
+          .exec((err, caso) => {
+            if (err) {
+              res.status(500)
+              res.send({error:false})
+            }
+            else{
+              newCaso.set('files', archivos)
+              res.status(200)
+              res.send({error:false, caso:newCaso})
+            }
+          })
+        }
+        // Se usa mv() method para mover el archivo a la carpeta uploads dentro del servidor.
+        file.mv(`../Servidor/uploads/${filename}`, function(err) {
+          if (err)
+          console.log('File not uploaded!')  
+          console.log('File uploaded!')
+        });    
+  
+      }); 
+      i++;
+    }
     }
   })
-  res.status(200)
-  res.send({error:false, caso:newCaso})
 }
 
 function editCasoEspera(req, res) {
