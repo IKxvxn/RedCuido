@@ -13,8 +13,8 @@ class editForm extends React.Component {
     fileList: [],
     uploading: false,
   };
-  handleSubmit = (handleCreate) => {
 
+  handleSubmit = (handleCreate) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if (caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined)
@@ -22,7 +22,6 @@ class editForm extends React.Component {
           message.error(Mensajes.minNecesario)
         }
         else { 
-
           //carga archivos del estado
           this.setState({
             uploading: true,
@@ -129,9 +128,7 @@ class editForm extends React.Component {
             <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
             <Col xs={12} sm={9}>
             <Upload {...props} >
-              <Button>
-                <Icon type="upload" /> Añadir archivo
-              </Button>
+              <Button disabled={true}> <Icon type="upload" />Añadir Archivo</Button>
             </Upload>
             </Col>
             <Col xs={12} sm={9}>
@@ -144,7 +141,9 @@ class editForm extends React.Component {
           <Row gutter={8}>
             <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
             <Col xs={12} sm={9}>
-              <Button icon="upload" type="secondary">Subir Archivo</Button>
+            <Upload {...props} >
+              <Button><Icon type="upload" />Añadir Archivo</Button>
+            </Upload>
             </Col>
             <Col xs={12} sm={9}>
               <Button icon="download" type="secondary">Bajar Archivos</Button>
@@ -157,9 +156,7 @@ class editForm extends React.Component {
       <Row gutter={8} type="flex" justify="end">
         <Col xs={24} sm={20}>
         <Upload {...props} >
-              <Button>
-                <Icon type="upload" /> Añadir archivo
-              </Button>
+              <Button> <Icon type="upload" />Añadir archivo</Button>
         </Upload>
         </Col>
       </Row>

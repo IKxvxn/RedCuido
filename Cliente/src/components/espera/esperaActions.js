@@ -180,7 +180,7 @@ export function uploadFile(caso,  reset) {
         type: UPLOAD_FILE_SUCCESS,
         caso: data.caso
       })
-      message.success("El caso ha sido modificado con éxito")
+      message.success("El archivo ha sido agregado con éxito")
     })
     .catch(error => {
       dispatch({

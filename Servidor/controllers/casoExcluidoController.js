@@ -69,9 +69,24 @@ function editCasoExcluido(req, res) {
     })
 }
 
+function deleteCasoExcluido(req, res) {
+  casoExcluidoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
+    .exec((err, caso) => {
+      let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"excluido",action:"delete", caseId:req.id}
+      if (err) {
+        res.status(500)
+        res.send(`Ocurrió un error 💩 ${err}`)
+      }else{
+        usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+      }
+      res.status(300)
+      res.json(caso)
+    })
+}
+
 
 module.exports = {
-  getCasosExcluidos,createCasoExcluidos,editCasoExcluido,reactivateCasoExcluido
+  getCasosExcluidos,createCasoExcluidos,editCasoExcluido,reactivateCasoExcluido, deleteCasoExcluido
 }
 
 

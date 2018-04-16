@@ -21,6 +21,7 @@ router.get('/casoExcluido', casoExcluidoController.getCasosExcluidos)
 router.post('/casoExcluido', casoExcluidoController.createCasoExcluidos)
 router.put('/excluido/edit/:id', casoExcluidoController.editCasoExcluido)
 router.post('/excluido/reactivate/:id', casoExcluidoController.reactivateCasoExcluido)
+router.post('/excluido/delete/:id', casoExcluidoController.deleteCasoExcluido)
 
 router.get('/casoRechazado', casoRechazadoController.getCasosRechazados)
 router.post('/casoRechazado', casoRechazadoController.createCasoRechazado)

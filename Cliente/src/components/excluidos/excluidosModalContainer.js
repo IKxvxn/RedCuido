@@ -6,6 +6,7 @@ class excluidosContainer extends React.Component {
   state = {
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
   }
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
@@ -15,8 +16,13 @@ class excluidosContainer extends React.Component {
     this.setState({ modal2Visible });
   }
 
+  setmodal3Visible = (modal3Visible) => {
+    this.setState({ modal3Visible });
+  }
+
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
   handleReactivateCaso = (nota) =>{this.form.handleReactivateCaso(this.props.reactivateCaso, nota)}
+  handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
 
   handleModoTitle(){
@@ -46,7 +52,7 @@ class excluidosContainer extends React.Component {
       return(
         <Row gutter={8} type="flex" justify="end">
               <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Reactivar</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost>Eliminar</Button></Col>
+              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }else{
@@ -65,6 +71,15 @@ class excluidosContainer extends React.Component {
             <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal2Visible(false)}>Cancelar</Button></Col>
       </Row>
     )
+}
+
+handleDeleteFooter(){
+  return(
+    <Row gutter={8} type="flex" justify="end">
+          <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleDeleteCaso(document.getElementById("nota").value)}>Eliminar</Button></Col>
+          <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal3Visible(false)}>Cancelar</Button></Col>
+    </Row>
+  )
 }
 
   render() {
@@ -95,6 +110,20 @@ class excluidosContainer extends React.Component {
           onCancel={()=>this.setmodal2Visible(false)}
           footer={[
             this.handleReactivarFooter()
+          ]}
+          >
+        <Input.TextArea rows={4} id="nota"/>
+        </Modal>
+      </Row>
+      <Row>
+      <Modal
+          title="Añada una nota antes de eliminar:"
+          visible={this.state.modal3Visible}
+          destroyOnClose
+          closable={false}
+          onCancel={()=>this.setmodal3Visible(false)}
+          footer={[
+            this.handleDeleteFooter()
           ]}
           >
         <Input.TextArea rows={4} id="nota"/>

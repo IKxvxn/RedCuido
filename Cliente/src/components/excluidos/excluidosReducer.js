@@ -77,6 +77,23 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'DELETE_EXCLUIDO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_EXCLUIDO_SUCCESS':
+        return {
+            ...state,
+            casosExcluidos: state.casosExcluidos.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'DELETE_EXCLUIDO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         default:
             return state
             
