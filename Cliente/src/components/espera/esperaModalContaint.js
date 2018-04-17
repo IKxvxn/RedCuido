@@ -21,14 +21,14 @@ class editForm extends React.Component {
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { 
+        else {
           //carga archivos del estado
           this.setState({
             uploading: true,
           });
           const { fileList } = this.state;
           const formData = new FormData();
-          fileList.forEach((file) => {           
+          fileList.forEach((file) => {
             formData.append(file.name, file);
           });
           this.setState({
@@ -38,7 +38,7 @@ class editForm extends React.Component {
 
           //agrega caso al formdata y envia el caso y los files juntos
           formData.append('caso', JSON.stringify(caso))
-          handleCreate(formData, this.props.form.resetFields) 
+          handleCreate(formData, this.props.form.resetFields)
         }
       }
       else { message.error(Mensajes.verificar) }
@@ -85,7 +85,23 @@ class editForm extends React.Component {
           }
           else {
             this.setState({ edit: false });
-            this.props.editCaso({ ...caso, _id: this.props.row._id, ingreso: this.props.row.ingreso }, this.props.form.resetFields)
+            //carga archivos del estado
+            this.setState({
+              uploading: true,
+            });
+            const { fileList } = this.state;
+            const formData = new FormData();
+            fileList.forEach((file) => {
+              formData.append(file.name, file);
+            });
+            this.setState({
+              uploading: false,
+              fileList: []
+            });
+            //agrega caso al formdata y envia el caso y los files juntos
+            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, ingreso: this.props.row.ingreso, files: this.props.row.files }))
+
+            this.props.editCaso(formData, this.props.form.resetFields)
           }
         }
         else { message.error(Mensajes.verificar) }
@@ -127,9 +143,9 @@ class editForm extends React.Component {
           <Row gutter={8}>
             <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
             <Col xs={12} sm={9}>
-            <Upload {...props} >
-              <Button disabled={true}> <Icon type="upload" />Añadir Archivo</Button>
-            </Upload>
+              <Upload {...props} >
+                <Button disabled={true}> <Icon type="upload" />Añadir Archivo</Button>
+              </Upload>
             </Col>
             <Col xs={12} sm={9}>
               <Button icon="download" type="secondary">Bajar Archivos</Button>
@@ -141,9 +157,9 @@ class editForm extends React.Component {
           <Row gutter={8}>
             <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
             <Col xs={12} sm={9}>
-            <Upload {...props} >
-              <Button><Icon type="upload" />Añadir Archivo</Button>
-            </Upload>
+              <Upload {...props} >
+                <Button><Icon type="upload" />Añadir Archivo</Button>
+              </Upload>
             </Col>
             <Col xs={12} sm={9}>
               <Button icon="download" type="secondary">Bajar Archivos</Button>
@@ -155,9 +171,9 @@ class editForm extends React.Component {
     return (
       <Row gutter={8} type="flex" justify="end">
         <Col xs={24} sm={20}>
-        <Upload {...props} >
-              <Button> <Icon type="upload" />Añadir archivo</Button>
-        </Upload>
+          <Upload {...props} >
+            <Button> <Icon type="upload" />Añadir archivo</Button>
+          </Upload>
         </Col>
       </Row>
     )
@@ -182,7 +198,7 @@ class editForm extends React.Component {
     }
   }
 
-  
+
 
   render() {
 
@@ -199,7 +215,7 @@ class editForm extends React.Component {
       },
     };
 
-    
+
 
     return (
       <Form onSubmit={this.handleSubmit}>

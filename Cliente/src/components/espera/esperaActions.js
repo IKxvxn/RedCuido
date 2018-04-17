@@ -82,10 +82,13 @@ export function editCaso(caso, reset) {
   dispatch({
     type: EDIT_CASO_REQUEST
   })
-  fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
+  console.log(caso.get("caso"))
+  var variable = caso.get("caso")
+  variable = JSON.parse(variable)
+  console.log(variable._id)
+  fetch(`${API_URL}/espera/edit/${variable._id.valueOf()}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(caso),
+    body: caso,
   })
     .then(response => response.json())
     .then(data => {
