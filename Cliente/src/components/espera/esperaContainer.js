@@ -1,19 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as esperaActions from './esperaActions'
-import { Table, Row, Col } from 'antd';
+import { Table, Row, Col, Input } from 'antd';
 import Descarga from '../home/botonDescarga'
 import Modal from './esperaModalContainer'
+
+var JsSearch = require('js-search');
 var dateFormat = require('dateformat');
+var Search = Input.Search
 
+var busqueda = new JsSearch.Search('_id');
+busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
 
+busqueda.addIndex('apellidos');
+busqueda.addIndex('cedula');
+busqueda.addIndex('nombre');
+busqueda.addIndex('prioridad');
+busqueda.addIndex('problemas');
+busqueda.addIndex('sede');
+busqueda.addIndex('señas');
+busqueda.addIndex('telefono');
 
 class NormalLoginForm extends React.Component {
   
   state = {
     selectedRowKeys:[],
-    selectedRows:[]
+    selectedRows:[],
+    filteredWord:""
   }
+
+  filtrarCampos = (value) => {
+    this.setState({filteredWord:value})
+  };
 
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -72,18 +90,33 @@ class NormalLoginForm extends React.Component {
   }];
 
 
+
   render() {
+    
+    busqueda.addDocuments(this.props.casosEspera)
+
+    var filter
+    if(this.state.filteredWord===""){filter=this.props.casosEspera}
+    else{filter = busqueda.search(this.state.filteredWord)}
+
+    console.log(filter)
+
     return (
       <div>
-      <Row gutter={8} type="flex" justify="end" style={{margin:"1rem 0"}}>
-        <Col xs={12} sm={4}>
+      <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
+        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Modal loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
         </Col>
-        <Col xs={12} sm={4}>
+        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosEspera} />
         </Col>
+        <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
+          <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
+        </Col>
+        
       </Row>
-      <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={this.props.casosEspera} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+
+      <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }

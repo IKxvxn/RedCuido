@@ -1,10 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as activosActions from './activosActions'
-import { Table, Row, Col } from 'antd';
+import { Table, Row, Col, Input } from 'antd';
 import Descarga from '../home/botonDescarga'
 import Modal from './activosModalContainer'
 var dateFormat = require('dateformat');
+
+var JsSearch = require('js-search');
+var Search = Input.Search
+
+var busqueda = new JsSearch.Search('_id');
+busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
+
+busqueda.addIndex('apellidos');
+busqueda.addIndex('cedula');
+busqueda.addIndex('nombre');
+busqueda.addIndex('sede');
+busqueda.addIndex('riesgo');
+busqueda.addIndex('telefono');
 
 
 
@@ -69,12 +82,15 @@ class ActivosForm extends React.Component {
   render() {
     return (
       <div>
-      <Row gutter={8} type="flex" justify="end" style={{margin:"1rem 0"}}>
-        <Col xs={12} sm={4}>
+      <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
+        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Modal loading={this.props.loading} handleCreate={this.props.activarCaso} modo="activar" />
         </Col>
-        <Col xs={12} sm={4}>
+        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosActivos} />
+        </Col>
+        <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
+          <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
         </Col>
       </Row>
       <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={this.props.casosActivos} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
