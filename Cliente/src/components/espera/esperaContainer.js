@@ -43,12 +43,12 @@ class NormalLoginForm extends React.Component {
     title: 'Cedula',
     dataIndex: 'cedula',
     key: 'cedula',
-    sorter: (a, b) => Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
+    sorter: (a, b) => (a.cedula === undefined || b.cedula===undefined) ? 0 :Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
   },{
     title: 'Apellidos',
     dataIndex: 'apellidos',
     key: 'apellidos',
-    sorter: (a, b) => a.apellidos.localeCompare(b.apellidos),
+    sorter: (a, b) => (a.apellidos === undefined) ? "" : a.apellidos.localeCompare(b.apellidos),
   }, {
     title: 'Nombre',
     dataIndex: 'nombre',
