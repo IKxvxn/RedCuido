@@ -6,7 +6,7 @@ import { Form, Icon, Input, Button, Row, Layout  } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 import logo from '../../images/logo.png'
 import '../../style/login.css'
-import * as exampleActions from './loginActions'
+import * as loginActions from './loginActions'
 import { Link } from 'react-router-dom'
 
 const FormItem = Form.Item;
@@ -55,11 +55,11 @@ class loginContainer extends React.Component {
 }
 
 loginContainer.propTypes = {
-  ExampleFunction: PropTypes.func
+  Ingresar: PropTypes.func
 }
 
 loginContainer.defaultProps = {
-  ExampleFunction: () => {}
+  Ingresar: () => {}
 }
 
 function mapStateToProps(state) {
@@ -70,7 +70,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ExampleFunction: ()  => dispatch(exampleActions.ExampleFunction())
+    Ingresar: (usuario)  => dispatch(loginActions.ingresar(usuario))
   }
 }
 

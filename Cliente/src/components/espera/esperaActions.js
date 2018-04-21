@@ -41,7 +41,7 @@ export function createCaso(data,reset) {
         reset()
       })
       .catch(error => {
-        message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+        message.error(Mensajes.errorConexion)
         dispatch({
           type: NEW_CASO_FAILURE,
           error: error
@@ -104,7 +104,7 @@ export function editCaso(caso, reset) {
         type: EDIT_CASO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }
@@ -133,7 +133,7 @@ export function acceptCaso(caso, nota) {
         type: ACCEPT_CASO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }
@@ -161,7 +161,7 @@ export function rejectCaso(caso, nota) {
         type: REJECT_CASO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }
@@ -190,7 +190,7 @@ export function uploadFile(caso,  reset) {
         type: UPLOAD_FILE_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }

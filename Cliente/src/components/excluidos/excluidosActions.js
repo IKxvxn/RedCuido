@@ -40,7 +40,7 @@ export function createCaso(caso, reset) {
         })
       })
       .catch(error => {
-        message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+        message.error(Mensajes.errorConexion)
         dispatch({
           type: NEW_EXCLUIDO_FAILURE,
           error: error
@@ -101,7 +101,7 @@ export function editCaso(caso, reset) {
           type: EDIT_EXCLUIDO_FAILURE,
           error: error
         })
-        message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+        message.error(Mensajes.errorConexion)
       })
   }
 }
@@ -129,7 +129,7 @@ export function reactivateCaso(caso, nota) {
         type: REACTIVATE_EXCLUIDO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }
@@ -158,7 +158,7 @@ export function deleteCaso(caso, nota) {
         type: DELETE_EXCLUIDO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }

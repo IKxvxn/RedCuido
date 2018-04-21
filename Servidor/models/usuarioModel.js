@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
 const usuariosSchema = mongoose.Schema({
-  datos: { type: String, default: "Acá hay que agregar los demás campos, dejé esto así para trabajar en las notificaciones"},
+  tipo: { type: String, default:"0"},
+  ingreso: {type: Date, default: new Date()},
+  nombre: {type: String},
+  contraseña: {type: String},
+  usuario: {type: String},
   notificaciones: { type: Array, default: []},
 })
 

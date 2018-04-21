@@ -97,7 +97,7 @@ export function editCaso(caso, reset) {
         type: EDIT_ACTIVO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }
@@ -125,7 +125,7 @@ export function excludeCaso(caso, nota) {
         type: EXCLUDE_CASO_FAILURE,
         error: error
       })
-      message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+      message.error(Mensajes.errorConexion)
     })
 }
 }

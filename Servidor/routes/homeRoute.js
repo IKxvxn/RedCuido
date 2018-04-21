@@ -3,6 +3,7 @@ const casoEsperaController = require('../controllers/casoEsperaController')
 const casoActivoController = require('../controllers/casoActivoController')
 const casoExcluidoController = require('../controllers/casoExcluidoController')
 const casoRechazadoController = require('../controllers/casoRechazadoController')
+const authController = require('../controllers/authController')
 const router = express.Router()
 
 

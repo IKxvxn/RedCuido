@@ -1,12 +1,11 @@
 
 const DEFAULT_STATE = {
-    exampleReducer: []
+    usuario: {},
+    loading: false
 }
 
-const exampleReducer = (state = DEFAULT_STATE, action) => {
+const loginReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'EXAMPLE_DISPATCH':
-            return {exampleReducerx: []}
         default:
             return state
             
@@ -14,4 +13,4 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
 
 }
 
-export default exampleReducer
+export default loginReducer
