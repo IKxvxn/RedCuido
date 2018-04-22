@@ -16,8 +16,9 @@ const {Content, Footer } = Layout;
 
 
 class homeContainer extends React.Component {
+
   state = {
-    current: '1',
+    
   }
   handleSubmit = (e) => {
     e.preventDefault();
@@ -85,15 +86,33 @@ class homeContainer extends React.Component {
           duration: 0,
         });
     }
-    else{
-      //Cambia selected key en menu
-      this.setState({
-        current: e.key,
-      });
-    }
+
   };
   
   render() {
+    //Cambia selected key en menu
+    var tab = 1;
+
+    switch(window.location.pathname) {
+      case "/home/espera":
+          tab = '1';
+          break;
+      case "/home/visita":
+          tab = '2';
+          break;
+      case "/home/activos":
+          tab = '3';
+          break;
+      case "/home/rechazados":
+          tab = '4';
+          break;  
+      case "/home/excluidos":
+          tab = '5';
+          break;          
+      default:
+          tab = '1';
+    }
+
     return (
       <Layout style={Style.body} >
         
@@ -111,7 +130,7 @@ class homeContainer extends React.Component {
         <Footer style={Style.footer}>
           Red de Cuido C.R. ©2018
         </Footer>
-        <Menu mode="horizontal" theme="dark" selectedKeys={[this.state.current]} style={Style.menu} onClick={this.openNotification}>
+        <Menu mode="horizontal" theme="dark" selectedKeys={[tab]} style={Style.menu} onClick={this.openNotification}>
           <Menu.Item key="1"><Link to='/home/espera'>Espera</Link></Menu.Item>
           <Menu.Item key="2"><Link to='/home/visita'>Visita</Link></Menu.Item>
           <Menu.Item key="3"><Link to='/home/activos'>Activos</Link></Menu.Item>
@@ -122,6 +141,7 @@ class homeContainer extends React.Component {
       </Layout>
     );
   }
+
 }
 
 
