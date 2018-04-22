@@ -63,7 +63,7 @@ function editCasoExcluido(req, res) {
       }
       else{
         res.status(200)
-        res.send({error:false,caso:{...req.body,ingreso:new Date(req.body.ingreso)}})
+        res.send({error:false,caso:req.body})
         usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
       }
     })

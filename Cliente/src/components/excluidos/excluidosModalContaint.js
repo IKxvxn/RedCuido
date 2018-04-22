@@ -1,9 +1,12 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message } from 'antd';
+import { Form, Input, Cascader, Select, Button, Row, Col, message, DatePicker } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
+import moment from 'moment';
 const domicilios = require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
+
+
 
 
 class editForm extends React.Component {
@@ -66,7 +69,7 @@ class editForm extends React.Component {
           }
           else {
             this.setState({ edit: false });
-            this.props.editCaso({ ...caso, _id: this.props.row._id, ingreso: this.props.row.ingreso, exclusion: this.props.row.exclusion }, this.props.form.resetFields)
+            this.props.editCaso({ ...caso, _id: this.props.row._id }, this.props.form.resetFields)
           }
         }
         else { message.error(Mensajes.verificar) }
@@ -101,6 +104,10 @@ class editForm extends React.Component {
         nombre: this.props.row.nombre,
         apellidos: this.props.row.apellidos,
         telefono: this.props.row.telefono,
+        ingreso:moment(this.props.row.ingreso),
+        inicio:moment(this.props.row.inicio),
+        exclusion:moment(this.props.row.exclusion),
+        nacimiento:moment(this.props.row.nacimiento),
         domicilio: this.props.row.domicilio,
         señas: this.props.row.señas,
         sede: this.props.row.sede,
@@ -155,6 +162,38 @@ class editForm extends React.Component {
           })(
             <Input disabled={!this.state.edit} />
           )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Ingreso"
+        >
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Inicio"
+        >
+        {getFieldDecorator('inicio', {
+        })(<DatePicker id={"inicio"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Excluido"
+        >
+          {getFieldDecorator('exclusion', {
+        })(<DatePicker id={"exclusion"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Nacimiento"
+        >
+          {getFieldDecorator('nacimiento', {
+        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
+        )}
         </FormItem>
         <FormItem
           {...formItemLayout}

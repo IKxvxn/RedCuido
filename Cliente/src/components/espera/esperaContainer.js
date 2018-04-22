@@ -44,6 +44,7 @@ class NormalLoginForm extends React.Component {
     dataIndex: 'cedula',
     key: 'cedula',
     sorter: (a, b) => (a.cedula === undefined || b.cedula===undefined) ? 0 :Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
+    defaultSortOrder: 'ascend',
   },{
     title: 'Apellidos',
     dataIndex: 'apellidos',
@@ -59,6 +60,7 @@ class NormalLoginForm extends React.Component {
     key: 'ingreso',
     render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
     sorter: (a, b) => new Date(a.ingreso) - new Date(b.ingreso), 
+    height: "8rem",
   }, {
     title: 'Prioridad',
     dataIndex: 'prioridad',
@@ -66,7 +68,6 @@ class NormalLoginForm extends React.Component {
     render: text => <div className={text+" prioridadFormat"}>{text}</div>,
     filters: [{text: 'Prioridad Alta', value: 'Alta'}, {text: 'Prioridad Media',value: 'Media'},{text: 'Prioridad Baja',value: 'Baja'}],
     onFilter: (value, record) => record.prioridad.indexOf(value) === 0,
-    width: "6.5rem",
   }, {
     title: 'Dirección',
     dataIndex: 'señas',

@@ -168,7 +168,7 @@ function acceptCasoEspera(req, res) {
       }
       let newCaso = new casoVisitaModel({
         cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
-        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
         sede: req.body.caso.sede, señas: req.body.caso.señas, notas: req.body.caso.notas, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
       })
       let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caseId: newCaso._id }
@@ -194,7 +194,7 @@ function rejectCasoEspera(req, res) {
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       let newCaso = new casoRechazadoModel({
-        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos,
+        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: req.body.caso.notas
       })

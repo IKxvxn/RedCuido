@@ -8,6 +8,8 @@ const casosExcluidoSchema = mongoose.Schema({
   señas: { type: String},
   telefono: { type: String},
   ingreso: { type: Date, default: new Date()},
+  nacimiento: { type: Date, default: new Date()},
+  inicio: { type: Date, default: new Date()},
   exclusion: { type: Date, default: new Date()},
   altv_aprobadas: { type: Array},
   sede: { type: String},

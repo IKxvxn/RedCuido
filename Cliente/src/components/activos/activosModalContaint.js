@@ -89,6 +89,7 @@ class editForm extends React.Component {
           nombre:this.props.row.nombre,
           apellidos:this.props.row.apellidos,
           ingreso:moment(this.props.row.ingreso),
+          inicio:moment(this.props.row.inicio),
           nacimiento:moment(this.props.row.nacimiento),
           telefono:this.props.row.telefono,
           domicilio:this.props.row.domicilio,
@@ -153,6 +154,14 @@ class editForm extends React.Component {
         >
         {getFieldDecorator('ingreso', {
         })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Inicio"
+        >
+        {getFieldDecorator('inicio', {
+        })(<DatePicker id={"inicio"} disabled={!this.state.edit}/>
         )}
         </FormItem>
         <FormItem

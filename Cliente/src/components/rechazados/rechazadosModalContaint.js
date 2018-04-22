@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button,Row, Col, message } from 'antd';
+import { Form, Input, Cascader, Select, Button,Row, Col, message, DatePicker } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
+import moment from 'moment';
 const domicilios =  require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -53,7 +54,7 @@ class editForm extends React.Component {
              }
           else{
             this.setState({ edit: false});
-            this.props.editCaso({...caso,_id:this.props.row._id,rechazo:this.props.row.rechazo},this.props.form.resetFields)
+            this.props.editCaso({...caso,_id:this.props.row._id},this.props.form.resetFields)
           }
         }
         else{message.error(Mensajes.verificar)}
@@ -86,6 +87,8 @@ class editForm extends React.Component {
       {this.props.form.setFieldsValue({
           cedula:this.props.row.cedula,
           nombre:this.props.row.nombre,
+          ingreso:moment(this.props.row.ingreso),
+          rechazo:moment(this.props.row.rechazo),
           apellidos:this.props.row.apellidos,
           telefono:this.props.row.telefono,
           domicilio:this.props.row.domicilio,
@@ -140,6 +143,22 @@ class editForm extends React.Component {
             <Input disabled={!this.state.edit} />
           )}
         </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Ingreso"
+        >
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Rechazo"
+        >
+        {getFieldDecorator('rechazo', {
+        })(<DatePicker id={"rechazo"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>  
         <FormItem
           {...formItemLayout}
           label="Domicilio"

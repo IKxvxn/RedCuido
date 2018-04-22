@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon } from 'antd';
+import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon,  DatePicker } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
+import moment from 'moment';
 const domicilios = require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -99,8 +100,7 @@ class editForm extends React.Component {
               fileList: []
             });
             //agrega caso al formdata y envia el caso y los files juntos
-            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, ingreso: this.props.row.ingreso, files: this.props.row.files }))
-
+            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id,  files: this.props.row.files }))
             this.props.editCaso(formData, this.props.form.resetFields)
           }
         }
@@ -186,6 +186,8 @@ class editForm extends React.Component {
         cedula: this.props.row.cedula,
         nombre: this.props.row.nombre,
         apellidos: this.props.row.apellidos,
+        ingreso:moment(this.props.row.ingreso),
+        nacimiento:moment(this.props.row.nacimiento),
         telefono: this.props.row.telefono,
         domicilio: this.props.row.domicilio,
         señas: this.props.row.señas,
@@ -248,6 +250,22 @@ class editForm extends React.Component {
           })(
             <Input disabled={!this.state.edit} />
           )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Ingreso"
+        >
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>     
+        <FormItem
+          {...formItemLayout}
+          label="Nacimiento"
+        >
+          {getFieldDecorator('nacimiento', {
+        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
+        )}
         </FormItem>
         <FormItem
           {...formItemLayout}

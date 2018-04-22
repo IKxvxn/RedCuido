@@ -7,6 +7,7 @@ const casosRechazadoSchema = mongoose.Schema({
   domicilio: { type: Array},
   señas: { type: String},
   telefono: { type: String},
+  ingreso: { type: Date, default: new Date()},
   rechazo: { type: Date, default: new Date()},
   sede: { type: String},
   notas: { type: String},

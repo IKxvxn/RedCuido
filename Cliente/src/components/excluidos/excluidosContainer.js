@@ -60,11 +60,11 @@ class NormalLoginForm extends React.Component {
     render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
     sorter: (a, b) => new Date(b.exclusion) - new Date(a.exclusion), 
   }, {
-    title: 'Fecha Ingreso',
-    dataIndex: 'ingreso',
-    key: 'ingreso',
+    title: 'Fecha Inicio',
+    dataIndex: 'inicio',
+    key: 'inicio',
     render: (text) => <span>{dateFormat(new Date(text),"dd-mm-yyyy")}</span>,
-    sorter: (a, b) => new Date(b.ingreso) - new Date(a.ingreso), 
+    sorter: (a, b) => new Date(b.inicio) - new Date(a.inicio), 
   },{
     title: 'Dirección',
     dataIndex: 'señas',

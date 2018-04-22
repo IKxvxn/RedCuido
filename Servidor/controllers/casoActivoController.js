@@ -53,8 +53,8 @@ function excludeCasoActivo(req, res) {
       }
       let newCaso = new casoExcluidoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        ingreso: req.body.caso.ingreso, altv_aprobadas: req.body.caso.alternativas,
-        sede: req.body.caso.sede, notas:req.body.caso.notas})
+        ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio, altv_aprobadas: req.body.caso.alternativas, nacimiento: req.body.caso.nacimiento,
+        sede: req.body.caso.sede, notas:req.body.caso.notas, nacimiento: req.body.caso.nacimiento })
       let notificacion = {autor:"kevin",_id:uuidv4(),fecha:new Date(),location:"activo",action:"accepted", caseId:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){

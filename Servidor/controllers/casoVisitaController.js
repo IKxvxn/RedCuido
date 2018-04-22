@@ -156,6 +156,7 @@ function editCasoVisita(req, res) {
 }
 
 function acceptCasoVisita(req, res) {
+  console.log(req.body.caso)
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
@@ -164,8 +165,8 @@ function acceptCasoVisita(req, res) {
       }
       let newCaso = new casoActivoModel({
         cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, alternativas: req.body.caso.alternativas,
-        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: req.body.caso.notas
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, nacimiento: req.body.caso.nacimiento,
+        ingreso: req.body.caso.ingreso, sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: req.body.caso.notas
       })
       let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caseId: newCaso._id }
       newCaso.save((err, resp) => {
@@ -192,7 +193,7 @@ function rejectCasoVisita(req, res) {
       let newCaso = new casoRechazadoModel({
         cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, notas: req.body.caso.notas
+        sede: req.body.caso.sede, notas: req.body.caso.notas,  nacimiento: req.body.caso.nacimiento, ingreso: req.body.caso.ingreso, 
       })
       let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caseId: newCaso._id }
       newCaso.save((err, resp) => {

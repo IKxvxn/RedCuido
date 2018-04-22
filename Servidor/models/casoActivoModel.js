@@ -7,6 +7,7 @@ const casosActivosSchema = mongoose.Schema({
   sexo: { type: String},
   nacimiento: { type: Date, default: new Date()},
   ingreso: { type: Date, default: new Date()},
+  inicio: { type: Date, default: new Date()},
   domicilio: { type: Array},
   señas: { type: String},
   telefono: { type: String},
