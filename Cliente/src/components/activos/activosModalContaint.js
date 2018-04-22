@@ -80,28 +80,6 @@ class editForm extends React.Component {
       }
     }
     
-  // handleOptionsMode(){
-  //   if(this.props.modo==="ver"){
-  //     return(
-  //       <Row gutter={8}>
-  //           <Col xs={24} sm={6}><Button icon="edit"  onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
-  //           <Col xs={12} sm={9}>
-  //                     <Button icon="upload" type="secondary">Subir Archivo</Button>
-  //           </Col>
-  //           <Col xs={12} sm={9}>
-  //                     <Button icon="download" type="secondary">Bajar Archivos</Button>
-  //          </Col>
-  //       </Row>
-  //     )
-  //   }
-  //   return(
-  //     <Row gutter={8} type="flex" justify="end">
-  //         <Col xs={24} sm={20}>
-  //           <Button icon="upload" type="secondary">Subir Archivo</Button>
-  //         </Col>
-  //     </Row>
-  //   )
-  // }
   
   componentDidMount(){
     this.props.onRef(this)
