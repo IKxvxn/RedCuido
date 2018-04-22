@@ -14,8 +14,17 @@ const FormItem = Form.Item;
 class loginContainer extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, usuario) => {
       if (!err) {
+      
+        this.props.ingresar(usuario,this.props.history)
+        //Para hacer una cuentades comente lo de abajo y comente lo de arriba
+        /*this.props.createUsuario({
+          tipo: "1",
+          nombre: "Kevin Rodney Arias Chinchilla",
+          contraseña: "contraseña",
+          usuario: "KevinACh",
+        })*/
       }
     });
   }
@@ -29,23 +38,24 @@ class loginContainer extends React.Component {
             <span>Red de Cuido C.R.</span>
           </FormItem>
           <FormItem>
-            {getFieldDecorator('Usuario', {
+            {getFieldDecorator('usuario', {
               rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="user" style={{ color: '#007A3B' }} />} placeholder="Usuario" />
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('Contraseña', {
+            {getFieldDecorator('contraseña', {
               rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="lock" style={{ color: '#007A3B' }} />} type="password" placeholder="Contraseña" />
             )}
           </FormItem>
           <Row>
-            <Button type="primary"  htmlType="submit" className="login-form-button">
-            <Link to='/home/espera'>Ingresar</Link>
+            <Button onClick = {this.handleSubmit} type="primary"  htmlType="submit" className="login-form-button" >
+              Ingresar
             </Button>
+          
           </Row>
             
         </Form>
@@ -55,11 +65,13 @@ class loginContainer extends React.Component {
 }
 
 loginContainer.propTypes = {
-  Ingresar: PropTypes.func
+  createUsuario: PropTypes.func,
+  ingresar: PropTypes.func
 }
 
 loginContainer.defaultProps = {
-  Ingresar: () => {}
+  createUsuario: () => {},
+  ingresar: () => {}
 }
 
 function mapStateToProps(state) {
@@ -70,7 +82,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    Ingresar: (usuario)  => dispatch(loginActions.ingresar(usuario))
+    createUsuario: (usuario)  => dispatch(loginActions.createUsuario(usuario)),
+    ingresar: (usuario,history)  => dispatch(loginActions.ingresar(usuario,history))
   }
 }
 
