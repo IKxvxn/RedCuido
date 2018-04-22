@@ -1,5 +1,5 @@
-const casoEsperaModel = require('../models/casoEsperaModel')
 const casoVisitaModel = require('../models/casoVisitaModel')
+const casoActivoModel = require('../models/casoActivoModel')
 const casoRechazadoModel = require('../models/casoRechazadoModel')
 const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
@@ -7,8 +7,8 @@ const crypto = require('crypto');
 const mongoose = require('mongoose')
 const path = require('path');
 
-function getCasosEspera(req, res) {
-  casoEsperaModel.find()
+function getCasosVisita(req, res) {
+  casoVisitaModel.find()
     .exec((err, casos) => {
       if (err) {
         res.status(500)
@@ -19,16 +19,15 @@ function getCasosEspera(req, res) {
     })
 }
 
-function createCasoEspera(req, res) {
+function createCasoVisita(req, res) {
   //Toma el caso del body (que viene en form data)
   console.log(req.body)
   let info = JSON.parse(req.body.caso);
   info["files"] = []
   //Crea caso
-  let newCaso = new casoEsperaModel(info)
-  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caseId: newCaso._id }
+  let newCaso = new casoVisitaModel(info)
+  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "create", caseId: newCaso._id }
   newCaso.save((err, resp) => {
-    
     if (err) {
       res.status(500)
       res.send({ error: true })
@@ -36,7 +35,6 @@ function createCasoEspera(req, res) {
     else {
       //Agrega notificacion
       usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
-
       //Recorre req.files en caso de que se haya subido algo
       var files = [];
       var archivos = [];
@@ -60,10 +58,9 @@ function createCasoEspera(req, res) {
           var filename = buf.toString('hex') + '-' + file.name
           //Va guardando nombres de archivos para asignarselos al caso.  
           archivos[archivos.length] = filename;
-
           //Si ya se leyeron todos los files, se le asignan al caso
           if (archivos.length == files.length) {
-            casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } })
+            casoVisitaModel.updateOne({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } })
               .exec((err, caso) => {
                 if (err) {
                   res.status(500)
@@ -90,12 +87,11 @@ function createCasoEspera(req, res) {
   })
 }
 
-function editCasoEspera(req, res) {
+function editCasoVisita(req, res) {
   //Toma el caso del body (que viene en form data)
   let info = JSON.parse(req.body.caso);
-  
-  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "update", caseId: info._id }
-  casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info})
+  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "update", caseId: info._id }
+  casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
@@ -132,7 +128,7 @@ function editCasoEspera(req, res) {
               if(caso.files.length>0){
                 archivos = [caso.files, archivos]
               }
-              casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: { "files": archivos } })
+              casoVisitaModel.updateOne({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: { "files": archivos } })
                 .exec((err, casod) => {
                   if (err) {
                     res.status(500)
@@ -159,19 +155,19 @@ function editCasoEspera(req, res) {
     })
 }
 
-function acceptCasoEspera(req, res) {
-  casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
+function acceptCasoVisita(req, res) {
+  casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
       }
-      let newCaso = new casoVisitaModel({
-        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
+      let newCaso = new casoActivoModel({
+        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, alternativas: req.body.caso.alternativas,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.caso.señas, notas: req.body.caso.notas, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
+        sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: req.body.caso.notas
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caseId: newCaso._id }
+      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caseId: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
@@ -186,8 +182,8 @@ function acceptCasoEspera(req, res) {
     })
 }
 
-function rejectCasoEspera(req, res) {
-  casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
+function rejectCasoVisita(req, res) {
+  casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
         res.status(500)
@@ -198,7 +194,7 @@ function rejectCasoEspera(req, res) {
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: req.body.caso.notas
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caseId: newCaso._id }
+      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caseId: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
@@ -214,7 +210,7 @@ function rejectCasoEspera(req, res) {
 }
 
 module.exports = {
-  getCasosEspera, createCasoEspera, editCasoEspera, acceptCasoEspera, rejectCasoEspera
+  getCasosVisita, createCasoVisita, editCasoVisita, acceptCasoVisita, rejectCasoVisita
 }
 
 

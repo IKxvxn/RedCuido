@@ -4,10 +4,11 @@ import * as exampleActions from './homeActions'
 import * as Style from '../../style/home'
 import PropTypes from 'prop-types';
 import { Layout, Menu, Icon, notification } from 'antd';
-import Excluidos from '../excluidos/excluidosContainer'
 import Espera from '../espera/esperaContainer'
+import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'
 import Rechazados from '../rechazados/rechazadosContainer'
+import Excluidos from '../excluidos/excluidosContainer'
 import { Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
 const {Content, Footer } = Layout;
@@ -26,7 +27,7 @@ class homeContainer extends React.Component {
     });
   }
   openNotification = (e) => {
-     if (e.key === "5"){
+     if (e.key === "6"){
         notification['info']({
           message: 'Se ha recibido nueva solicitud.',
           description: 'Se ha ingresado nueva solicitud de postulante.',
@@ -100,6 +101,7 @@ class homeContainer extends React.Component {
           <div style={Style.contenido}>
             <Switch>
               <Route exact path='/home/espera' component={Espera}/>
+              <Route exact path='/home/visita' component={Visita}/>
               <Route exact path='/home/activos' component={Activos}/>
               <Route exact path='/home/excluidos' component={Excluidos}/>
               <Route exact path='/home/rechazados' component={Rechazados}/>
@@ -111,10 +113,11 @@ class homeContainer extends React.Component {
         </Footer>
         <Menu mode="horizontal" theme="dark" selectedKeys={[this.state.current]} style={Style.menu} onClick={this.openNotification}>
           <Menu.Item key="1"><Link to='/home/espera'>Espera</Link></Menu.Item>
-          <Menu.Item key="2"><Link to='/home/activos'>Activos</Link></Menu.Item>
-          <Menu.Item key="3"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
-          <Menu.Item key="4"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
-          <Menu.Item key="5"><Icon type="mail"/>Notificaciones</Menu.Item>
+          <Menu.Item key="2"><Link to='/home/visita'>Visita</Link></Menu.Item>
+          <Menu.Item key="3"><Link to='/home/activos'>Activos</Link></Menu.Item>
+          <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
+          <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
+          <Menu.Item key="6"><Icon type="mail"/>Notificaciones</Menu.Item>
         </Menu>
       </Layout>
     );
