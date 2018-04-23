@@ -99,7 +99,7 @@ class editForm extends React.Component {
               fileList: []
             });
             //agrega caso al formdata y envia el caso y los files juntos
-            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, ingreso: this.props.row.ingreso, files: this.props.row.files }))
+            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, files: this.props.row.files }))
 
             this.props.editCaso(formData, this.props.form.resetFields)
           }
@@ -110,6 +110,10 @@ class editForm extends React.Component {
     }
   }
 
+  enterDownload = () => {
+    //window.open(`/home/espera/download/${this.props.row._id.valueOf()}`)
+    this.props.downloadFile(this.props.row)
+  }
 
 
   handleOptionsMode() {
@@ -148,7 +152,7 @@ class editForm extends React.Component {
               </Upload>
             </Col>
             <Col xs={12} sm={9}>
-              <Button icon="download" type="secondary">Bajar Archivos</Button>
+              <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
             </Col>
           </Row>
         )
@@ -162,7 +166,7 @@ class editForm extends React.Component {
               </Upload>
             </Col>
             <Col xs={12} sm={9}>
-              <Button icon="download" type="secondary">Bajar Archivos</Button>
+              <Button icon="download" type="secondary"  onClick={this.enterDownload}>Descargar Archivos</Button>
             </Col>
           </Row>
         )

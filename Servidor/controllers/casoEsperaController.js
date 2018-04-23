@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose')
 const path = require('path');
 
+
 function getCasosEspera(req, res) {
   casoEsperaModel.find()
     .exec((err, casos) => {
@@ -213,9 +214,26 @@ function rejectCasoEspera(req, res) {
     })
 }
 
-module.exports = {
-  getCasosEspera, createCasoEspera, editCasoEspera, acceptCasoEspera, rejectCasoEspera
+function downloadFile(req, res) {
+  casoEsperaModel.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
+    .exec((err, caso) => {
+      var zipFiles = [{ content: 'this is a string',      //options can refer to [http://archiverjs.com/zip-stream/ZipStream.html#entry](http://archiverjs.com/zip-stream/ZipStream.html#entry)
+      name: 'file-name',
+      mode: 0755,
+      comment: 'comment-for-the-file',
+      date: new Date(),
+      type: 'file' }]
+      //agrego files a la lista con formato path y name
+      for (file of caso[0].files){
+        zipFiles[zipFiles.length] =  { path: `../Servidor/uploads/${file}`, name: `${file}` }
+      }
+      res.status(300)
+      res.zip({ files: zipFiles, filename: 'adjuntos.zip'})
+    })
+    console.log(":(")
 }
-
+module.exports = {
+  getCasosEspera, createCasoEspera, editCasoEspera, acceptCasoEspera, rejectCasoEspera, downloadFile
+}
 
 

@@ -21,6 +21,9 @@ const REJECT_CASO_FAILURE = 'REJECT_CASO_FAILURE'
 const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST'
 const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
 const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
+const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
+const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
+const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 
 export function createCaso(data,reset) {
   return function (dispatch) {
@@ -195,3 +198,15 @@ export function uploadFile(caso,  reset) {
 }
 }
 
+export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    //uso window.open por si acaso pero tampoco sirve :c
+    window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: UPLOAD_FILE_SUCCESS,
+    })
+  }
+}
