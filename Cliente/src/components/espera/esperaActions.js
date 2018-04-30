@@ -26,6 +26,7 @@ const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
 const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 
 export function createCaso(data,reset) {
+
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
@@ -35,13 +36,27 @@ export function createCaso(data,reset) {
       body: data
     })
       .then(response =>response.json())
-      .then(caso => {    
-        dispatch({
-          type: NEW_CASO_SUCCESS,
-          caso: {...caso.caso, key:caso.caso._id}
-        })
-        message.success("El caso ha sido postulado con éxito")
-        reset()
+      .then(caso => {  
+        if(caso.error){
+          if(caso.type===0){
+            message.error("No fue proveído un TOKEN. Se requiere que inicie sesión")
+          }
+          else if (caso.type===1){
+            message.error("Sesión ha expirado. Se requiere que inicie sesión")
+          }
+          else{
+            message.error("Error de tipo desconocido en el servidor")
+          }
+          dispatch({type: NEW_CASO_FAILURE})
+        }
+        else{
+          dispatch({
+            type: NEW_CASO_SUCCESS,
+            caso: {...caso.caso, key:caso.caso._id}
+          })
+          message.success("El caso ha sido postulado con éxito")
+          reset()
+        }  
       })
       .catch(error => {
         message.error(Mensajes.errorConexion)

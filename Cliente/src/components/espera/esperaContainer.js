@@ -104,7 +104,7 @@ class NormalLoginForm extends React.Component {
       <div>
       <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
         <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
-          <Modal loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
+          <Modal loading={this.props.loading} handleCreate={this.props.createCaso} usuario={this.props.usuario}  modo="crear" />
         </Col>
         <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosEspera} />
@@ -130,7 +130,8 @@ class NormalLoginForm extends React.Component {
 function mapStateToProps(state) {
   return {
     casosEspera: state.esperaReducer.casosEspera,
-    loading: state.esperaReducer.loading
+    loading: state.esperaReducer.loading,
+    usuario: state.loginReducer.usuario
   }
 }
 

@@ -2,6 +2,7 @@ const casoEsperaModel = require('../models/casoEsperaModel')
 const casoVisitaModel = require('../models/casoVisitaModel')
 const casoRechazadoModel = require('../models/casoRechazadoModel')
 const usuarioModel = require('../models/usuarioModel')
+const auth = require('./authController')
 const uuidv4 = require('uuid/v4');
 const crypto = require('crypto');
 const mongoose = require('mongoose')
@@ -23,16 +24,31 @@ function getCasosEspera(req, res) {
 function createCasoEspera(req, res) {
   //Toma el caso del body (que viene en form data)
   console.log(req.body)
+  let usuario = JSON.parse(req.body.usuario);
+
+  if(usuario.token===undefined){
+    res.status(500)
+    res.send({ error: true , type: 0})
+    return
+  }
+
+  if(!auth.autentificarAccion(usuario.token)){
+    res.status(500)
+    res.send({ error: true , type: 1})
+    return
+  }
+
   let info = JSON.parse(req.body.caso);
   info["files"] = []
   //Crea caso
   let newCaso = new casoEsperaModel(info)
-  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caseId: newCaso._id }
+  
+  let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caso: newCaso }
   newCaso.save((err, resp) => {
     
     if (err) {
       res.status(500)
-      res.send({ error: true })
+      res.send({ error: true, type: 2 })
     }
     else {
       //Agrega notificacion

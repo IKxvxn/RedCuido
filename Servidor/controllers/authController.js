@@ -38,8 +38,12 @@ function ingresar(req, res) {
 
 }
 
+function autentificarAccion(JWT) {
+  return jwt.verify(JWT, config.pass);
+}
+
 module.exports = {
-  crearUsuario, ingresar
+  crearUsuario, ingresar, autentificarAccion
 }
 
 

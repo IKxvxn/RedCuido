@@ -38,6 +38,7 @@ class editForm extends React.Component {
 
           //agrega caso al formdata y envia el caso y los files juntos
           formData.append('caso', JSON.stringify(caso))
+          formData.append('usuario', JSON.stringify(this.props.usuario))
           handleCreate(formData, this.props.form.resetFields)
         }
       }
