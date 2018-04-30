@@ -82,6 +82,13 @@ class NormalLoginForm extends React.Component {
 
   
   render() {
+
+    busqueda.addDocuments(this.props.casosRechazados)
+
+    var filter
+    if(this.state.filteredWord===""){filter=this.props.casosRechazados}
+    else{filter = busqueda.search(this.state.filteredWord)}
+
     return (
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
@@ -95,7 +102,7 @@ class NormalLoginForm extends React.Component {
             <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
           </Col>
         </Row>
-        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={this.props.casosRechazados} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
