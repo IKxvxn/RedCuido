@@ -85,7 +85,7 @@ class NormalLoginForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} acceptCaso={this.props.acceptCaso} rejectCaso={this.props.rejectCaso} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile} />,
+    render: (text, row) => <Modal modo="ver" usuario={this.props.usuario} row={row} acceptCaso={this.props.acceptCaso} rejectCaso={this.props.rejectCaso} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile} />,
     fixed: 'right',
     width: "5rem",
   }];
@@ -115,16 +115,23 @@ class NormalLoginForm extends React.Component {
         
       </Row>
 
-      <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+      <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
 
   //Carga casos de espera cuando se carga el componente.
   componentDidMount(){
-    this.props.getCasos()
+    this.props.getCasos(this.props.usuario)
+  }
+
+  componentWillReceiveProps(NextProps) {
+    if(NextProps.usuario.token!==this.props.usuario.token){
+      this.props.getCasos(NextProps.usuario)
+    }
   }
 }
+
 
 
 function mapStateToProps(state) {
@@ -138,9 +145,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createCaso: (archivos,closer)  => dispatch(esperaActions.createCaso(archivos,closer)),
-    acceptCaso: (caso, nota) => dispatch(esperaActions.acceptCaso(caso, nota)),
-    rejectCaso: (caso, nota) => dispatch(esperaActions.rejectCaso(caso, nota)),
-    getCasos: (value) => dispatch(esperaActions.getCasos(value)),
+    acceptCaso: (caso, nota, usuario) => dispatch(esperaActions.acceptCaso(caso, nota, usuario)),
+    rejectCaso: (caso, nota, usuario) => dispatch(esperaActions.rejectCaso(caso, nota, usuario)),
+    getCasos: (usuario) => dispatch(esperaActions.getCasos(usuario)),
     editCaso: (caso, reset) => dispatch(esperaActions.editCaso(caso, reset)),
     downloadFile: (caso) => dispatch(esperaActions.downloadFile(caso)),
   }

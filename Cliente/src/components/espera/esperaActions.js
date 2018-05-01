@@ -39,13 +39,13 @@ export function createCaso(data,reset) {
       .then(caso => {  
         if(caso.error){
           if(caso.type===0){
-            message.error("No fue proveído un TOKEN. Se requiere que inicie sesión")
+            message.error(Mensajes.sinToken)
           }
           else if (caso.type===1){
-            message.error("Sesión ha expirado. Se requiere que inicie sesión")
+            message.error(Mensajes.tokenExpiro)
           }
           else{
-            message.error("Error de tipo desconocido en el servidor")
+            message.error(Mensajes.errorDesconocido)
           }
           dispatch({type: NEW_CASO_FAILURE})
         }
@@ -68,12 +68,13 @@ export function createCaso(data,reset) {
   }
 }
 
-export function getCasos(){
+export function getCasos(usuario){
+  
   return function (dispatch) {
   dispatch({
     type: GET_CASOS_REQUEST
   })
-  fetch(API_URL+"/espera")
+  fetch(API_URL+"/espera?token="+usuario.token)
     .then(response => response.json())
     .then(data => {
       for(let i = 0; i < data.casos.length; i++){
@@ -100,22 +101,35 @@ export function editCaso(caso, reset) {
   dispatch({
     type: EDIT_CASO_REQUEST
   })
-  console.log(caso.get("caso"))
   var variable = caso.get("caso")
   variable = JSON.parse(variable)
-  console.log(variable._id)
+
   fetch(`${API_URL}/espera/edit/${variable._id.valueOf()}`, {
     method: 'PUT',
     body: caso,
   })
     .then(response => response.json())
     .then(data => {
-      reset()
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: EDIT_CASO_FAILURE})
+      }
+      else{
       dispatch({
         type: EDIT_CASO_SUCCESS,
-        caso: data.caso
+        caso: {...data.caso,key:data.caso._id}
       })
-      message.success("El caso ha sido modificado con éxito")
+      message.success(Mensajes.editadoExito)
+      reset(false)
+      }
     })
     .catch(error => {
       dispatch({
@@ -128,7 +142,7 @@ export function editCaso(caso, reset) {
 }
 
 
-export function acceptCaso(caso, nota) {
+export function acceptCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: ACCEPT_CASO_REQUEST
@@ -136,15 +150,29 @@ export function acceptCaso(caso, nota) {
   fetch(`${API_URL}/espera/accept/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota}),
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: EDIT_CASO_FAILURE})
+      }
+      else{
       dispatch({
         type: ACCEPT_CASO_SUCCESS,
         id: caso._id
       })
       message.success("El caso ha sido aceptado con éxito")
+    }
     })
     .catch(error => {
       dispatch({
@@ -156,7 +184,7 @@ export function acceptCaso(caso, nota) {
 }
 }
 
-export function rejectCaso(caso, nota) {
+export function rejectCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: REJECT_CASO_REQUEST
@@ -164,15 +192,29 @@ export function rejectCaso(caso, nota) {
   fetch(`${API_URL}/espera/reject/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota}),
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: EDIT_CASO_FAILURE})
+      }
+      else{
       dispatch({
         type: REJECT_CASO_SUCCESS,
         id: caso._id
       })
       message.success("El caso ha sido rechazado con éxito")
+    }
     })
     .catch(error => {
       dispatch({

@@ -8,3 +8,7 @@ export const alreadyEditing = 'No se puede editar caso porque alguien ya se encu
 export const verificar = 'Existen errores en los datos, verifíquelos e intente de nuevo'
 export const minNecesario = "Se requiere al menos uno de los siguientes campos: cédula, nombre y apellidos, teléfono u otras señas"
 export const errorConexion = "Ocurrió un error al tratar de conectarse con el servicio de base de datos"
+export const sinToken = "No fue proveído un TOKEN. Se requiere que inicie sesión"
+export const tokenExpiro = "Sesión ha expirado. Se requiere que inicie sesión"
+export const errorDesconocido = "Error de tipo desconocido en el servidor"
+export const editadoExito = "El caso ha sido modificado con éxito"

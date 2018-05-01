@@ -46,27 +46,27 @@ class editForm extends React.Component {
     });
   }
 
-  handleAcceptCaso = (acceptCaso, nota) => {
+  handleAcceptCaso = (acceptCaso, nota, usuario) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if (caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined)
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { acceptCaso(this.props.row, nota) }
+        else { acceptCaso(this.props.row, nota, usuario) }
       }
       else { message.error(Mensajes.verificar) }
     });
   }
 
-  handleRejectCaso = (rejectCaso, nota) => {
+  handleRejectCaso = (rejectCaso, nota, usuario) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if (caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined)
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { rejectCaso(this.props.row, nota) }
+        else { rejectCaso(this.props.row, nota, usuario) }
       }
       else { message.error(Mensajes.verificar) }
     });
@@ -101,8 +101,9 @@ class editForm extends React.Component {
             });
             //agrega caso al formdata y envia el caso y los files juntos
             formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, files: this.props.row.files }))
+            formData.append('usuario', JSON.stringify(this.props.usuario))
 
-            this.props.editCaso(formData, this.props.form.resetFields)
+            this.props.editCaso(formData, this.props.visible)
           }
         }
         else { message.error(Mensajes.verificar) }

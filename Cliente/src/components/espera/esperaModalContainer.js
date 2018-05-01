@@ -21,8 +21,8 @@ class esperaContainer extends React.Component {
   }
 
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
-  handleAcceptCaso = (nota) =>{this.form.handleAcceptCaso(this.props.acceptCaso, nota)}
-  handleRejectCaso = (nota) =>{this.form.handleRejectCaso(this.props.rejectCaso, nota)}
+  handleAcceptCaso = (nota) =>{this.form.handleAcceptCaso(this.props.acceptCaso,nota,this.props.usuario)}
+  handleRejectCaso = (nota) =>{this.form.handleRejectCaso(this.props.rejectCaso,nota,this.props.usuario)}
 
 
   handleModoTitle(){
@@ -99,7 +99,7 @@ class esperaContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} usuario={this.props.usuario} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile}/>
+          <Form visible={this.setmodalVisible} onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} usuario={this.props.usuario} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile}/>
         </Modal>
       </Row>
       <Row>

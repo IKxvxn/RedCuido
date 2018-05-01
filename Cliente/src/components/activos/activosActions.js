@@ -36,7 +36,7 @@ export function activarCaso(caso,reset) {
         })
       })
       .catch(error => {
-        message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos.")
+        message.error(Mensajes.errorDesconocido)
         dispatch({
           type: NEW_ACTIVO_FAILURE,
           error: error
@@ -90,7 +90,7 @@ export function editCaso(caso, reset) {
         type: EDIT_ACTIVO_SUCCESS,
         caso: data.caso
       })
-      message.success("El caso ha sido modificado con éxito")
+      message.success(Mensajes.editadoExito)
     })
     .catch(error => {
       dispatch({

@@ -10,6 +10,11 @@ const path = require('path');
 
 
 function getCasosEspera(req, res) {
+  if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
+    res.status(100)
+    res.json({ error: true , casos: []})
+    return
+  }
   casoEsperaModel.find()
     .exec((err, casos) => {
       if (err) {
@@ -23,7 +28,7 @@ function getCasosEspera(req, res) {
 
 function createCasoEspera(req, res) {
   //Toma el caso del body (que viene en form data)
-  console.log(req.body)
+  
   let usuario = JSON.parse(req.body.usuario);
 
   if(usuario.token===undefined){
@@ -109,17 +114,33 @@ function createCasoEspera(req, res) {
 
 function editCasoEspera(req, res) {
   //Toma el caso del body (que viene en form data)
-  let info = JSON.parse(req.body.caso);
+  let usuario = JSON.parse(req.body.usuario);
+
+  if(usuario.token===undefined){
+    res.status(500)
+    res.send({ error: true , type: 0})
+    return
+  }
+
+  if(!auth.autentificarAccion(usuario.token)){
+    res.status(500)
+    res.send({ error: true , type: 1})
+    return
+  }
   
-  let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "update", caseId: info._id }
-  casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info})
+  let info = JSON.parse(req.body.caso);
+
+  let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "update", caso: {} }
+  
+  casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info},{new:true})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
         res.send({ error: false })
       }
       else {
-        info["files"] = []
+        caso["files"] = []
+        notificacion.caso = caso
         //Recorre req.files en caso de que se haya subido algo
         var files = [];
         var archivos = [];
@@ -130,7 +151,7 @@ function editCasoEspera(req, res) {
           });
         }else{
           res.status(200)
-          res.send({error:false, caso:info})
+          res.send({error:false, caso:caso})
         }
         var i = 0;
         while (i < files.length) {
@@ -149,7 +170,7 @@ function editCasoEspera(req, res) {
               if(caso.files.length>0){
                 archivos = [caso.files, archivos]
               }
-              casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: { "files": archivos } })
+              casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(caso._id) }, { $set: { "files": archivos } })
                 .exec((err, casod) => {
                   if (err) {
                     res.status(500)
@@ -157,7 +178,7 @@ function editCasoEspera(req, res) {
                   }
                   else {
                     res.status(200)
-                    res.send({ error: false, caso: { ...info, ingreso: new Date(info.ingreso), files: archivos } })
+                    res.send({ error: false, caso: { ...caso, ingreso: new Date(caso.ingreso), files: archivos } })
                   }
                 })
             }
@@ -177,6 +198,19 @@ function editCasoEspera(req, res) {
 }
 
 function acceptCasoEspera(req, res) {
+  let usuario = req.body.usuario;
+
+  if(usuario.token===undefined){
+    res.status(500)
+    res.send({ error: true , type: 0})
+    return
+  }
+
+  if(!auth.autentificarAccion(usuario.token)){
+    res.status(500)
+    res.send({ error: true , type: 1})
+    return
+  }
   casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
@@ -188,7 +222,7 @@ function acceptCasoEspera(req, res) {
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
         sede: req.body.caso.sede, señas: req.body.caso.señas, notas: req.body.caso.notas, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caseId: newCaso._id }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caso: newCaso }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
@@ -204,6 +238,20 @@ function acceptCasoEspera(req, res) {
 }
 
 function rejectCasoEspera(req, res) {
+  let usuario = req.body.usuario;
+
+  if(usuario.token===undefined){
+    res.status(500)
+    res.send({ error: true , type: 0})
+    return
+  }
+
+  if(!auth.autentificarAccion(usuario.token)){
+    res.status(500)
+    res.send({ error: true , type: 1})
+    return
+  }
+
   casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
@@ -215,7 +263,7 @@ function rejectCasoEspera(req, res) {
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: req.body.caso.notas
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caseId: newCaso._id }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "rejected", caso: newCaso }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
