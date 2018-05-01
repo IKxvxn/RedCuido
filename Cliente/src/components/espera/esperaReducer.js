@@ -35,7 +35,7 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         case 'GET_CASOS_FAILURE':
         return {
             ...state,
-            loading: false,
+            loading: true,
             error: action.error
         }
         case 'EDIT_CASO_REQUEST':

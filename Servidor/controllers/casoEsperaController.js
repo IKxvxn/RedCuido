@@ -48,7 +48,7 @@ function createCasoEspera(req, res) {
   //Crea caso
   let newCaso = new casoEsperaModel(info)
   
-  let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caso: newCaso }
+  let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caso: newCaso._id }
   newCaso.save((err, resp) => {
     
     if (err) {
@@ -140,7 +140,7 @@ function editCasoEspera(req, res) {
       }
       else {
         caso["files"] = []
-        notificacion.caso = caso
+        notificacion.caso = caso._id
         //Recorre req.files en caso de que se haya subido algo
         var files = [];
         var archivos = [];
@@ -218,11 +218,11 @@ function acceptCasoEspera(req, res) {
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       let newCaso = new casoVisitaModel({
-        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
+        _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
         sede: req.body.caso.sede, señas: req.body.caso.señas, notas: req.body.caso.notas, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
       })
-      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caso: newCaso }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
@@ -259,11 +259,11 @@ function rejectCasoEspera(req, res) {
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       let newCaso = new casoRechazadoModel({
-        cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
+        _id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: req.body.caso.notas
       })
-      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "rejected", caso: newCaso }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)

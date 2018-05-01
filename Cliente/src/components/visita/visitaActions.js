@@ -20,6 +20,7 @@ const REJECT_VISITA_SUCCESS = 'REJECT_VISITA_SUCCESS'
 const REJECT_VISITA_FAILURE = 'REJECT_VISITA_FAILURE'
 
 export function createCaso(data, reset) {
+  console.log(data)
   return function (dispatch) {
     dispatch({
       type: NEW_VISITA_REQUEST
@@ -30,12 +31,26 @@ export function createCaso(data, reset) {
     })
       .then(response => response.json())
       .then(caso => {
-        dispatch({
-          type: NEW_VISITA_SUCCESS,
-          caso: { ...caso.caso, key: caso.caso._id }
-        })
-        message.success("El perfil ha sido postulado con éxito")
-        reset()
+        if(caso.error){
+          if(caso.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (caso.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: NEW_VISITA_FAILURE})
+        }
+        else{
+          dispatch({
+            type: NEW_VISITA_SUCCESS,
+            caso: { ...caso.caso, key: caso.caso._id }
+          })
+          message.success("El perfil ha sido postulado con éxito")
+          reset()
+        }
       })
       .catch(error => {
         message.error(Mensajes.errorConexion)
@@ -47,12 +62,12 @@ export function createCaso(data, reset) {
   }
 }
 
-export function getCasos() {
+export function getCasos(usuario) {
   return function (dispatch) {
     dispatch({
       type: GET_VISITA_REQUEST
     })
-    fetch(API_URL + "/visita")
+    fetch(API_URL + "/visita?token="+usuario.token)
       .then(response => response.json())
       .then(data => {
         for (let i = 0; i < data.casos.length; i++) {
@@ -88,12 +103,26 @@ export function editCaso(caso, reset) {
     })
       .then(response => response.json())
       .then(data => {
-        reset()
-        dispatch({
-          type: EDIT_VISITA_SUCCESS,
-          caso: data.caso
-        })
-        message.success("El perfil ha sido modificado con éxito")
+        if(data.error){
+          if(data.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: EDIT_VISITA_FAILURE})
+        }
+        else{
+          reset(false)
+          dispatch({
+            type: EDIT_VISITA_SUCCESS,
+            caso: data.caso
+          })
+          message.success("El perfil ha sido modificado con éxito")
+        }
       })
       .catch(error => {
         dispatch({
@@ -106,7 +135,7 @@ export function editCaso(caso, reset) {
 }
 
 
-export function acceptCaso(caso, nota) {
+export function acceptCaso(caso, nota, usuario) {
   return function (dispatch) {
     dispatch({
       type: ACCEPT_VISITA_REQUEST
@@ -114,15 +143,29 @@ export function acceptCaso(caso, nota) {
     fetch(`${API_URL}/visita/accept/${caso._id.valueOf()}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ caso: caso, nota: nota }),
+      body: JSON.stringify({ caso: caso, nota: nota, usuario:usuario }),
     })
       .then(response => response.json())
       .then(data => {
-        dispatch({
-          type: ACCEPT_VISITA_SUCCESS,
-          id: caso._id
-        })
-        message.success("El perfil ha sido aceptado con éxito")
+        if(data.error){
+          if(data.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: ACCEPT_VISITA_FAILURE})
+        }
+        else{
+          dispatch({
+            type: ACCEPT_VISITA_SUCCESS,
+            id: caso._id
+          })
+          message.success("El perfil ha sido aceptado con éxito")
+        }
       })
       .catch(error => {
         dispatch({
@@ -134,7 +177,7 @@ export function acceptCaso(caso, nota) {
   }
 }
 
-export function rejectCaso(caso, nota) {
+export function rejectCaso(caso, nota, usuario) {
   return function (dispatch) {
     dispatch({
       type: REJECT_VISITA_REQUEST
@@ -142,15 +185,29 @@ export function rejectCaso(caso, nota) {
     fetch(`${API_URL}/visita/reject/${caso._id.valueOf()}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ caso: caso, nota: nota }),
+      body: JSON.stringify({ caso: caso, nota: nota, usuario:usuario }),
     })
       .then(response => response.json())
       .then(data => {
-        dispatch({
-          type: REJECT_VISITA_SUCCESS,
-          id: caso._id
-        })
-        message.success("El perfil ha sido rechazado con éxito")
+        if(data.error){
+          if(data.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: REJECT_VISITA_FAILURE})
+        }
+        else{
+          dispatch({
+            type: REJECT_VISITA_SUCCESS,
+            id: caso._id
+          })
+          message.success("El perfil ha sido rechazado con éxito")
+        }
       })
       .catch(error => {
         dispatch({
