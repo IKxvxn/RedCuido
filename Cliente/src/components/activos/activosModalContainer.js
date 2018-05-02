@@ -74,7 +74,7 @@ class activosContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
+          <Form visible={this.setmodalVisible} usuario={this.props.usuario} onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
         </Modal>
       </Row>
       <Row>

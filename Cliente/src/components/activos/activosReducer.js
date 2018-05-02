@@ -14,7 +14,7 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
         case 'NEW_ACTIVO_FAILURE':
             return {
                 casosActivos: state.casosActivos,
-                loading: false    
+                loading: true    
             }
         case 'NEW_ACTIVO_SUCCESS':
             return {
