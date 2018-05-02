@@ -9,11 +9,11 @@ const mongoose = require('mongoose')
 const path = require('path');
 
 function getCasosVisita(req, res) {
-  /*if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
+  if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
     res.status(100)
     res.json({ error: true , casos: []})
     return
-  }*/
+  }
   casoVisitaModel.find()
     .exec((err, casos) => {
       if (err) {

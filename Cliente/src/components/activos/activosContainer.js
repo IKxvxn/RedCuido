@@ -78,7 +78,7 @@ class ActivosForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}/>,
+    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -95,7 +95,7 @@ class ActivosForm extends React.Component {
       <div>
       <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
         <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
-          <Modal loading={this.props.loading} handleCreate={this.props.activarCaso} modo="activar" />
+          <Modal usuario={this.props.usuario} loading={this.props.loading} handleCreate={this.props.activarCaso} modo="activar" />
         </Col>
         <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosActivos} />
@@ -104,14 +104,20 @@ class ActivosForm extends React.Component {
           <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
         </Col>
       </Row>
-      <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+      <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
 
    //Carga casos de espera cuando se carga el componente.
    componentDidMount(){
-    this.props.getCasos()
+    this.props.getCasos(this.props.usuario)
+  }
+
+  componentWillReceiveProps(NextProps) {
+    if(NextProps.usuario.token!==this.props.usuario.token){
+      this.props.getCasos(NextProps.usuario)
+    }
   }
 }
 
@@ -120,16 +126,17 @@ function mapStateToProps(state) {
   console.log(state);
   return {
     casosActivos: state.activosReducer.casosActivos,
-    loading: state.activosReducer.loading
+    loading: state.activosReducer.loading,
+    usuario: state.loginReducer.usuario
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    activarCaso: (caso,closer)  => dispatch(activosActions.activarCaso(caso,closer)),
-    getCasos: (value) => dispatch(activosActions.getCasos(value)),
-    editCaso: (caso, reset) => dispatch(activosActions.editCaso(caso, reset)),
-    excludeCaso: (caso, nota) => dispatch(activosActions.excludeCaso(caso, nota)),
+    activarCaso: (caso,closer,usuario)  => dispatch(activosActions.activarCaso(caso,closer,usuario)),
+    getCasos: (usuarios) => dispatch(activosActions.getCasos(usuarios)),
+    editCaso: (caso, reset,usuario) => dispatch(activosActions.editCaso(caso, reset, usuario)),
+    excludeCaso: (caso, nota, usuario) => dispatch(activosActions.excludeCaso(caso, nota, usuario)),
   }
 }
 
