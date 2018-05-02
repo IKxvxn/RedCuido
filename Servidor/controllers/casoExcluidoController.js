@@ -6,11 +6,11 @@ const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
 
 function getCasosExcluidos(req, res) {
-  /*if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
+  if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
     res.status(100)
     res.json({ error: true , casos: []})
     return
-  }*/
+  }
   casoExcluidoModel.find().sort({ingreso: -1})
     .exec((err, casos) => {
       if (err) {
