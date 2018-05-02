@@ -4,6 +4,7 @@ const casoVisitaController = require('../controllers/casoVisitaController')
 const casoActivoController = require('../controllers/casoActivoController')
 const casoExcluidoController = require('../controllers/casoExcluidoController')
 const casoRechazadoController = require('../controllers/casoRechazadoController')
+const notificacionController = require('../controllers/notificacionController')
 const authController = require('../controllers/authController')
 const router = express.Router()
 
@@ -36,5 +37,7 @@ router.get('/casoRechazado', casoRechazadoController.getCasosRechazados)
 router.post('/casoRechazado', casoRechazadoController.createCasoRechazado)
 router.put('/rechazado/edit/:id', casoRechazadoController.editCasoRechazado)
 router.post('/rechazado/reactivate/:id', casoRechazadoController.reactivateCasoRechazado)
+
+router.get('/notificaciones', notificacionController.getNotificaciones)
 
 module.exports = router

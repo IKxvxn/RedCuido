@@ -213,7 +213,7 @@ function acceptCasoVisita(req, res) {
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, nacimiento: req.body.caso.nacimiento,
         ingreso: req.body.caso.ingreso, sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: req.body.caso.notas
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caso: newCaso._id }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)
@@ -253,7 +253,7 @@ function rejectCasoVisita(req, res) {
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: req.body.caso.notas,  nacimiento: req.body.caso.nacimiento, ingreso: req.body.caso.ingreso, 
       })
-      let notificacion = { autor: "kevin", _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caso: newCaso._id }
+      let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
           res.status(500)

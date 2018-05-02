@@ -108,7 +108,7 @@ function excludeCasoActivo(req, res) {
         ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio, altv_aprobadas: req.body.caso.alternativas, nacimiento: req.body.caso.nacimiento,
         sede: req.body.caso.sede, notas:req.body.caso.notas, nacimiento: req.body.caso.nacimiento })
       
-        let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"activo",action:"accepted", caso:newCaso._id}
+        let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"activo",action:"excluded", caso:newCaso._id}
       newCaso.save((err, resp) => {
         if(err){
           res.status(500)

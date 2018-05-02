@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import * as exampleActions from './homeActions'
+import * as homeActions from './homeActions'
 import * as Style from '../../style/home'
-import PropTypes from 'prop-types';
-import { Layout, Menu, Icon, notification } from 'antd';
+import Notificaciones from './notificaciones'
+import { Layout, Menu, notification } from 'antd';
 import Espera from '../espera/esperaContainer'
 import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'
@@ -130,40 +130,37 @@ class homeContainer extends React.Component {
         <Footer style={Style.footer}>
           Red de Cuido C.R. ©2018
         </Footer>
-        <Menu mode="horizontal" theme="dark" selectedKeys={[tab]} style={Style.menu} onClick={this.openNotification}>
+        <Menu mode="horizontal" theme="dark" selectedKeys={[tab]} style={Style.menu} >
           <Menu.Item key="1"><Link to='/home/espera'>Espera</Link></Menu.Item>
           <Menu.Item key="2"><Link to='/home/visita'>Visita</Link></Menu.Item>
           <Menu.Item key="3"><Link to='/home/activos'>Activos</Link></Menu.Item>
           <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
-          <Menu.Item key="6"><Icon type="mail"/>Notificaciones</Menu.Item>
+          <Menu.Item key="6"><Notificaciones usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
         </Menu>
       </Layout>
     );
   }
-
-}
-
-
-
-
-homeContainer.propTypes = {
-  ExampleFunction: PropTypes.func
-}
-
-homeContainer.defaultProps = {
-  ExampleFunction: () => {}
+  componentDidMount(){
+    this.props.getNotificaciones(this.props.usuario)
+  }
+  componentWillReceiveProps(NextProps) {
+    if(NextProps.usuario.token!==this.props.usuario.token){
+      this.props.getNotificaciones(NextProps.usuario)
+    }
+  }
 }
 
 function mapStateToProps(state) {
   return {
-    ExapleofData: state.loginReducer.exampleReducer
+    usuario: state.loginReducer.usuario,
+    notificaciones: state.homeReducer.notificaciones
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    ExampleFunction: ()  => dispatch(exampleActions.ExampleFunction())
+    getNotificaciones: (usuario)  => dispatch(homeActions.getNotificaciones(usuario))
   }
 }
 

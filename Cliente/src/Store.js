@@ -8,6 +8,7 @@ import visitaReducer from './components/visita/visitaReducer'
 import activosReducer from './components/activos/activosReducer'
 import excluidosReducer from './components/excluidos/excluidosReducer'
 import rechazadosReducer from './components/rechazados/rechazadosReducer'
+import homeReducer from './components/home/homeReducer'
 
 const logger = createLogger({
   collapsed: true,
@@ -15,7 +16,7 @@ const logger = createLogger({
   diff: true,
 })
 
-const Store = createStore(combineReducers({loginReducer:loginReducer,esperaReducer:esperaReducer,visitaReducer:visitaReducer,activosReducer:activosReducer,excluidosReducer:excluidosReducer,rechazadosReducer:rechazadosReducer}),
+const Store = createStore(combineReducers({loginReducer:loginReducer,homeReducer:homeReducer,esperaReducer:esperaReducer,visitaReducer:visitaReducer,activosReducer:activosReducer,excluidosReducer:excluidosReducer,rechazadosReducer:rechazadosReducer}),
 composeWithDevTools(
   applyMiddleware(
     ReduxThunk,

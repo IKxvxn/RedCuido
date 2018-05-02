@@ -18,7 +18,7 @@ class loginContainer extends React.Component {
       if (!err) {
       
         this.props.ingresar(usuario,this.props.history)
-        //Para hacer una cuentades comente lo de abajo y comente lo de arriba
+        //Para hacer una cuenta descomente lo de abajo y comente lo de arriba
         /*this.props.createUsuario({
           tipo: "1",
           nombre: "Kevin Rodney Arias Chinchilla",
