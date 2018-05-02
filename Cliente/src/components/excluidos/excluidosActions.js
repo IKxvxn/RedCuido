@@ -20,7 +20,7 @@ const REACTIVATE_EXCLUIDO_SUCCESS = 'REACTIVATE_EXCLUIDO_SUCCESS'
 const REACTIVATE_EXCLUIDO_FAILURE = 'REACTIVATE_EXCLUIDO_FAILURE'
 
 
-export function createCaso(caso, reset) {
+export function createCaso(caso, reset, usuario) {
   return function (dispatch) {
     dispatch({
       type: NEW_EXCLUIDO_REQUEST
@@ -28,16 +28,30 @@ export function createCaso(caso, reset) {
     fetch(API_URL + "/casoExcluido", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(caso),
+      body: JSON.stringify({caso:caso,usuario:usuario}),
     })
       .then(response => response.json())
       .then(caso => {
+        if(caso.error){
+          if(caso.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (caso.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: NEW_EXCLUIDO_FAILURE})
+        }
+        else{
         message.success("El perfil ha sido agregado con éxito")
-        reset()
-        dispatch({
-          type: NEW_EXCLUIDO_SUCCESS,
-          caso: { ...caso.caso, key: caso.caso._id }
-        })
+          reset()
+          dispatch({
+            type: NEW_EXCLUIDO_SUCCESS,
+            caso: { ...caso.caso, key: caso.caso._id }
+          })
+        }
       })
       .catch(error => {
         message.error(Mensajes.errorConexion)
@@ -49,12 +63,12 @@ export function createCaso(caso, reset) {
   }
 }
 
-export function getCasos() {
+export function getCasos(usuario) {
   return function (dispatch) {
     dispatch({
       type: GET_EXCLUIDOS_REQUEST
     })
-    fetch(API_URL + "/casoExcluido")
+    fetch(API_URL + "/casoExcluido?token="+usuario.token)
       .then(response => response.json())
       .then(data => {
         for (let i = 0; i < data.casos.length; i++) {
@@ -77,7 +91,7 @@ export function getCasos() {
 }
 
 
-export function editCaso(caso, reset) {
+export function editCaso(caso, reset, usuario) {
   return function (dispatch) {
     dispatch({
       type: EDIT_EXCLUIDO_REQUEST
@@ -85,16 +99,30 @@ export function editCaso(caso, reset) {
     fetch(`${API_URL}/excluido/edit/${caso._id.valueOf()}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(caso),
+      body: JSON.stringify({caso:caso, usuario:usuario}),
     })
       .then(response => response.json())
       .then(data => {
-        reset()
-        dispatch({
-          type: EDIT_EXCLUIDO_SUCCESS,
-          caso: data.caso
-        })
-        message.success("El perfil ha sido modificado con éxito")
+        if(data.error){
+          if(data.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: EDIT_EXCLUIDO_FAILURE})
+        }
+        else{
+          reset(false)
+          dispatch({
+            type: EDIT_EXCLUIDO_SUCCESS,
+            caso: data.caso
+          })
+          message.success("El perfil ha sido modificado con éxito")
+      }
       })
       .catch(error => {
         dispatch({
@@ -106,7 +134,7 @@ export function editCaso(caso, reset) {
   }
 }
 
-export function reactivateCaso(caso, nota) {
+export function reactivateCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: REACTIVATE_EXCLUIDO_REQUEST
@@ -114,15 +142,29 @@ export function reactivateCaso(caso, nota) {
   fetch(`${API_URL}/excluido/reactivate/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota}),
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
-      dispatch({
-        type: REACTIVATE_EXCLUIDO_SUCCESS,
-        id: caso._id
-      })
-      message.success("El caso ha sido reactivado con éxito")
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: REACTIVATE_EXCLUIDO_FAILURE})
+      }
+      else{
+        dispatch({
+          type: REACTIVATE_EXCLUIDO_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido reactivado con éxito")
+      }
     })
     .catch(error => {
       dispatch({
@@ -135,7 +177,7 @@ export function reactivateCaso(caso, nota) {
 }
 
 
-export function deleteCaso(caso, nota) {
+export function deleteCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: DELETE_EXCLUIDO_REQUEST
@@ -143,15 +185,29 @@ export function deleteCaso(caso, nota) {
   fetch(`${API_URL}/excluido/delete/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota}),
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
-      dispatch({
-        type: DELETE_EXCLUIDO_SUCCESS,
-        id: caso._id
-      })
-      message.success("El caso ha sido eliminado con éxito")
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: DELETE_EXCLUIDO_FAILURE})
+      }
+      else{
+        dispatch({
+          type: DELETE_EXCLUIDO_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido eliminado con éxito")
+      }
     })
     .catch(error => {
       dispatch({

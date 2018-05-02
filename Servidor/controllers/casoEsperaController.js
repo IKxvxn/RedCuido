@@ -15,7 +15,7 @@ function getCasosEspera(req, res) {
     res.json({ error: true , casos: []})
     return
   }
-  casoEsperaModel.find()
+  casoEsperaModel.find().sort({ingreso: -1})
     .exec((err, casos) => {
       if (err) {
         res.status(500)

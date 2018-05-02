@@ -82,7 +82,7 @@ class NormalLoginForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} reactivateCaso={this.props.reactivateCaso}  editCaso={this.props.editCaso} deleteCaso={this.props.deleteCaso}/>,
+    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} reactivateCaso={this.props.reactivateCaso}  editCaso={this.props.editCaso} deleteCaso={this.props.deleteCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -99,7 +99,7 @@ class NormalLoginForm extends React.Component {
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
           <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
-            <Modal loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
+            <Modal usuario={this.props.usuario} loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
           </Col>
           <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
             <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosExcluidos} />
@@ -108,14 +108,19 @@ class NormalLoginForm extends React.Component {
             <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
           </Col>
         </Row>
-        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+        <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
 
   //Carga casos de excluidos cuando se carga el componente.
   componentDidMount(){
-    this.props.getCasos()
+    this.props.getCasos(this.props.usuario)
+  }
+  componentWillReceiveProps(NextProps) {
+    if(NextProps.usuario.token!==this.props.usuario.token){
+      this.props.getCasos(NextProps.usuario)
+    }
   }
 }
 
@@ -123,17 +128,19 @@ class NormalLoginForm extends React.Component {
 function mapStateToProps(state) {
   return {
     casosExcluidos: state.excluidosReducer.casosExcluidos,
-    loading: state.excluidosReducer.loading
+    loading: state.excluidosReducer.loading,
+    usuario: state.loginReducer.usuario
   }
+  
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCaso: (caso, closer)  => dispatch(excluidosActions.createCaso(caso,closer)),
-    getCasos: (value) => dispatch(excluidosActions.getCasos(value)),
-    editCaso: (caso, reset) => dispatch(excluidosActions.editCaso(caso, reset)),
-    reactivateCaso: (caso, nota) => dispatch(excluidosActions.reactivateCaso(caso, nota)),
-    deleteCaso: (caso, nota) => dispatch(excluidosActions.deleteCaso(caso, nota)),
+    createCaso: (caso, closer, usuario)  => dispatch(excluidosActions.createCaso(caso,closer, usuario)),
+    getCasos: (usuario) => dispatch(excluidosActions.getCasos(usuario)),
+    editCaso: (caso, reset, usuario) => dispatch(excluidosActions.editCaso(caso, reset, usuario)),
+    reactivateCaso: (caso, nota, usuario) => dispatch(excluidosActions.reactivateCaso(caso, nota, usuario)),
+    deleteCaso: (caso, nota, usuario) => dispatch(excluidosActions.deleteCaso(caso, nota, usuario)),
   }
 }
 

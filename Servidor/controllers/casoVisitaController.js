@@ -14,7 +14,7 @@ function getCasosVisita(req, res) {
     res.json({ error: true , casos: []})
     return
   }
-  casoVisitaModel.find()
+  casoVisitaModel.find().sort({ingreso: -1})
     .exec((err, casos) => {
       if (err) {
         res.status(500)

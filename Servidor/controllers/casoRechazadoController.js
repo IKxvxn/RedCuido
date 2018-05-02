@@ -11,7 +11,7 @@ function getCasosRechazados(req, res) {
     res.json({ error: true , casos: []})
     return
   }
-  casoRechazadoModel.find()
+  casoRechazadoModel.find().sort({ingreso: -1})
     .exec((err, casos) => {
       if (err) {
         res.status(500)
