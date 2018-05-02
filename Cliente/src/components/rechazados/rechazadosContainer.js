@@ -75,7 +75,7 @@ class NormalLoginForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" row={row} reactivateCaso={this.props.reactivateCaso} editCaso={this.props.editCaso}/>,
+    render: (text, row) => <Modal modo="ver"usuario={this.props.usuario} row={row} reactivateCaso={this.props.reactivateCaso} editCaso={this.props.editCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -93,7 +93,7 @@ class NormalLoginForm extends React.Component {
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
           <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
-            <Modal loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
+            <Modal usuario={this.props.usuario} loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
           </Col>
           <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
             <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosRechazados} />
@@ -102,14 +102,20 @@ class NormalLoginForm extends React.Component {
             <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
           </Col>
         </Row>
-        <Table rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+        <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }
 
   //Carga casos de rechazados cuando se carga el componente.
   componentDidMount(){
-    this.props.getCasos()
+    this.props.getCasos(this.props.usuario)
+  }
+
+  componentWillReceiveProps(NextProps) {
+    if(NextProps.usuario.token!==this.props.usuario.token){
+      this.props.getCasos(NextProps.usuario)
+    }
   }
 }
 
@@ -117,16 +123,17 @@ class NormalLoginForm extends React.Component {
 function mapStateToProps(state) {
   return {
     casosRechazados: state.rechazadosReducer.casosRechazados,
-    loading: state.rechazadosReducer.loading
+    loading: state.rechazadosReducer.loading,
+    usuario: state.loginReducer.usuario
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createCaso: (caso,closer)  => dispatch(rechazadosActions.createCaso(caso,closer)),
-    getCasos: (value) => dispatch(rechazadosActions.getCasos(value)),
-    editCaso: (caso, reset) => dispatch(rechazadosActions.editCaso(caso, reset)),
-    reactivateCaso: (caso, nota) => dispatch(rechazadosActions.reactivateCaso(caso, nota)),
+    createCaso: (caso,closer, usuario)  => dispatch(rechazadosActions.createCaso(caso,closer,usuario)),
+    getCasos: (usuario) => dispatch(rechazadosActions.getCasos(usuario)),
+    editCaso: (caso, reset,usuario) => dispatch(rechazadosActions.editCaso(caso, reset,usuario)),
+    reactivateCaso: (caso, nota,usuario) => dispatch(rechazadosActions.reactivateCaso(caso, nota,usuario)),
   }
 }
 

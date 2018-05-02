@@ -20,7 +20,7 @@ class editForm extends React.Component {
            && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{handleCreate(caso,this.props.form.resetFields)}
+        else{handleCreate(caso,this.props.form.resetFields,this.props.usuario)}
       }
       else{message.error(Mensajes.verificar)}
     });
@@ -33,7 +33,7 @@ class editForm extends React.Component {
            && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{reactivateCaso(this.props.row, nota)}
+        else{reactivateCaso(this.props.row, nota, this.props.usuario)}
       }
       else{message.error(Mensajes.verificar)}
     });
@@ -54,7 +54,7 @@ class editForm extends React.Component {
              }
           else{
             this.setState({ edit: false});
-            this.props.editCaso({...caso,_id:this.props.row._id},this.props.form.resetFields)
+            this.props.editCaso({...caso,_id:this.props.row._id},this.props.visible,this.props.usuario)
           }
         }
         else{message.error(Mensajes.verificar)}

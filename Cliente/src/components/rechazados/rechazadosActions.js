@@ -17,7 +17,7 @@ const REACTIVATE_RECHAZADO_SUCCESS = 'REACTIVATE_RECHAZADO_SUCCESS'
 const REACTIVATE_RECHAZADO_FAILURE = 'REACTIVATE_RECHAZADO_FAILURE'
 
 
-export function createCaso(caso,reset) {
+export function createCaso(caso,reset, usuario) {
   return function (dispatch) {
     dispatch({
       type: NEW_RECHAZADO_REQUEST
@@ -25,16 +25,30 @@ export function createCaso(caso,reset) {
     fetch(API_URL+"/casoRechazado", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(caso),
+      body: JSON.stringify({caso:caso,usuario:usuario}),
     })
       .then(response =>response.json())
       .then(caso => {
-        message.success("El perfil ha sido agregado con éxito")       
-        reset()
-        dispatch({
-          type: NEW_RECHAZADO_SUCCESS,
-          caso: {...caso.caso, key:caso.caso._id}
-        })
+        if(caso.error){
+          if(caso.type===0){
+            message.error(Mensajes.sinToken)
+          }
+          else if (caso.type===1){
+            message.error(Mensajes.tokenExpiro)
+          }
+          else{
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({type: NEW_RECHAZADO_FAILURE})
+        }
+        else{
+          message.success("El perfil ha sido agregado con éxito")       
+          reset()
+          dispatch({
+            type: NEW_RECHAZADO_SUCCESS,
+            caso: {...caso.caso, key:caso.caso._id}
+          })
+        }
       })
       .catch(error => {
         message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
@@ -46,12 +60,12 @@ export function createCaso(caso,reset) {
   }
 }
 
-export function getCasos(){
+export function getCasos(usuario){
   return function (dispatch) {
   dispatch({
     type: GET_RECHAZADO_REQUEST
   })
-  fetch(API_URL+"/casoRechazado")
+  fetch(API_URL+"/casoRechazado?token="+usuario.token)
     .then(response => response.json())
     .then(data => {
       for(let i = 0; i < data.casos.length; i++){
@@ -74,7 +88,7 @@ export function getCasos(){
 }
 
 
-export function editCaso(caso, reset) {
+export function editCaso(caso, reset, usuario) {
   return function (dispatch) {
   dispatch({
     type: EDIT_RECHAZADO_REQUEST
@@ -82,16 +96,30 @@ export function editCaso(caso, reset) {
   fetch(`${API_URL}/rechazado/edit/${caso._id.valueOf()}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(caso),
+    body: JSON.stringify({caso:caso,usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
-      reset()
-      dispatch({
-        type: EDIT_RECHAZADO_SUCCESS,
-        caso: data.caso
-      })
-      message.success("El perfil ha sido modificado con éxito")
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: EDIT_RECHAZADO_FAILURE})
+      }
+      else{
+        reset(false)
+        dispatch({
+          type: EDIT_RECHAZADO_SUCCESS,
+          caso: data.caso
+        })
+        message.success("El perfil ha sido modificado con éxito")
+      }
     })
     .catch(error => {
       dispatch({
@@ -104,7 +132,7 @@ export function editCaso(caso, reset) {
 }
 
 
-export function reactivateCaso(caso, nota) {
+export function reactivateCaso(caso, nota,usuario) {
   return function (dispatch) {
   dispatch({
     type: REACTIVATE_RECHAZADO_REQUEST
@@ -112,15 +140,28 @@ export function reactivateCaso(caso, nota) {
   fetch(`${API_URL}/rechazado/reactivate/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota}),
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
   })
     .then(response => response.json())
     .then(data => {
-      dispatch({
-        type: REACTIVATE_RECHAZADO_SUCCESS,
-        id: caso._id
-      })
-      message.success("El caso ha sido reactivado con éxito")
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: REACTIVATE_RECHAZADO_FAILURE})
+      }
+      else{
+        dispatch({
+          type: REACTIVATE_RECHAZADO_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido reactivado con éxito")}
     })
     .catch(error => {
       dispatch({
