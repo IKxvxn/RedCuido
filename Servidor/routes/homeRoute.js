@@ -14,7 +14,7 @@ router.post('/espera/casoEspera', casoEsperaController.createCasoEspera)
 router.put('/espera/edit/:id', casoEsperaController.editCasoEspera)
 router.post('/espera/accept/:id', casoEsperaController.acceptCasoEspera)
 router.post('/espera/reject/:id', casoEsperaController.rejectCasoEspera)
-router.get('/espera/download/:id', casoEsperaController.downloadFile)
+router.get('/espera/download/:id', casoEsperaController.download)
 
 router.get('/visita', casoVisitaController.getCasosVisita)
 router.post('/visita/casoVisita', casoVisitaController.createCasoVisita)
@@ -39,5 +39,6 @@ router.put('/rechazado/edit/:id', casoRechazadoController.editCasoRechazado)
 router.post('/rechazado/reactivate/:id', casoRechazadoController.reactivateCasoRechazado)
 
 router.get('/notificaciones', notificacionController.getNotificaciones)
+
 
 module.exports = router

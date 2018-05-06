@@ -21,9 +21,9 @@ class loginContainer extends React.Component {
         //Para hacer una cuenta descomente lo de abajo y comente lo de arriba
         /*this.props.createUsuario({
           tipo: "1",
-          nombre: "Kevin Rodney Arias Chinchilla",
-          contraseña: "contraseña",
-          usuario: "KevinACh",
+          nombre: "Gloriana Flores",
+          contraseña: "123456",
+          usuario: "gflores",
         })*/
       }
     });

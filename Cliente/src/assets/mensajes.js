@@ -12,3 +12,4 @@ export const sinToken = "No fue proveído un TOKEN. Se requiere que inicie sesi�
 export const tokenExpiro = "Sesión ha expirado. Se requiere que inicie sesión"
 export const errorDesconocido = "Error de tipo desconocido en el servidor"
 export const editadoExito = "El caso ha sido modificado con éxito"
+export const noArchivo = "No existen archivos asociados al perfil"

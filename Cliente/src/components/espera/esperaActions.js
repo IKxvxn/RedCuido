@@ -25,38 +25,38 @@ const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
 const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
 const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 
-export function createCaso(data,reset) {
+export function createCaso(data, reset) {
 
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
     })
-    fetch(API_URL+"/espera/casoEspera", {
+    fetch(API_URL + "/espera/casoEspera", {
       method: 'POST',
       body: data
     })
-      .then(response =>response.json())
-      .then(caso => {  
-        if(caso.error){
-          if(caso.type===0){
+      .then(response => response.json())
+      .then(caso => {
+        if (caso.error) {
+          if (caso.type === 0) {
             message.error(Mensajes.sinToken)
           }
-          else if (caso.type===1){
+          else if (caso.type === 1) {
             message.error(Mensajes.tokenExpiro)
           }
-          else{
+          else {
             message.error(Mensajes.errorDesconocido)
           }
-          dispatch({type: NEW_CASO_FAILURE})
+          dispatch({ type: NEW_CASO_FAILURE })
         }
-        else{
+        else {
           dispatch({
             type: NEW_CASO_SUCCESS,
-            caso: {...caso.caso, key:caso.caso._id}
+            caso: { ...caso.caso, key: caso.caso._id }
           })
           message.success("El caso ha sido postulado con éxito")
           reset()
-        }  
+        }
       })
       .catch(error => {
         message.error(Mensajes.errorConexion)
@@ -68,192 +68,205 @@ export function createCaso(data,reset) {
   }
 }
 
-export function getCasos(usuario){
-  
+export function getCasos(usuario) {
+
   return function (dispatch) {
-  dispatch({
-    type: GET_CASOS_REQUEST
-  })
-  fetch(API_URL+"/espera?token="+usuario.token)
-    .then(response => response.json())
-    .then(data => {
-      for(let i = 0; i < data.casos.length; i++){
-          data.casos[i].key=data.casos[i]._id
-      }
-      return data.casos;
-    }).then(casos =>{
-      dispatch({
-        type: GET_CASOS_SUCCESS,
-        casosEspera: casos
-      })
+    dispatch({
+      type: GET_CASOS_REQUEST
     })
-    .catch(error => {
-      dispatch({
-        type: GET_CASOS_FAILURE,
-        error: error
+    fetch(API_URL + "/espera?token=" + usuario.token)
+      .then(response => response.json())
+      .then(data => {
+        for (let i = 0; i < data.casos.length; i++) {
+          data.casos[i].key = data.casos[i]._id
+        }
+        return data.casos;
+      }).then(casos => {
+        dispatch({
+          type: GET_CASOS_SUCCESS,
+          casosEspera: casos
+        })
       })
-    })
-}
+      .catch(error => {
+        dispatch({
+          type: GET_CASOS_FAILURE,
+          error: error
+        })
+      })
+  }
 }
 
 export function editCaso(caso, reset) {
   return function (dispatch) {
-  dispatch({
-    type: EDIT_CASO_REQUEST
-  })
-  var variable = caso.get("caso")
-  variable = JSON.parse(variable)
+    dispatch({
+      type: EDIT_CASO_REQUEST
+    })
+    var variable = caso.get("caso")
+    variable = JSON.parse(variable)
 
-  fetch(`${API_URL}/espera/edit/${variable._id.valueOf()}`, {
-    method: 'PUT',
-    body: caso,
-  })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error){
-        if(data.type===0){
-          message.error(Mensajes.sinToken)
-        }
-        else if (data.type===1){
-          message.error(Mensajes.tokenExpiro)
-        }
-        else{
-          message.error(Mensajes.errorDesconocido)
-        }
-        dispatch({type: EDIT_CASO_FAILURE})
-      }
-      else{
-      dispatch({
-        type: EDIT_CASO_SUCCESS,
-        caso: {...data.caso,key:data.caso._id}
-      })
-      message.success(Mensajes.editadoExito)
-      reset(false)
-      }
+    fetch(`${API_URL}/espera/edit/${variable._id.valueOf()}`, {
+      method: 'PUT',
+      body: caso,
     })
-    .catch(error => {
-      dispatch({
-        type: EDIT_CASO_FAILURE,
-        error: error
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: EDIT_CASO_FAILURE })
+        }
+        else {
+          dispatch({
+            type: EDIT_CASO_SUCCESS,
+            caso: { ...data.caso, key: data.caso._id }
+          })
+          message.success(Mensajes.editadoExito)
+          reset(false)
+        }
       })
-      message.error(Mensajes.errorConexion)
-    })
-}
+      .catch(error => {
+        dispatch({
+          type: EDIT_CASO_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }
 
 
 export function acceptCaso(caso, nota, usuario) {
   return function (dispatch) {
-  dispatch({
-    type: ACCEPT_CASO_REQUEST
-  })
-  fetch(`${API_URL}/espera/accept/${caso._id.valueOf()}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error){
-        if(data.type===0){
-          message.error(Mensajes.sinToken)
-        }
-        else if (data.type===1){
-          message.error(Mensajes.tokenExpiro)
-        }
-        else{
-          message.error(Mensajes.errorDesconocido)
-        }
-        dispatch({type: EDIT_CASO_FAILURE})
-      }
-      else{
-      dispatch({
-        type: ACCEPT_CASO_SUCCESS,
-        id: caso._id
-      })
-      message.success("El caso ha sido aceptado con éxito")
-    }
+    dispatch({
+      type: ACCEPT_CASO_REQUEST
     })
-    .catch(error => {
-      dispatch({
-        type: ACCEPT_CASO_FAILURE,
-        error: error
-      })
-      message.error(Mensajes.errorConexion)
+    fetch(`${API_URL}/espera/accept/${caso._id.valueOf()}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ caso: caso, nota: nota, usuario: usuario }),
     })
-}
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: EDIT_CASO_FAILURE })
+        }
+        else {
+          dispatch({
+            type: ACCEPT_CASO_SUCCESS,
+            id: caso._id
+          })
+          message.success("El caso ha sido aceptado con éxito")
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: ACCEPT_CASO_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }
 
 export function rejectCaso(caso, nota, usuario) {
   return function (dispatch) {
-  dispatch({
-    type: REJECT_CASO_REQUEST
-  })
-  fetch(`${API_URL}/espera/reject/${caso._id.valueOf()}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
-  })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error){
-        if(data.type===0){
-          message.error(Mensajes.sinToken)
-        }
-        else if (data.type===1){
-          message.error(Mensajes.tokenExpiro)
-        }
-        else{
-          message.error(Mensajes.errorDesconocido)
-        }
-        dispatch({type: EDIT_CASO_FAILURE})
-      }
-      else{
-      dispatch({
-        type: REJECT_CASO_SUCCESS,
-        id: caso._id
-      })
-      message.success("El caso ha sido rechazado con éxito")
-    }
+    dispatch({
+      type: REJECT_CASO_REQUEST
     })
-    .catch(error => {
-      dispatch({
-        type: REJECT_CASO_FAILURE,
-        error: error
-      })
-      message.error(Mensajes.errorConexion)
+    fetch(`${API_URL}/espera/reject/${caso._id.valueOf()}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ caso: caso, nota: nota, usuario: usuario }),
     })
-}
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: EDIT_CASO_FAILURE })
+        }
+        else {
+          dispatch({
+            type: REJECT_CASO_SUCCESS,
+            id: caso._id
+          })
+          message.success("El caso ha sido rechazado con éxito")
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: REJECT_CASO_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }
 
-export function uploadFile(caso,  reset) {
+export function uploadFile(caso, reset) {
   return function (dispatch) {
-  dispatch({
-    type: UPLOAD_FILE_REQUEST
-  })
-  fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify(caso),
-  })
-    .then(response => response.json())
-    .then(data => {
-      reset()
-      dispatch({
-        type: UPLOAD_FILE_SUCCESS,
-        caso: data.caso
-      })
-      message.success("El archivo ha sido agregado con éxito")
+    dispatch({
+      type: UPLOAD_FILE_REQUEST
     })
-    .catch(error => {
-      dispatch({
-        type: UPLOAD_FILE_FAILURE,
-        error: error
-      })
-      message.error(Mensajes.errorConexion)
+    fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(caso),
     })
+      .then(response => response.json())
+      .then(data => {
+        reset()
+        dispatch({
+          type: UPLOAD_FILE_SUCCESS,
+          caso: data.caso
+        })
+        message.success("El archivo ha sido agregado con éxito")
+      })
+      .catch(error => {
+        dispatch({
+          type: UPLOAD_FILE_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }
-}
+
+/*export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    //uso window.open por si acaso pero tampoco sirve :c
+    window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: UPLOAD_FILE_SUCCESS,
+    })
+  }
+}*/
 
 export function downloadFile(caso) {
   return function (dispatch) {
@@ -261,7 +274,8 @@ export function downloadFile(caso) {
       type: DOWNLOAD_FILE_REQUEST
     })
     //uso window.open por si acaso pero tampoco sirve :c
-    window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
+    //window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
+    window.open(API_URL + `/espera/download/${caso._id.valueOf()}`)
     dispatch({
       type: UPLOAD_FILE_SUCCESS,
     })
