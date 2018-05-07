@@ -11,6 +11,9 @@ const NEW_LOGIN_REQUEST = 'NEW_LOGIN_REQUEST'
 const NEW_LOGIN_SUCCESS = 'NEW_LOGIN_SUCCESS'
 const NEW_LOGIN_FAILURE = 'NEW_LOGIN_FAILURE'
 
+const USER_LOAD_STATE = 'USER_LOAD_STATE'
+const LOGOUT = 'LOGOUT'
+
 export function createUsuario(usuario) {
   return function (dispatch) {
     dispatch({
@@ -85,3 +88,13 @@ export function ingresar(usuario,history) {
       })
   }
 }
+
+export const loadState = () => ({
+  type: USER_LOAD_STATE,
+})
+
+export const logout = () => ({
+  type: LOGOUT,
+})
+
+

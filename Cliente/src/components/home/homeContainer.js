@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as homeActions from './homeActions'
+import * as loginActions from '../login/loginActions'
 import * as Style from '../../style/home'
 import Notificaciones from './notificaciones'
 import { Layout, Menu, notification } from 'antd';
@@ -137,11 +138,13 @@ class homeContainer extends React.Component {
           <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
           <Menu.Item key="6"><Notificaciones usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
+          <Menu.Item key="7"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
         </Menu>
       </Layout>
     );
   }
   componentDidMount(){
+    this.props.loadSessionState()
     this.props.getNotificaciones(this.props.usuario)
   }
   componentWillReceiveProps(NextProps) {
@@ -160,7 +163,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getNotificaciones: (usuario)  => dispatch(homeActions.getNotificaciones(usuario))
+    getNotificaciones: (usuario)  => dispatch(homeActions.getNotificaciones(usuario)),
+    loadSessionState: () => dispatch(loginActions.loadState()),
+    sessionlogout: () => dispatch(loginActions.logout()),
   }
 }
 

@@ -1,3 +1,4 @@
+import {saveState,loadState,removeState} from './localStorage'
 
 const DEFAULT_STATE = {
     usuario: {},
@@ -17,9 +18,20 @@ const loginReducer = (state = DEFAULT_STATE, action) => {
             loading: false    
         }
     case 'NEW_LOGIN_SUCCESS':
+        saveState(action.usuario)
         return {
             usuario: action.usuario,
             loading: false    
+        }
+    case 'USER_LOAD_STATE':
+        if(loadState().token===undefined){return state}
+        return {usuario:loadState(),
+                loading: false}
+    case 'LOGOUT':
+        removeState()
+        return{
+            usuario:{},
+            loading:false
         }
         default:
             return state
