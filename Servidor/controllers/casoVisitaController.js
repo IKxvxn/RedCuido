@@ -204,6 +204,14 @@ function acceptCasoVisita(req, res) {
   }
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
+      //Configura nota con nota anterior
+      var nota = req.body.caso.notas;
+      if (nota === undefined){
+        nota = req.body.nota
+      }
+      else{
+        nota = nota+"\n"+req.body.nota
+      }
       if (err) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
@@ -211,7 +219,7 @@ function acceptCasoVisita(req, res) {
       let newCaso = new casoActivoModel({
         _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, alternativas: req.body.caso.alternativas,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, nacimiento: req.body.caso.nacimiento,
-        ingreso: req.body.caso.ingreso, sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: req.body.caso.notas
+        ingreso: req.body.caso.ingreso, sede: req.body.caso.sede, señas: req.body.caso.señas, riesgo: req.body.caso.riesgo, notas: nota
       })
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caso: newCaso._id }
       newCaso.save((err, resp) => {
@@ -244,6 +252,14 @@ function rejectCasoVisita(req, res) {
   }
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
+      //Configura nota con nota anterior
+      var nota = req.body.caso.notas;
+      if (nota === undefined){
+        nota = req.body.nota
+      }
+      else{
+        nota = nota+"\n"+req.body.nota
+      }
       if (err) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
@@ -251,7 +267,7 @@ function rejectCasoVisita(req, res) {
       let newCaso = new casoRechazadoModel({
         _id:new mongoose.Types.ObjectId(req.params.id), cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, notas: req.body.caso.notas,  nacimiento: req.body.caso.nacimiento, ingreso: req.body.caso.ingreso, 
+        sede: req.body.caso.sede, notas: nota,  nacimiento: req.body.caso.nacimiento, ingreso: req.body.caso.ingreso, 
       })
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {

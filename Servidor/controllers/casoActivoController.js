@@ -99,6 +99,14 @@ function excludeCasoActivo(req, res) {
   }
   casoActivoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
     .exec((err, caso) => {
+      //Configura nota con nota anterior
+      var nota = req.body.caso.notas;
+      if (nota === undefined){
+        nota = req.body.nota
+      }
+      else{
+        nota = nota+"\n"+req.body.nota
+      }
       if (err) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
@@ -106,7 +114,7 @@ function excludeCasoActivo(req, res) {
       let newCaso = new casoExcluidoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         _id: new mongoose.Types.ObjectId(req.params.id),nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio, altv_aprobadas: req.body.caso.alternativas, nacimiento: req.body.caso.nacimiento,
-        sede: req.body.caso.sede, notas:req.body.caso.notas, nacimiento: req.body.caso.nacimiento })
+        sede: req.body.caso.sede, notas:nota, nacimiento: req.body.caso.nacimiento })
       
         let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"activo",action:"excluded", caso:newCaso._id}
       newCaso.save((err, resp) => {

@@ -71,13 +71,21 @@ function reactivateCasoExcluido(req, res) {
 
   casoExcluidoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
     .exec((err, caso) => {
+      //Configura nota con nota anterior
+      var nota = req.body.caso.notas;
+      if (nota === undefined){
+        nota = req.body.nota
+      }
+      else{
+        nota = nota+"\n"+req.body.nota
+      }
       if (err) {
         res.status(500)
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       let newCaso = new casoEsperaModel({_id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:req.body.caso.notas})
+        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:nota})
       
         let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"excluido",action:"reactivate", caso:{}}
       newCaso.save((err, resp) => {
