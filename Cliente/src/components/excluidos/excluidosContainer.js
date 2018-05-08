@@ -102,7 +102,7 @@ class NormalLoginForm extends React.Component {
             <Modal usuario={this.props.usuario} loading={this.props.loading} handleCreate={this.props.createCaso}  modo="crear" />
           </Col>
           <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
-            <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosExcluidos} />
+            <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosExcluidos} lista={"excluidos"}/>
           </Col>
           <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
             <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>

@@ -88,6 +88,7 @@ class editForm extends React.Component {
           cedula:this.props.row.cedula,
           nombre:this.props.row.nombre,
           apellidos:this.props.row.apellidos,
+          sexo:this.props.row.sexo,
           ingreso:moment(this.props.row.ingreso),
           inicio:moment(this.props.row.inicio),
           nacimiento:moment(this.props.row.nacimiento),
@@ -146,6 +147,18 @@ class editForm extends React.Component {
             rules: [{pattern: '^[a-zA-ZÀ-ž ]*$', message: Mensajes.letras}],
           })(
             <Input disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Sexo"
+        >
+          {getFieldDecorator('sexo',{initialValue:"Desconocido"})(
+            <Select disabled={!this.state.edit}>
+              <Option value="Femenino">Femenino</Option>
+              <Option value="Masculino">Masculino</Option>
+              <Option value="Desconocido">Desconocido</Option>
+            </Select>
           )}
         </FormItem>
         <FormItem
