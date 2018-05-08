@@ -76,6 +76,11 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'LOGOUT':
+        return{
+            casosActivos: [],
+            loading: false,
+        }
         default:
             return state
     }

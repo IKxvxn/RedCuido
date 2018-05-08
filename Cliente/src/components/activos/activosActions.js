@@ -90,7 +90,6 @@ export function editCaso(caso, reset, usuario) {
   dispatch({
     type: EDIT_ACTIVO_REQUEST
   })
-  console.log(caso)
   fetch(`${API_URL}/activos/edit/${caso._id.valueOf()}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},

@@ -44,7 +44,6 @@ const visitaReducer = (state = DEFAULT_STATE, action) => {
           loading: true      
         }
         case 'EDIT_VISITA_SUCCESS':
-        console.log(action.caso)
         var casos= state.casosVisita.map((caso) => {
             if(caso._id=== action.caso._id){return action.caso}
             else{return {...caso,key:caso._id}}})
@@ -93,6 +92,11 @@ const visitaReducer = (state = DEFAULT_STATE, action) => {
           ...state,
           loading: false,
           error: action.error
+        }
+        case 'LOGOUT':
+        return{
+            casosVisita: [],
+            loading: false,
         }
         default:
             return state

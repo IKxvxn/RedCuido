@@ -44,7 +44,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
           loading: true      
         }
         case 'EDIT_EXCLUIDO_SUCCESS':
-        console.log(action.caso)
         var casos= state.casosExcluidos.map((caso) => {
             if(caso._id=== action.caso._id){return action.caso}
             else{return {...caso,key:caso._id}}})
@@ -93,6 +92,11 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
           ...state,
           loading: false,
           error: action.error
+        }
+        case 'LOGOUT':
+        return{
+            casosExcluidos: [],
+            loading: false,
         }
         default:
             return state

@@ -32,7 +32,6 @@ export function createUsuario(usuario) {
         }
         else{
           message.success("El usuario ha sido creado con éxito")
-          console.log(usuario.usuario)
           dispatch({
             type: NEW_USUARIO_SUCCESS,
             usuario: usuario.usuario

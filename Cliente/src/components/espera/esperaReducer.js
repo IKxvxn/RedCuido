@@ -94,6 +94,11 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'LOGOUT':
+        return{
+            casosEspera: [],
+            loading: false,
+        }
         default:
             return state
     }

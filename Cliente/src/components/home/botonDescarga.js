@@ -50,7 +50,10 @@ class bontonDescarga extends React.Component {
           <Col>
           </Col>
           <Col>
-            <Button style={{width:"18rem"}} type="secondary">Sólo Seleccionados -{this.props.seleccionadas.length}-</Button>
+            <Button style={{width:"18rem"}} type="secondary">Sólo Seleccionados ({this.props.seleccionadas.length})</Button>
+          </Col>
+          <Col>
+            <Button style={{width:"18rem",marginTop:"0.25rem"}} type="secondary">Todos los Casos ({this.props.todos.length})</Button>
           </Col>
         </Row>
       );

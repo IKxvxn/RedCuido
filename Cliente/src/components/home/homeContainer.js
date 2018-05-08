@@ -149,7 +149,18 @@ class homeContainer extends React.Component {
   }
   componentWillReceiveProps(NextProps) {
     if(NextProps.usuario.token!==this.props.usuario.token){
-      this.props.getNotificaciones(NextProps.usuario)
+      
+      
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      
+      async function demo(usuario,getNotificaciones) {
+        await sleep(2000);
+        getNotificaciones(usuario)
+        demo(usuario,getNotificaciones)
+      }
+      demo(NextProps.usuario, this.props.getNotificaciones);
     }
   }
 }

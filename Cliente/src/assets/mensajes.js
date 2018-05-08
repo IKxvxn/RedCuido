@@ -1,3 +1,5 @@
+import { message } from 'antd';
+
 export const requerido = "Este campo es requerido"
 export const cedula = "No se detectó una cédula válida"
 export const numeros = "No se permiten letras ni caracteres especiales"

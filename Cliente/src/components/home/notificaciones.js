@@ -16,7 +16,6 @@ function generadorMensaje(item,usuario){
   }
 
   let accion = (function(item){
-    console.log(item)
     switch (item.action) {
     case "create":
       if (autor==="Tú"){
@@ -116,7 +115,6 @@ class bontonDescarga extends React.Component {
     
     return( 
       <Popover placement="bottomRight" title={ <Button type="danger" ghost>Limpiar Notificaciones</Button>} content={content} trigger="click">
-        {console.log("NOTTTT",this.props.notificaciones)}
         <Badge count={this.props.notificaciones.length}>
             <Button shape="circle" type="danger"> <Icon type="notification" /></Button>
         </Badge>

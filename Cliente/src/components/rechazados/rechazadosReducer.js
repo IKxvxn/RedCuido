@@ -44,7 +44,6 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
           loading: true      
         }
         case 'EDIT_RECHAZADO_SUCCESS':
-        console.log(action.caso)
         var casos= state.casosRechazados.map((caso) => {
             if(caso._id=== action.caso._id){return action.caso}
             else{return {...caso,key:caso._id}}})
@@ -76,6 +75,11 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
           ...state,
           loading: false,
           error: action.error
+        }
+        case 'LOGOUT':
+        return{
+            casosRechazados: [],
+            loading: false,
         }
         default:
             return state

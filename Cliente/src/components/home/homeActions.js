@@ -12,7 +12,6 @@ export function getNotificaciones(usuario) {
     fetch(API_URL + "/notificaciones?token="+usuario.token+"&usuario="+usuario.usuario)
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         return data.notificaciones;
       }).then(notificaciones => {
         dispatch({
@@ -27,4 +26,5 @@ export function getNotificaciones(usuario) {
         })
       })
   }
+  
 }

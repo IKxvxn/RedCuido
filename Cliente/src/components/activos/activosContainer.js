@@ -123,7 +123,6 @@ class ActivosForm extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     casosActivos: state.activosReducer.casosActivos,
     loading: state.activosReducer.loading,

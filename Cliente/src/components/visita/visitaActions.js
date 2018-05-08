@@ -20,7 +20,6 @@ const REJECT_VISITA_SUCCESS = 'REJECT_VISITA_SUCCESS'
 const REJECT_VISITA_FAILURE = 'REJECT_VISITA_FAILURE'
 
 export function createCaso(data, reset) {
-  console.log(data)
   return function (dispatch) {
     dispatch({
       type: NEW_VISITA_REQUEST
@@ -96,7 +95,6 @@ export function editCaso(caso, reset) {
     })
     var variable = caso.get("caso")
     variable = JSON.parse(variable)
-    console.log(variable._id)
     fetch(`${API_URL}/visita/edit/${variable._id.valueOf()}`, {
       method: 'PUT',
       body: caso,
