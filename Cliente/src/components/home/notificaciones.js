@@ -69,7 +69,10 @@ function generadorMensaje(item,usuario){
     default:
       break;
   }}(item))
-
+  
+  if(item.location ==="activo"||item.location ==="rechazado"||item.location ==="excluido"){
+    item.location=item.location+"s"
+  }
   return accion+" un caso en lista de "+item.location
 }
 
@@ -83,7 +86,7 @@ class bontonDescarga extends React.Component {
           style={{maxHeight:"15rem",minWidth:"15rem", overflowX:"hidden",overflowY:"scroll"}}
           itemLayout="horizontal"
           dataSource={this.props.notificaciones}
-          renderItem={item => (
+          renderItem={(item,props=this.props) => (
             <List.Item style={{maxWidth:"15rem",minWidth:"15rem"}}>
               <List.Item.Meta
                 avatar={
@@ -92,7 +95,7 @@ class bontonDescarga extends React.Component {
                       <Button shape="circle" type="secondary"><Icon type="eye" /></Button>
                     </Col>
                     <Col sm={24} >
-                       <Button style={{margin:"0.2rem 0"}}shape="circle" type="danger"><Icon type="delete" /></Button>
+                       <Button onClick={()=>{this.props.deleteNotificacion(this.props.usuario,item._id)}} style={{margin:"0.2rem 0"}}shape="circle" type="danger"><Icon type="delete" /></Button>
                     </Col>
                   </Row>
                 }
@@ -114,7 +117,7 @@ class bontonDescarga extends React.Component {
       );
     
     return( 
-      <Popover placement="bottomRight" title={ <Button type="danger" ghost>Limpiar Notificaciones</Button>} content={content} trigger="click">
+      <Popover placement="bottomRight" title={ <Button type="danger" ghost onClick={() =>{this.props.cleanNotificaciones(this.props.usuario)}}>Limpiar Notificaciones</Button>} content={content} trigger="click">
         <Badge count={this.props.notificaciones.length}>
             <Button shape="circle" type="danger"> <Icon type="notification" /></Button>
         </Badge>

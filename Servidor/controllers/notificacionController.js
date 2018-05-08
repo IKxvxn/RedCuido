@@ -19,8 +19,46 @@ function getNotificaciones(req, res) {
     })
 }
 
+function cleanNotificaciones(req, res) {
+  if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
+    res.status(100)
+    res.json({ error: true})
+    return
+  }
+  usuarioModel.findByIdAndUpdate({_id: req.query.usuario}, {$set: {notificaciones:[]}})
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send({error:true})
+      }
+      else{
+        res.status(200)
+        res.send({error:false})
+      }
+    })
+}
+
+function deleteNotificacion(req, res) {
+  if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
+    res.status(100)
+    res.json({ error: true})
+    return
+  }
+  usuarioModel.findByIdAndUpdate({_id: req.query.usuario}, {$pull:{ 'notificaciones': { _id: req.query.notificacion } } })
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send({error:true})
+      }
+      else{
+        res.status(200)
+        res.send({error:false})
+      }
+    })
+}
+
 module.exports = {
-  getNotificaciones
+  getNotificaciones,cleanNotificaciones,deleteNotificacion
 }
 
 

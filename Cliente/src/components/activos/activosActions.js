@@ -150,7 +150,7 @@ export function excludeCaso(caso, nota, usuario) {
         else{
           message.error(Mensajes.errorDesconocido)
         }
-        dispatch({type: NEW_ACTIVO_FAILURE})
+        dispatch({type: EXCLUDE_CASO_FAILURE})
       }
       else{
         dispatch({

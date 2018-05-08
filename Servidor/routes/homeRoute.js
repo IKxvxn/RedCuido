@@ -39,6 +39,7 @@ router.put('/rechazado/edit/:id', casoRechazadoController.editCasoRechazado)
 router.post('/rechazado/reactivate/:id', casoRechazadoController.reactivateCasoRechazado)
 
 router.get('/notificaciones', notificacionController.getNotificaciones)
-
+router.post('/cleanNotificaciones', notificacionController.cleanNotificaciones)
+router.post('/deleteNotificacion', notificacionController.deleteNotificacion)
 
 module.exports = router

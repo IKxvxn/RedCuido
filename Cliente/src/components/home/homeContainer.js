@@ -137,7 +137,7 @@ class homeContainer extends React.Component {
           <Menu.Item key="3"><Link to='/home/activos'>Activos</Link></Menu.Item>
           <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
-          <Menu.Item key="6"><Notificaciones usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
+          <Menu.Item key="6"><Notificaciones deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
           <Menu.Item key="7"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
         </Menu>
       </Layout>
@@ -175,6 +175,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getNotificaciones: (usuario)  => dispatch(homeActions.getNotificaciones(usuario)),
+    cleanNotificaciones: (usuario)  => dispatch(homeActions.cleanNotificaciones(usuario)),
+    deleteNotificacion: (usuario,notificacion)  => dispatch(homeActions.deleteNotificacion(usuario,notificacion)),
     loadSessionState: () => dispatch(loginActions.loadState()),
     sessionlogout: () => dispatch(loginActions.logout()),
   }
