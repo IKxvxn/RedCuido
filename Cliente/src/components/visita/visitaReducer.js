@@ -93,6 +93,23 @@ const visitaReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'DELETE_VISITA_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_VISITA_SUCCESS':
+        return {
+            ...state,
+            casosVisita: state.casosVisita.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'DELETE_VISITA_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         case 'LOGOUT':
         return{
             casosVisita: [],

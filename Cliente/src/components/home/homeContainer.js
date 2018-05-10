@@ -156,7 +156,7 @@ class homeContainer extends React.Component {
       }
       
       async function demo(usuario,getNotificaciones) {
-        await sleep(2000);
+        await sleep(30000);
         getNotificaciones(usuario)
         demo(usuario,getNotificaciones)
       }

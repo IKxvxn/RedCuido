@@ -76,6 +76,23 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'DELETE_RECHAZADO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_RECHAZADO_SUCCESS':
+        return {
+            ...state,
+            casosRechazados: state.casosRechazados.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'DELETE_RECHAZADO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         case 'LOGOUT':
         return{
             casosRechazados: [],

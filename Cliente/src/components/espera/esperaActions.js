@@ -24,6 +24,9 @@ const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
 const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
 const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
+const DELETE_ESPERA_REQUEST = 'DELETE_ESPERA_REQUEST'
+const DELETE_ESPERA_SUCCESS = 'DELETE_ESPERA_SUCCESS'
+const DELETE_ESPERA_FAILURE = 'DELETE_ESPERA_FAILURE'
 
 export function createCaso(data, reset) {
 
@@ -280,4 +283,47 @@ export function downloadFile(caso) {
       type: UPLOAD_FILE_SUCCESS,
     })
   }
+}
+
+
+export function deleteCaso(caso, nota, usuario) {
+  return function (dispatch) {
+  dispatch({
+    type: DELETE_ESPERA_REQUEST
+  })
+  fetch(`${API_URL}/espera/delete/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: DELETE_ESPERA_FAILURE})
+      }
+      else{
+        dispatch({
+          type: DELETE_ESPERA_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido eliminado con éxito")
+      }
+    })
+    .catch(error => {
+      dispatch({
+        type: DELETE_ESPERA_FAILURE,
+        error: error
+      })
+      message.error(Mensajes.errorConexion)
+    })
+}
 }

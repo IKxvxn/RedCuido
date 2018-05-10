@@ -15,6 +15,9 @@ const EDIT_ACTIVO_FAILURE = 'EDIT_ACTIVO_FAILURE'
 const EXCLUDE_CASO_REQUEST = 'EXCLUDE_CASO_REQUEST'
 const EXCLUDE_CASO_SUCCESS = 'EXCLUDE_CASO_SUCCESS'
 const EXCLUDE_CASO_FAILURE = 'EXCLUDE_CASO_FAILURE'
+const DELETE_ACTIVO_REQUEST = 'DELETE_ACTIVO_REQUEST'
+const DELETE_ACTIVO_SUCCESS = 'DELETE_ACTIVO_SUCCESS'
+const DELETE_ACTIVO_FAILURE = 'DELETE_ACTIVO_FAILURE'
 
 export function activarCaso(caso,reset,usuario) {
   return function (dispatch) {
@@ -163,6 +166,49 @@ export function excludeCaso(caso, nota, usuario) {
     .catch(error => {
       dispatch({
         type: EXCLUDE_CASO_FAILURE,
+        error: error
+      })
+      message.error(Mensajes.errorConexion)
+    })
+}
+}
+
+
+export function deleteCaso(caso, nota, usuario) {
+  return function (dispatch) {
+  dispatch({
+    type: DELETE_ACTIVO_REQUEST
+  })
+  fetch(`${API_URL}/activos/delete/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: DELETE_ACTIVO_FAILURE})
+      }
+      else{
+        dispatch({
+          type: DELETE_ACTIVO_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido eliminado con éxito")
+      }
+    })
+    .catch(error => {
+      dispatch({
+        type: DELETE_ACTIVO_FAILURE,
         error: error
       })
       message.error(Mensajes.errorConexion)

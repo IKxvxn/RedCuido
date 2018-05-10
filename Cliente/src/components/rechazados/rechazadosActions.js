@@ -12,6 +12,9 @@ const GET_RECHAZADO_FAILURE = 'GET_RECHAZADO_FAILURE'
 const EDIT_RECHAZADO_REQUEST = 'EDIT_RECHAZADO_REQUEST'
 const EDIT_RECHAZADO_SUCCESS = 'EDIT_RECHAZADO_SUCCESS'
 const EDIT_RECHAZADO_FAILURE = 'EDIT_RECHAZADO_FAILURE'
+const DELETE_RECHAZADO_REQUEST = 'DELETE_RECHAZADO_REQUEST'
+const DELETE_RECHAZADO_SUCCESS = 'DELETE_RECHAZADO_SUCCESS'
+const DELETE_RECHAZADO_FAILURE = 'DELETE_RECHAZADO_FAILURE'
 const REACTIVATE_RECHAZADO_REQUEST = 'REACTIVATE_RECHAZADO_REQUEST'
 const REACTIVATE_RECHAZADO_SUCCESS = 'REACTIVATE_RECHAZADO_SUCCESS'
 const REACTIVATE_RECHAZADO_FAILURE = 'REACTIVATE_RECHAZADO_FAILURE'
@@ -169,6 +172,49 @@ export function reactivateCaso(caso, nota,usuario) {
         error: error
       })
       message.error("Ocurrió un error al tratar de conectarse con el servicio de base de datos")
+    })
+}
+}
+
+
+export function deleteCaso(caso, nota, usuario) {
+  return function (dispatch) {
+  dispatch({
+    type: DELETE_RECHAZADO_REQUEST
+  })
+  fetch(`${API_URL}/rechazado/delete/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: DELETE_RECHAZADO_FAILURE})
+      }
+      else{
+        dispatch({
+          type: DELETE_RECHAZADO_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido eliminado con éxito")
+      }
+    })
+    .catch(error => {
+      dispatch({
+        type: DELETE_RECHAZADO_FAILURE,
+        error: error
+      })
+      message.error(Mensajes.errorConexion)
     })
 }
 }

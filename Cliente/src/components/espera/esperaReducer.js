@@ -94,6 +94,23 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'DELETE_ESPERA_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_ESPERA_SUCCESS':
+        return {
+            ...state,
+            casosEspera: state.casosEspera.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'DELETE_ESPERA_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         case 'LOGOUT':
         return{
             casosEspera: [],

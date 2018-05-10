@@ -18,6 +18,9 @@ const ACCEPT_VISITA_FAILURE = 'ACCEPT_VISITA_FAILURE'
 const REJECT_VISITA_REQUEST = 'REJECT_VISITA_REQUEST'
 const REJECT_VISITA_SUCCESS = 'REJECT_VISITA_SUCCESS'
 const REJECT_VISITA_FAILURE = 'REJECT_VISITA_FAILURE'
+const DELETE_VISITA_REQUEST = 'DELETE_VISITA_REQUEST'
+const DELETE_VISITA_SUCCESS = 'DELETE_VISITA_SUCCESS'
+const DELETE_VISITA_FAILURE = 'DELETE_VISITA_FAILURE'
 
 export function createCaso(data, reset) {
   return function (dispatch) {
@@ -216,3 +219,47 @@ export function rejectCaso(caso, nota, usuario) {
       })
   }
 }
+
+
+export function deleteCaso(caso, nota, usuario) {
+  return function (dispatch) {
+  dispatch({
+    type: DELETE_VISITA_REQUEST
+  })
+  fetch(`${API_URL}/visita/delete/${caso._id.valueOf()}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({caso:caso, nota:nota, usuario:usuario}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error){
+        if(data.type===0){
+          message.error(Mensajes.sinToken)
+        }
+        else if (data.type===1){
+          message.error(Mensajes.tokenExpiro)
+        }
+        else{
+          message.error(Mensajes.errorDesconocido)
+        }
+        dispatch({type: DELETE_VISITA_FAILURE})
+      }
+      else{
+        dispatch({
+          type: DELETE_VISITA_SUCCESS,
+          id: caso._id
+        })
+        message.success("El caso ha sido eliminado con éxito")
+      }
+    })
+    .catch(error => {
+      dispatch({
+        type: DELETE_VISITA_FAILURE,
+        error: error
+      })
+      message.error(Mensajes.errorConexion)
+    })
+}
+}
+

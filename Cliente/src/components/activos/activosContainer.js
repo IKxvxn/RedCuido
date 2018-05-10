@@ -78,7 +78,7 @@ class ActivosForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}/>,
+    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}  deleteCaso={this.props.deleteCaso}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -136,6 +136,7 @@ function mapDispatchToProps(dispatch) {
     getCasos: (usuarios) => dispatch(activosActions.getCasos(usuarios)),
     editCaso: (caso, reset,usuario) => dispatch(activosActions.editCaso(caso, reset, usuario)),
     excludeCaso: (caso, nota, usuario) => dispatch(activosActions.excludeCaso(caso, nota, usuario)),
+    deleteCaso: (caso, nota, usuario) => dispatch(activosActions.deleteCaso(caso, nota, usuario)),
   }
 }
 

@@ -62,6 +62,19 @@ class editForm extends React.Component {
       });
     }
 
+    handleDeleteCaso = (deleteCaso, nota) => {
+      this.props.form.validateFieldsAndScroll((err, caso) => {
+        if (!err) {
+          if (caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined)
+            && caso.señas === undefined && caso.telefono === undefined) {
+            message.error(Mensajes.minNecesario)
+          }
+          else { deleteCaso(this.props.row, nota, this.props.usuario) }
+        }
+        else { message.error(Mensajes.verificar) }
+      });
+    }
+
     handleOptionsMode() {
       if (this.props.modo === "ver") {
         if (this.state.edit === false) {

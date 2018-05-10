@@ -76,6 +76,23 @@ const activosReducer = (state = DEFAULT_STATE, action) => {
           loading: false,
           error: action.error
         }
+        case 'DELETE_ACTIVO_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_ACTIVO_SUCCESS':
+        return {
+            ...state,
+            casosActivos: state.casosActivos.filter(item => {return item._id !== action.id;}),
+            loading: false
+            }
+        case 'DELETE_ACTIVO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
         case 'LOGOUT':
         return{
             casosActivos: [],

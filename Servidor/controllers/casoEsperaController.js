@@ -311,8 +311,39 @@ function download(req,res){
       res.zip({ files: zipFiles, filename: 'adjuntos.zip'})
     })
 }
+
+
+function deleteCasoEspera(req, res) {
+  let usuario = req.body.usuario;
+
+  if(usuario.token===undefined){
+    res.status(500)
+    res.send({ error: true , type: 0})
+    return
+  }
+
+  if(!auth.autentificarAccion(usuario.token)){
+    res.status(500)
+    res.send({ error: true , type: 1})
+    return
+  }
+
+  casoEsperaModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
+    .exec((err, caso) => {
+      let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"espera",action:"delete", caso:req.id}
+      if (err) {
+        res.status(500)
+        res.send(`Ocurrió un error 💩 ${err}`)
+      }else{
+        usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+        res.status(300)
+        res.json(caso)
+      }
+    })
+}
+
 module.exports = {
-  getCasosEspera, createCasoEspera, editCasoEspera, acceptCasoEspera, rejectCasoEspera,download
+  getCasosEspera, createCasoEspera, editCasoEspera, acceptCasoEspera, rejectCasoEspera,download, deleteCasoEspera
 }
 
 

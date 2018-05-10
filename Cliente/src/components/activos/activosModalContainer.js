@@ -6,6 +6,7 @@ class activosContainer extends React.Component {
   state = {
     modalVisible: false,
     modal2Visible: false,
+    modal3Visible: false,
   }
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
@@ -14,9 +15,14 @@ class activosContainer extends React.Component {
   setmodal2Visible = (modal2Visible) => {
     this.setState({ modal2Visible });
   }
+  
+  setmodal3Visible = (modal3Visible) => {
+    this.setState({ modal3Visible });
+  }
 
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
   handleExcludeCaso = (nota) =>{this.form.handleExcludeCaso(this.props.excludeCaso, nota)}
+  handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
   handleModoTitle(){
     if (this.props.modo==="ver"){
@@ -37,6 +43,7 @@ class activosContainer extends React.Component {
       return(
         <Row gutter={8} type="flex" justify="end">
               <Col xs={12} sm={7}><Button type="danger" loading={this.props.loading}  ghost onClick={() => this.setmodal2Visible(true)}>Excluir</Button></Col>
+              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }
@@ -55,8 +62,16 @@ class activosContainer extends React.Component {
             <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal2Visible(false)}>Cancelar</Button></Col>
       </Row>
     )
+  }
 
-}
+  handleDeleteFooter(){
+    return(
+      <Row gutter={8} type="flex" justify="end">
+            <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleDeleteCaso(document.getElementById("nota").value)}>Eliminar</Button></Col>
+            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal3Visible(false)}>Cancelar</Button></Col>
+      </Row>
+    )
+  }
 
   render() {
     return (
@@ -88,6 +103,20 @@ class activosContainer extends React.Component {
             this.handleExcluirFooter()
           ]}
         >
+        <Input.TextArea rows={4} id="nota"/>
+        </Modal>
+      </Row>
+      <Row>
+      <Modal
+          title="Añada una nota antes de eliminar:"
+          visible={this.state.modal3Visible}
+          destroyOnClose
+          closable={false}
+          onCancel={()=>this.setmodal3Visible(false)}
+          footer={[
+            this.handleDeleteFooter()
+          ]}
+          >
         <Input.TextArea rows={4} id="nota"/>
         </Modal>
       </Row>
