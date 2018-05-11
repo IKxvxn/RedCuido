@@ -45,7 +45,7 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
         }
         case 'EDIT_RECHAZADO_SUCCESS':
         var casos= state.casosRechazados.map((caso) => {
-            if(caso._id=== action.caso._id){return action.caso}
+            if(caso._id=== action.caso._id){return {...action.caso, files: action.caso.files}}
             else{return {...caso,key:caso._id}}})
         return {
             ...state,

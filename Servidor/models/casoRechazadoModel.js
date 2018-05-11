@@ -11,6 +11,7 @@ const casosRechazadoSchema = mongoose.Schema({
   rechazo: { type: Date, default: new Date()},
   sede: { type: String},
   notas: { type: String},
+  files: { type: Array}
 })
 
 const casoRechazadoModel = mongoose.model("rechazado", casosRechazadoSchema)

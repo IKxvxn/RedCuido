@@ -45,7 +45,7 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         }
         case 'EDIT_EXCLUIDO_SUCCESS':
         var casos= state.casosExcluidos.map((caso) => {
-            if(caso._id=== action.caso._id){return action.caso}
+            if(caso._id=== action.caso._id){return {...action.caso, files: action.caso.files}}
             else{return {...caso,key:caso._id}}})
         return {
             ...state,

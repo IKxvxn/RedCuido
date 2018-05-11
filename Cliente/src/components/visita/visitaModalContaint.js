@@ -67,7 +67,7 @@ class editForm extends React.Component {
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { rejectCaso(this.props.row, nota, usuario) }
+        else { console.log(this.props.row);rejectCaso(this.props.row, nota, usuario) }
       }
       else { message.error(Mensajes.verificar) }
     });

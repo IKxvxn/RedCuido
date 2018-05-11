@@ -276,7 +276,7 @@ function rejectCasoEspera(req, res) {
       let newCaso = new casoRechazadoModel({
         _id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, notas: nota })
+        sede: req.body.caso.sede, notas: nota, files: req.body.caso.files })
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {

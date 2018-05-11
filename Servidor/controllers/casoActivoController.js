@@ -114,7 +114,7 @@ function excludeCasoActivo(req, res) {
       let newCaso = new casoExcluidoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         _id: new mongoose.Types.ObjectId(req.params.id),nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio, altv_aprobadas: req.body.caso.alternativas, nacimiento: req.body.caso.nacimiento,
-        sede: req.body.caso.sede, notas:nota, nacimiento: req.body.caso.nacimiento })
+        sede: req.body.caso.sede, notas:nota, nacimiento: req.body.caso.nacimiento,  files: req.body.caso.files  })
       
         let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"activo",action:"excluded", caso:newCaso._id}
       newCaso.save((err, resp) => {

@@ -100,7 +100,6 @@ class NormalLoginForm extends React.Component {
     var filter
     if(this.state.filteredWord===""){filter=this.props.casosVisita}
     else{filter = busqueda.search(this.state.filteredWord)}
-
     return (
       <div>
       <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>

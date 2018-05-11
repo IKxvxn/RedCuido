@@ -66,7 +66,9 @@ class bontonDescarga extends React.Component {
     //Si se debe crear csv (EXCEL)
     if (this.state.tipo === "2"){
       var datosCsv;
-      const json2csvParser = new Json2csvParser({ fields });
+      var excelStrings = true;
+      var delimiter = ";";
+      const json2csvParser = new Json2csvParser({ fields,excelStrings,delimiter});
       //Si se utilizan solo las filas seleccionadas
       if (formato === "1"){
         datosCsv = json2csvParser.parse(this.props.seleccionadas);

@@ -14,6 +14,7 @@ const casosExcluidoSchema = mongoose.Schema({
   altv_aprobadas: { type: Array},
   sede: { type: String},
   notas: { type: String},
+  files: { type: Array}
 })
 
 const casoExcluidoModel = mongoose.model("excluido", casosExcluidoSchema)

@@ -85,7 +85,7 @@ function reactivateCasoExcluido(req, res) {
       }
       let newCaso = new casoEsperaModel({_id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,
-        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:nota})
+        sede: req.body.caso.sede, señas: req.body.caso.señas, notas:nota,files: req.body.caso.files })
       
         let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"excluido",action:"reactivate", caso:{}}
       newCaso.save((err, resp) => {

@@ -46,7 +46,7 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         case 'EDIT_CASO_SUCCESS':
         console.log(action.caso)
         var casos= state.casosEspera.map((caso) => {
-            if(caso._id=== action.caso._id){return action.caso}
+            if(caso._id=== action.caso._id){return {...action.caso, files: action.caso.files}}
             else{return {...caso,key:caso._id}}})
         return {
             ...state,
