@@ -18,17 +18,18 @@ const DELETE_RECHAZADO_FAILURE = 'DELETE_RECHAZADO_FAILURE'
 const REACTIVATE_RECHAZADO_REQUEST = 'REACTIVATE_RECHAZADO_REQUEST'
 const REACTIVATE_RECHAZADO_SUCCESS = 'REACTIVATE_RECHAZADO_SUCCESS'
 const REACTIVATE_RECHAZADO_FAILURE = 'REACTIVATE_RECHAZADO_FAILURE'
+const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
+const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
+const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
-
-export function createCaso(caso,reset, usuario) {
+export function createCaso(caso,reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_RECHAZADO_REQUEST
     })
     fetch(API_URL+"/casoRechazado", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({caso:caso,usuario:usuario}),
+      body: caso,
     })
       .then(response =>response.json())
       .then(caso => {
@@ -63,6 +64,7 @@ export function createCaso(caso,reset, usuario) {
   }
 }
 
+
 export function getCasos(usuario){
   return function (dispatch) {
   dispatch({
@@ -91,15 +93,16 @@ export function getCasos(usuario){
 }
 
 
-export function editCaso(caso, reset, usuario) {
+export function editCaso(caso, reset) {
   return function (dispatch) {
   dispatch({
     type: EDIT_RECHAZADO_REQUEST
   })
-  fetch(`${API_URL}/rechazado/edit/${caso._id.valueOf()}`, {
+  var variable = caso.get("caso")
+  variable = JSON.parse(variable)
+  fetch(`${API_URL}/rechazado/edit/${variable._id.valueOf()}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso,usuario:usuario}),
+    body: caso,
   })
     .then(response => response.json())
     .then(data => {
@@ -217,4 +220,43 @@ export function deleteCaso(caso, nota, usuario) {
       message.error(Mensajes.errorConexion)
     })
 }
+}
+export function deleteFiles(files) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_FILES_REQUEST
+    })
+    fetch(`${API_URL}/eliminar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({files:files}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: DELETE_FILES_FAILURE })
+        }
+        else {
+          dispatch({
+            type: DELETE_FILES_SUCCESS
+          })
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: DELETE_FILES_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }

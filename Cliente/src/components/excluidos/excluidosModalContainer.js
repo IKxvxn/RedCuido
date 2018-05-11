@@ -98,7 +98,7 @@ handleDeleteFooter(){
             this.handleModoFooter()
           ]}
         >
-          <Form onRef={ref => (this.form = ref)} visible={this.setmodalVisible} usuario={this.props.usuario} modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
+          <Form onRef={ref => (this.form = ref)} visible={this.setmodalVisible} usuario={this.props.usuario} modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso} deleteFiles={this.props.deleteFiles}/>
         </Modal>
       </Row>
       <Row>

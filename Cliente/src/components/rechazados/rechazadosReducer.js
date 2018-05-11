@@ -45,7 +45,7 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
         }
         case 'EDIT_RECHAZADO_SUCCESS':
         var casos= state.casosRechazados.map((caso) => {
-            if(caso._id=== action.caso._id){return {...action.caso, files: action.caso.files}}
+            if(caso._id=== action.caso._id){return {...action.caso}}
             else{return {...caso,key:caso._id}}})
         return {
             ...state,
@@ -88,6 +88,22 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
             loading: false
             }
         case 'DELETE_RECHAZADO_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.error
+        }
+        case 'DELETE_FILES_REQUEST':
+        return {
+          ...state,
+          loading: true      
+        }
+        case 'DELETE_FILES_SUCCESS':
+        return {
+            ...state,
+            loading: false
+            }
+        case 'DELETE_FILES_FAILURE':
         return {
           ...state,
           loading: false,

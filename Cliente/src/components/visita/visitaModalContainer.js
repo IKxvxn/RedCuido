@@ -114,7 +114,7 @@ class visitaContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form visible={this.setmodalVisible} onRef={ref => (this.form = ref)}  usuario={this.props.usuario} modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso}/>
+          <Form visible={this.setmodalVisible} onRef={ref => (this.form = ref)}  usuario={this.props.usuario} modo={this.props.modo} row={this.props.row} editCaso={this.props.editCaso} deleteFiles={this.props.deleteFiles}/>
         </Modal>
       </Row>
       <Row>

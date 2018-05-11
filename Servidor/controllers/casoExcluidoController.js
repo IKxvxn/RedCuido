@@ -4,6 +4,8 @@ const auth = require('./authController')
 const mongoose = require('mongoose')
 const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
+const crypto = require('crypto');
+const path = require('path');
 
 function getCasosExcluidos(req, res) {
   if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
@@ -22,9 +24,11 @@ function getCasosExcluidos(req, res) {
     })
 }
 
-function createCasoExcluidos(req,res){
 
-  let usuario = req.body.usuario;
+function createCasoExcluidos(req, res) {
+  //Toma el caso del body (que viene en form data)
+  
+  let usuario = JSON.parse(req.body.usuario);
 
   if(usuario.token===undefined){
     res.status(500)
@@ -38,20 +42,72 @@ function createCasoExcluidos(req,res){
     return
   }
 
-  let newCaso = new casoExcluidoModel(req.body.caso)
+  let info = JSON.parse(req.body.caso);
+  info["files"] = []
+  //Crea caso
+  let newCaso = new casoExcluidoModel(info)
+  
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "excluido", action: "create", caso: newCaso._id }
   newCaso.save((err, resp) => {
-    if(err){
+    
+    if (err) {
       res.status(500)
-      res.send({error:true})
+      res.send({ error: true, type: 2 })
     }
-    else{
-      res.status(200)
-      res.send({error:false, caso:newCaso})
+    else {
+      //Agrega notificacion
       usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
+
+      //Recorre req.files en caso de que se haya subido algo
+      var files = [];
+      var archivos = [];
+      if (req.files != undefined) {
+        var fileKeys = Object.keys(req.files);
+        fileKeys.forEach(function (key) {
+          files.push(req.files[key]);
+        });
+      }else{
+        res.status(200)
+        res.send({error:false, caso:newCaso})
+      }
+      var i = 0;
+      while (i < files.length) {
+        let file = files[i];
+        //Genera random bytes por si hay archivos con mismo nombre
+        crypto.randomBytes(8, (err, buf) => {
+          if (err) {
+            console.log(err);
+          }
+          var filename = buf.toString('hex') + '-' + file.name
+          //Va guardando nombres de archivos para asignarselos al caso.  
+          archivos[archivos.length] = filename;
+
+          //Si ya se leyeron todos los files, se le asignan al caso
+          if (archivos.length == files.length) {
+            casoExcluidoModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } },{new:true})
+              .exec((err, caso) => {
+                if (err) {
+                  res.status(500)
+                  res.send({ error: false })
+                }
+                else {
+                  res.status(200)
+                  res.send({ error: false, caso: caso })
+                }
+              })
+          }
+          // Se usa mv() method para mover el archivo a la carpeta uploads dentro del servidor.
+          file.mv(`../Servidor/uploads/${filename}`, function (err) {
+            if (err)
+              console.log('File not uploaded!')
+            console.log('File uploaded!')
+          });
+
+        });
+        i++;
+      }
     }
   })
-
 }
 
 function reactivateCasoExcluido(req, res) {
@@ -105,7 +161,9 @@ function reactivateCasoExcluido(req, res) {
 }
 
 function editCasoExcluido(req, res) {
-  let usuario = req.body.usuario;
+  //Toma el caso del body (que viene en form data)
+  let usuario = JSON.parse(req.body.usuario);
+
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
@@ -118,18 +176,71 @@ function editCasoExcluido(req, res) {
     return
   }
   
-  let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"excluido",action:"update",caso:{}}
-  casoExcluidoModel.findByIdAndUpdate({_id: new mongoose.Types.ObjectId(req.body.caso._id)}, {$set: req.body.caso}, {new:true})
+  let info = JSON.parse(req.body.caso);
+
+  let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "excluido", action: "update", caso: {} }
+  
+  casoExcluidoModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id)},{ $set: info},{new:true})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
-        res.send({error:true})
+        res.send({ error: false })
       }
-      else{
-        res.status(200)
-        res.send({error:false,caso:caso})
+      else {
+        //caso["files"] = []
         notificacion.caso = caso._id
-        usuarioModel.updateMany({"$push": { "notificaciones": notificacion } }).exec()
+        //Recorre req.files en caso de que se haya subido algo
+        var files = [];
+        var archivos = [];
+        if (req.files != undefined) {
+          var fileKeys = Object.keys(req.files);
+          fileKeys.forEach(function (key) {
+            files.push(req.files[key]);
+          });
+        }else{
+          res.status(200)
+          res.send({error:false, caso:caso})
+        }
+        var i = 0;
+        while (i < files.length) {
+          let file = files[i];
+          //Genera random bytes por si hay archivos con mismo nombre
+          crypto.randomBytes(8, (err, buf) => {
+            if (err) {
+              console.log(err);
+            }
+            var filename = buf.toString('hex') + '-' + file.name
+            //Va guardando nombres de archivos para asignarselos al caso.  
+            archivos[archivos.length] = filename;
+
+            //Si ya se leyeron todos los files, se le asignan al caso
+            if (archivos.length == files.length) {
+              if(caso.files.length>0){
+                archivos = caso.files.concat(archivos)
+              }
+              casoExcluidoModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(caso._id)}, {$set: { "files": archivos } },{new:true})
+                .exec((err, casod) => {
+                  if (err) {
+                    res.status(500)
+                    res.send({ error: false })
+                  }
+                  else {
+                    res.status(200)
+                    res.send({ error: false, caso: casod})
+                  }
+                })
+            }
+            // Se usa mv() method para mover el archivo a la carpeta uploads dentro del servidor.
+            file.mv(`../Servidor/uploads/${filename}`, function (err) {
+              if (err)
+                console.log('File not uploaded!')
+              console.log('File uploaded!')
+            });
+
+          });
+          i++;
+        }
+        usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
       }
     })
 }

@@ -114,7 +114,7 @@ class esperaContainer extends React.Component {
             this.handleModoFooter()
           ]}
         >
-          <Form visible={this.setmodalVisible} onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} usuario={this.props.usuario} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile}/>
+          <Form visible={this.setmodalVisible} onRef={ref => (this.form = ref)}  modo={this.props.modo} row={this.props.row} usuario={this.props.usuario} editCaso={this.props.editCaso} downloadFile={this.props.downloadFile} deleteFiles={this.props.deleteFiles}/>
         </Modal>
       </Row>
       <Row>

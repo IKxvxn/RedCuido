@@ -21,6 +21,9 @@ const REJECT_VISITA_FAILURE = 'REJECT_VISITA_FAILURE'
 const DELETE_VISITA_REQUEST = 'DELETE_VISITA_REQUEST'
 const DELETE_VISITA_SUCCESS = 'DELETE_VISITA_SUCCESS'
 const DELETE_VISITA_FAILURE = 'DELETE_VISITA_FAILURE'
+const DELETE_FILES_REQUEST = 'DELETE_VISITA_REQUEST'
+const DELETE_FILES_SUCCESS = 'DELETE_VISITA_SUCCESS'
+const DELETE_FILES_FAILURE = 'DELETE_VISITA_FAILURE'
 
 export function createCaso(data, reset) {
   return function (dispatch) {
@@ -263,3 +266,42 @@ export function deleteCaso(caso, nota, usuario) {
 }
 }
 
+export function deleteFiles(files) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_FILES_REQUEST
+    })
+    fetch(`${API_URL}/eliminar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({files:files}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: DELETE_FILES_FAILURE })
+        }
+        else {
+          dispatch({
+            type: DELETE_FILES_SUCCESS
+          })
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: DELETE_FILES_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
+}

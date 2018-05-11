@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon,  DatePicker } from 'antd';
+import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon,  DatePicker, TreeSelect } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 import moment from 'moment';
 const domicilios = require('../../assets/divisionCR.json').provincias
@@ -13,6 +13,8 @@ class editForm extends React.Component {
     loading: false,
     fileList: [],
     uploading: false,
+    treeData: [{}],
+    treeValue: []
   };
 
   handleSubmit = (handleCreate) => {
@@ -113,10 +115,22 @@ class editForm extends React.Component {
               uploading: false,
               fileList: []
             });
+            //Elimina los archivos que fueron deseleccionados
+            var newFiles = []
+            var nonwantedFiles = []
+            for(var i=0; i<this.props.row.files.length; i++){
+              if (this.state.treeValue.includes(i.toString())){
+                newFiles.push(this.props.row.files[i])
+              }
+              else{
+                nonwantedFiles.push(this.props.row.files[i])
+              }
+            }
             //agrega caso al formdata y envia el caso y los files juntos
-            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id,  files: this.props.row.files }))
+            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id,  files: newFiles }))
             formData.append('usuario', JSON.stringify(this.props.usuario))
             this.props.editCaso(formData, this.props.visible)
+            this.props.deleteFiles(nonwantedFiles)
           }
         }
         else { message.error(Mensajes.verificar) }
@@ -125,7 +139,12 @@ class editForm extends React.Component {
     }
   }
 
-
+  //Maneja los cambios en los archivos seleccionados para mantener en el caso y lo actualiza en el estado.
+  onChange = (value) => {
+    console.log(this.state.treeValue)
+    console.log('onChange ', value, arguments);
+    this.setState({ treeValue:value });
+  }
 
   handleOptionsMode() {
     //props para el componente de Upload de archivos
@@ -211,9 +230,19 @@ class editForm extends React.Component {
         problemas: this.props.row.problemas,
         alternativas: this.props.row.alternativas,
         riesgo: this.props.row.riesgo,
-        notas: this.props.row.notas
+        notas: this.props.row.notas,
+        files: this.state.treeValue
+
       })
-      this.setState({ edit: false })
+      //Carga los archivos existentes y los marca en el tree
+      var archivos = []
+      var value = []
+      for (var i=0; i < this.props.row.files.length; i++){
+        value.push(i.toString())
+        archivos.push({label:this.props.row.files[i].substring(17),value:i.toString(),key:i.toString(),children:[]})
+      }
+      this.setState({ edit: false, treeData: archivos, treeValue: value})
+      this.props.form.setFieldsValue({files: value})
     }
   }
 
@@ -384,6 +413,20 @@ class editForm extends React.Component {
         >
           {getFieldDecorator('notas')(
             <Input.TextArea Rows={8} maxRows={8} disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Archivos"
+        >
+          {getFieldDecorator('files',{ initialValue: this.props.form.files })(
+            <TreeSelect {...{treeData:this.state.treeData,
+              onChange: this.onChange,
+              treeCheckable: true,
+              searchPlaceholder: 'Archivos incluidos',
+              style: {
+                width: 300,
+              },}} disabled = {!this.state.edit} />
           )}
         </FormItem>
         <FormItem>

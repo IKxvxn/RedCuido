@@ -18,6 +18,9 @@ const EXCLUDE_CASO_FAILURE = 'EXCLUDE_CASO_FAILURE'
 const DELETE_ACTIVO_REQUEST = 'DELETE_ACTIVO_REQUEST'
 const DELETE_ACTIVO_SUCCESS = 'DELETE_ACTIVO_SUCCESS'
 const DELETE_ACTIVO_FAILURE = 'DELETE_ACTIVO_FAILURE'
+const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
+const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
+const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
 export function activarCaso(caso,reset,usuario) {
   return function (dispatch) {
@@ -88,15 +91,16 @@ export function getCasos(usuario){
 }
 }
 
-export function editCaso(caso, reset, usuario) {
+export function editCaso(caso, reset) {
   return function (dispatch) {
   dispatch({
     type: EDIT_ACTIVO_REQUEST
   })
-  fetch(`${API_URL}/activos/edit/${caso._id.valueOf()}`, {
+  var variable = caso.get("caso")
+  variable = JSON.parse(variable)
+  fetch(`${API_URL}/activos/edit/${variable._id.valueOf()}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json'},
-    body: JSON.stringify({caso:caso,usuario:usuario}),
+    body: caso,
   })
     .then(response => response.json())
     .then(data => {
@@ -116,7 +120,7 @@ export function editCaso(caso, reset, usuario) {
         reset(false)
         dispatch({
           type: EDIT_ACTIVO_SUCCESS,
-          caso: data.caso
+          caso: { ...data.caso, key: data.caso._id }
         })
         message.success(Mensajes.editadoExito)
       }
@@ -214,4 +218,43 @@ export function deleteCaso(caso, nota, usuario) {
       message.error(Mensajes.errorConexion)
     })
 }
+}
+export function deleteFiles(files) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_FILES_REQUEST
+    })
+    fetch(`${API_URL}/eliminar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({files:files}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: DELETE_FILES_FAILURE })
+        }
+        else {
+          dispatch({
+            type: DELETE_FILES_SUCCESS
+          })
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: DELETE_FILES_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }

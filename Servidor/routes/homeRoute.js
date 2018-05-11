@@ -1,4 +1,5 @@
 const express = require('express')
+const fs = require('fs');
 const casoEsperaController = require('../controllers/casoEsperaController')
 const casoVisitaController = require('../controllers/casoVisitaController')
 const casoActivoController = require('../controllers/casoActivoController')
@@ -8,6 +9,16 @@ const notificacionController = require('../controllers/notificacionController')
 const authController = require('../controllers/authController')
 const router = express.Router()
 
+//Funcion general para eliminar archivos del server.
+router.put('/eliminar', function(req,res){
+    for(var i=0; i < req.body.files.length; i++){
+        fs.unlink(`../Servidor/uploads/${req.body.files[i]}`, (err) => {
+            if (err){
+                console.log(err)
+            };
+        });
+    }  
+})
 
 router.get('/espera', casoEsperaController.getCasosEspera)
 router.post('/espera/casoEspera', casoEsperaController.createCasoEspera)

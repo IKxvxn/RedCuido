@@ -85,16 +85,15 @@ function createCasoEspera(req, res) {
 
           //Si ya se leyeron todos los files, se le asignan al caso
           if (archivos.length == files.length) {
-            casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } })
+            casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } },{new:true})
               .exec((err, caso) => {
                 if (err) {
                   res.status(500)
                   res.send({ error: false })
                 }
                 else {
-                  newCaso.set('files', archivos)
                   res.status(200)
-                  res.send({ error: false, caso: newCaso })
+                  res.send({ error: false, caso: caso })
                 }
               })
           }
@@ -132,14 +131,14 @@ function editCasoEspera(req, res) {
 
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "update", caso: {} }
   
-  casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info},{new:true})
+  casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id)},{ $set: info},{new:true})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
         res.send({ error: false })
       }
       else {
-        caso["files"] = []
+        //caso["files"] = []
         notificacion.caso = caso._id
         //Recorre req.files en caso de que se haya subido algo
         var files = [];
@@ -168,9 +167,9 @@ function editCasoEspera(req, res) {
             //Si ya se leyeron todos los files, se le asignan al caso
             if (archivos.length == files.length) {
               if(caso.files.length>0){
-                archivos = [caso.files, archivos]
+                archivos = caso.files.concat(archivos)
               }
-              casoEsperaModel.updateOne({ _id: new mongoose.Types.ObjectId(caso._id) }, { $set: { "files": archivos } })
+              casoEsperaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(caso._id)}, {$set: { "files": archivos } },{new:true})
                 .exec((err, casod) => {
                   if (err) {
                     res.status(500)
@@ -178,7 +177,7 @@ function editCasoEspera(req, res) {
                   }
                   else {
                     res.status(200)
-                    res.send({ error: false, caso: { ...caso, ingreso: new Date(caso.ingreso), files: archivos } })
+                    res.send({ error: false, caso: casod})
                   }
                 })
             }
@@ -213,6 +212,7 @@ function acceptCasoEspera(req, res) {
   }
   casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
+      //Si hay alguna nota anterior, la adjunta a la nueva
       var nota = req.body.caso.notas;
       if (nota === undefined){
         nota = req.body.nota

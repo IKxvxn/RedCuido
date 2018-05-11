@@ -86,7 +86,7 @@ class NormalLoginForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal modo="ver" usuario={this.props.usuario} row={row} acceptCaso={this.props.acceptCaso} rejectCaso={this.props.rejectCaso} editCaso={this.props.editCaso}  deleteCaso={this.props.deleteCaso}/>,
+    render: (text, row) => <Modal modo="ver" usuario={this.props.usuario} row={row} acceptCaso={this.props.acceptCaso} rejectCaso={this.props.rejectCaso} editCaso={this.props.editCaso}  deleteCaso={this.props.deleteCaso} deleteFiles={this.props.deleteFiles}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -149,10 +149,8 @@ function mapDispatchToProps(dispatch) {
     getCasos: (usuario) => dispatch(visitaActions.getCasos(usuario)),
     editCaso: (caso, reset) => dispatch(visitaActions.editCaso(caso, reset)),
     deleteCaso: (caso, nota, usuario) => dispatch(visitaActions.deleteCaso(caso, nota, usuario)),
+    deleteFiles: (files) => dispatch(visitaActions.deleteFiles(files))
   }
 }
-
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm)

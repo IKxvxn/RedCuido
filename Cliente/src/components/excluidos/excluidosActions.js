@@ -18,17 +18,19 @@ const DELETE_EXCLUIDO_FAILURE = 'DELETE_EXCLUIDO_FAILURE'
 const REACTIVATE_EXCLUIDO_REQUEST = 'REACTIVATE_EXCLUIDO_REQUEST'
 const REACTIVATE_EXCLUIDO_SUCCESS = 'REACTIVATE_EXCLUIDO_SUCCESS'
 const REACTIVATE_EXCLUIDO_FAILURE = 'REACTIVATE_EXCLUIDO_FAILURE'
+const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
+const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
+const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
 
-export function createCaso(caso, reset, usuario) {
+export function createCaso(caso, reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_EXCLUIDO_REQUEST
     })
     fetch(API_URL + "/casoExcluido", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({caso:caso,usuario:usuario}),
+      body: caso,
     })
       .then(response => response.json())
       .then(caso => {
@@ -91,15 +93,16 @@ export function getCasos(usuario) {
 }
 
 
-export function editCaso(caso, reset, usuario) {
+export function editCaso(caso, reset) {
   return function (dispatch) {
     dispatch({
       type: EDIT_EXCLUIDO_REQUEST
     })
-    fetch(`${API_URL}/excluido/edit/${caso._id.valueOf()}`, {
+    var variable = caso.get("caso")
+    variable = JSON.parse(variable)
+    fetch(`${API_URL}/excluido/edit/${variable._id.valueOf()}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({caso:caso, usuario:usuario}),
+      body: caso,
     })
       .then(response => response.json())
       .then(data => {
@@ -217,4 +220,44 @@ export function deleteCaso(caso, nota, usuario) {
       message.error(Mensajes.errorConexion)
     })
 }
+}
+
+export function deleteFiles(files) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_FILES_REQUEST
+    })
+    fetch(`${API_URL}/eliminar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({files:files}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: DELETE_FILES_FAILURE })
+        }
+        else {
+          dispatch({
+            type: DELETE_FILES_SUCCESS
+          })
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: DELETE_FILES_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }

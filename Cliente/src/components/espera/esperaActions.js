@@ -27,6 +27,9 @@ const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 const DELETE_ESPERA_REQUEST = 'DELETE_ESPERA_REQUEST'
 const DELETE_ESPERA_SUCCESS = 'DELETE_ESPERA_SUCCESS'
 const DELETE_ESPERA_FAILURE = 'DELETE_ESPERA_FAILURE'
+const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
+const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
+const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
 export function createCaso(data, reset) {
 
@@ -229,47 +232,6 @@ export function rejectCaso(caso, nota, usuario) {
   }
 }
 
-export function uploadFile(caso, reset) {
-  return function (dispatch) {
-    dispatch({
-      type: UPLOAD_FILE_REQUEST
-    })
-    fetch(`${API_URL}/espera/edit/${caso._id.valueOf()}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(caso),
-    })
-      .then(response => response.json())
-      .then(data => {
-        reset()
-        dispatch({
-          type: UPLOAD_FILE_SUCCESS,
-          caso: data.caso
-        })
-        message.success("El archivo ha sido agregado con éxito")
-      })
-      .catch(error => {
-        dispatch({
-          type: UPLOAD_FILE_FAILURE,
-          error: error
-        })
-        message.error(Mensajes.errorConexion)
-      })
-  }
-}
-
-/*export function downloadFile(caso) {
-  return function (dispatch) {
-    dispatch({
-      type: DOWNLOAD_FILE_REQUEST
-    })
-    //uso window.open por si acaso pero tampoco sirve :c
-    window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
-    dispatch({
-      type: UPLOAD_FILE_SUCCESS,
-    })
-  }
-}*/
 
 export function downloadFile(caso) {
   return function (dispatch) {
@@ -284,7 +246,6 @@ export function downloadFile(caso) {
     })
   }
 }
-
 
 export function deleteCaso(caso, nota, usuario) {
   return function (dispatch) {
@@ -326,4 +287,44 @@ export function deleteCaso(caso, nota, usuario) {
       message.error(Mensajes.errorConexion)
     })
 }
+}
+
+export function deleteFiles(files) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_FILES_REQUEST
+    })
+    fetch(`${API_URL}/eliminar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({files:files}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          if (data.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (data.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: DELETE_FILES_FAILURE })
+        }
+        else {
+          dispatch({
+            type: DELETE_FILES_SUCCESS
+          })
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: DELETE_FILES_FAILURE,
+          error: error
+        })
+        message.error(Mensajes.errorConexion)
+      })
+  }
 }
