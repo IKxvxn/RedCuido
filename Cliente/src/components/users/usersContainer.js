@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import * as userActions from './usersActions'
 import { Table, Row, Col, Input } from 'antd';
-import Descarga from '../home/botonDescarga'
 import Modal from './usersModalContainer'
-var dateFormat = require('dateformat');
 
 var JsSearch = require('js-search');
 var Search = Input.Search
@@ -16,6 +14,8 @@ busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
 busqueda.addIndex('telefono');
 busqueda.addIndex('institucion');
+busqueda.addIndex('tipo');
+busqueda.addIndex('correo');
 busqueda.addIndex('_id');
 
 
@@ -38,11 +38,6 @@ class NormalLoginForm extends React.Component {
   };
 
   columns = [{
-    title: 'Cedula',
-    dataIndex: 'cedula',
-    key: 'cedula',
-    sorter: (a, b) => (a.cedula === undefined || b.cedula===undefined) ? 0 :Number(a.cedula.charAt(0)) - Number(b.cedula.charAt(0)) , 
-  }, {
     title: 'Usuario',
     dataIndex: '_id',
     key: '_id',
@@ -58,9 +53,9 @@ class NormalLoginForm extends React.Component {
     key: 'tipo',
     sorter: (a, b) =>  (a.tipo === undefined) ? "" : a.tipo.localeCompare(b.tipo),
   },{
-    title: 'Teléfono',
-    dataIndex: 'telefono',
-    key: 'telefono',
+    title: 'Institución',
+    dataIndex: 'institucion',
+    key: 'institucion',
   },{
     title: 'Acciones',
     key: 'acciones',
@@ -88,7 +83,7 @@ class NormalLoginForm extends React.Component {
             <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
           </Col>
         </Row>
-        <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "90rem"}} pagination={{ pageSize: 8 }}  />
+        <Table loading={this.props.loading} rowSelection={this.rowSelection} columns={this.columns} dataSource={filter} size= "middle" scroll={{ x: "50rem"}} pagination={{ pageSize: 8 }}  />
       </div>
     );
   }

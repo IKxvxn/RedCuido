@@ -7,7 +7,6 @@ import * as Mensajes from '../../assets/mensajes'
 import logo from '../../images/logo.png'
 import '../../style/login.css'
 import * as loginActions from './loginActions'
-import { Link } from 'react-router-dom'
 
 const FormItem = Form.Item;
 

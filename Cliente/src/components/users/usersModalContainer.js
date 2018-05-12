@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Row, Col, Input } from 'antd';
+import { Modal, Button, Row, Col } from 'antd';
 import Form from './usersModalContaint'
 
 class userContainer extends React.Component {

@@ -23,7 +23,6 @@ export function createCaso(usuario) {
     })
     fetch(API_URL + "/user/create", {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: usuario,
     })
       .then(response => response.json())
@@ -35,7 +34,7 @@ export function createCaso(usuario) {
           message.success("El usuario ha sido creado con éxito")
           dispatch({
             type: NEW_USER_SUCCESS,
-            caso: usuario.caso
+            caso: {...usuario.caso, key:usuario.caso._id}
           })
         }
       })
@@ -83,7 +82,9 @@ export function editCaso(caso, reset) {
     dispatch({
       type: EDIT_USER_REQUEST
     })
-    fetch(`${API_URL}/user/edit/${caso._id.valueOf()}`, {
+    var variable = caso.get("caso")
+    variable = JSON.parse(variable)
+    fetch(`${API_URL}/user/edit/${variable._id.valueOf()}`, {
       method: 'PUT',
       body: caso,
     })

@@ -15,11 +15,14 @@ class editForm extends React.Component {
   handleSubmit = (handleCreate) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
-        if(caso._id === undefined && caso.contraseña === undefined){
-            message.error(Mensajes.minNecesario)
+        if(caso._id === undefined || caso.contraseña === undefined){
+            message.error("Debe ingresar al menos usuario y contraseña")
            }
            else {
-            handleCreate(JSON.stringify({ ...caso, token:this.props.token,usuario:this.props.usuario }, this.props.form.resetFields))
+            const formData = new FormData();  
+            formData.append('caso', JSON.stringify(caso))
+            formData.append('usuario', JSON.stringify(this.props.usuario))
+            handleCreate(formData, this.props.form.resetFields,this.props.usuario)
           }
       }
       else{message.error(Mensajes.verificar)}
@@ -51,7 +54,10 @@ class editForm extends React.Component {
           }
           else {
             this.setState({ edit: false });
-            this.props.editCaso(JSON.stringify({ ...caso, _id: this.props.row._id, usuario:this.props.usuario }, this.props.visible))
+            const formData = new FormData();
+            formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id}))
+            formData.append('usuario', JSON.stringify(this.props.usuario))
+            this.props.editCaso(formData, this.props.visible)
           }
         }
         else { message.error(Mensajes.verificar) }
@@ -91,6 +97,7 @@ class editForm extends React.Component {
           institucion:this.props.row.institucion,
           tipo:this.props.row.tipo,
         })
+        this.setState({ edit: false})
     }
   }
 
@@ -184,9 +191,7 @@ class editForm extends React.Component {
           {...formItemLayout}
           label="Password"
         >
-          {getFieldDecorator('contraseña', {
-             rules: [{ required: true, message: 'Ingresa una contraseña' }],
-          })(<Input prefix={<Icon type="lock"/>} type="password" disabled={!this.state.edit} />)}
+          {getFieldDecorator('contraseña', {})(<Input prefix={<Icon type="lock"/>} type="password" disabled={!this.state.edit} />)}
         </FormItem>
         <FormItem>
           {this.handleOptionsMode()}

@@ -1,6 +1,7 @@
 const auth = require('./authController')
 const mongoose = require('mongoose')
 const usuarioModel = require('../models/usuarioModel')
+const bcrypt = require('bcryptjs');
 const uuidv4 = require('uuid/v4');
 const crypto = require('crypto');
 const path = require('path');
@@ -68,8 +69,11 @@ function editUser(req, res) {
     return
   }
   let info = JSON.parse(req.body.caso);
-  usuarioModel.Update({ _id: new mongoose.Types.ObjectId(info._id)},{ $set: info},{new:true})
-    .exec((err, caso) => {
+  if(info.contraseña!=undefined){
+    info.contraseña=bcrypt.hashSync(info.contraseña, 8)
+  }
+  usuarioModel.findOneAndUpdate({ _id: info._id},{ $set: info},{new:true})
+    .exec((err, casod) => {
       if (err) {
         res.status(500)
         res.send({ error: false })
@@ -93,7 +97,7 @@ function deleteUser(req, res) {
     res.send({ error: true , type: 1})
     return
   }
-  casoRechazadoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
+  usuarioModel.deleteOne({_id: req.params.id})
     .exec((err, caso) => {
       if (err) {
         res.status(500)
