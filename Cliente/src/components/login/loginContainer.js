@@ -18,7 +18,7 @@ class loginContainer extends React.Component {
       if (!err) {
       
         this.props.ingresar(usuario,this.props.history)
-        //Para hacer una cuenta descomente lo de abajo y comente lo de arriba
+        //Esto de abajo ya no funka
         /*this.props.createUsuario({
           tipo: "1",
           nombre: "Gloriana Flores",
@@ -65,12 +65,12 @@ class loginContainer extends React.Component {
 }
 
 loginContainer.propTypes = {
-  createUsuario: PropTypes.func,
+  //createUsuario: PropTypes.func,
   ingresar: PropTypes.func
 }
 
 loginContainer.defaultProps = {
-  createUsuario: () => {},
+  //createUsuario: () => {},
   ingresar: () => {}
 }
 
@@ -82,7 +82,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUsuario: (usuario)  => dispatch(loginActions.createUsuario(usuario)),
+    //createUsuario: (usuario)  => dispatch(loginActions.createUsuario(usuario)),
     ingresar: (usuario,history)  => dispatch(loginActions.ingresar(usuario,history))
   }
 }

@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 
 const usuariosSchema = mongoose.Schema({
   _id: {type: String},
-  tipo: { type: String, default:"0"},
-  ingreso: {type: Date, default: new Date()},
+  cedula: {type: String},
   nombre: {type: String},
+  ingreso: {type: Date, default: new Date()},
+  telefono: {type: String},
+  correo: {type: String},
+  tipo: { type: String, default:"0"},
+  institucion: {type: String},
   contraseña: {type: String},
   notificaciones: { type: Array, default: []},
 })
