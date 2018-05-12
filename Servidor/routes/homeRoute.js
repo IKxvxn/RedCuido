@@ -1,5 +1,6 @@
 const express = require('express')
 const fs = require('fs');
+const casoUserController = require('../controllers/casoUserController')
 const casoEsperaController = require('../controllers/casoEsperaController')
 const casoVisitaController = require('../controllers/casoVisitaController')
 const casoActivoController = require('../controllers/casoActivoController')
@@ -19,6 +20,11 @@ router.put('/eliminar', function(req,res){
         });
     }  
 })
+
+router.get('/user', casoUserController.getUser)
+router.post('/user/create', casoUserController.createUser)
+router.put('/user/edit/:id', casoUserController.editUser)
+router.post('/user/delete/:id', casoUserController.deleteUser)
 
 router.get('/espera', casoEsperaController.getCasosEspera)
 router.post('/espera/casoEspera', casoEsperaController.createCasoEspera)

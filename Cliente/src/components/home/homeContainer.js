@@ -10,6 +10,7 @@ import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'
 import Rechazados from '../rechazados/rechazadosContainer'
 import Excluidos from '../excluidos/excluidosContainer'
+import Usuarios from '../users/usersContainer'
 import { Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
 const {Content, Footer } = Layout;
@@ -109,7 +110,10 @@ class homeContainer extends React.Component {
           break;  
       case "/home/excluidos":
           tab = '5';
-          break;          
+          break;    
+      case "/home/usuarios":
+          tab = '7';
+          break;            
       default:
           tab = '1';
     }
@@ -125,6 +129,7 @@ class homeContainer extends React.Component {
               <Route exact path='/home/activos' component={Activos}/>
               <Route exact path='/home/excluidos' component={Excluidos}/>
               <Route exact path='/home/rechazados' component={Rechazados}/>
+              <Route exact path='/home/usuarios' component={Usuarios}/>
             </Switch>
           </div>
         </Content>
@@ -138,7 +143,8 @@ class homeContainer extends React.Component {
           <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
           <Menu.Item key="6"><Notificaciones deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
-          <Menu.Item key="7"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
+          <Menu.Item key="7"><Link to='/home/usuarios'>Usuarios</Link></Menu.Item>
+          <Menu.Item key="8"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
         </Menu>
       </Layout>
     );
