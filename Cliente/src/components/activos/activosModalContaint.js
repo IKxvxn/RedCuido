@@ -25,7 +25,26 @@ class editForm extends React.Component {
            && caso.señas === undefined && caso.telefono === undefined){
             message.error(Mensajes.minNecesario)
            }
-        else{handleCreate(caso,this.props.form.resetFields,this.props.usuario)}
+           else {
+            //carga archivos del estado
+            this.setState({
+              uploading: true,
+            });
+            const { fileList } = this.state;
+            const formData = new FormData();
+            fileList.forEach((file) => {
+              formData.append(file.name, file);
+            });
+            this.setState({
+              uploading: false,
+              fileList: []
+            });
+  
+            //agrega caso al formdata y envia el caso y los files juntos
+            formData.append('caso', JSON.stringify(caso))
+            formData.append('usuario', JSON.stringify(this.props.usuario))
+            handleCreate(formData, this.props.form.resetFields)
+          }
       }
       else{message.error(Mensajes.verificar)}
     });

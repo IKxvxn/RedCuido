@@ -38,7 +38,7 @@ router.post('/visita/delete/:id', casoVisitaController.deleteCasoVisita)
 
 router.get('/activos', casoActivoController.getCasosActivos)
 router.put('/activos/edit/:id', casoActivoController.editCasoActivo)
-router.post('/casoActivo', casoActivoController.createCasoActivo)
+router.post('/activos/casoActivo', casoActivoController.createCasoActivo)
 router.post('/activos/exclude/:id', casoActivoController.excludeCasoActivo)
 router.get('/activos/download/:id', casoActivoController.download)
 router.post('/activos/delete/:id', casoActivoController.deleteCasoActivo)

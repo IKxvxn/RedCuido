@@ -132,7 +132,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    activarCaso: (caso,closer,usuario)  => dispatch(activosActions.activarCaso(caso,closer,usuario)),
+    activarCaso: (caso,closer)  => dispatch(activosActions.activarCaso(caso,closer)),
     getCasos: (usuarios) => dispatch(activosActions.getCasos(usuarios)),
     editCaso: (caso, reset,usuario) => dispatch(activosActions.editCaso(caso, reset, usuario)),
     excludeCaso: (caso, nota, usuario) => dispatch(activosActions.excludeCaso(caso, nota, usuario)),

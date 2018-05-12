@@ -25,13 +25,12 @@ const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
-export function createCaso(data, reset) {
-
+export function activarCaso(data, reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_ACTIVO_REQUEST
     })
-    fetch(API_URL + "/activo/casoActivo", {
+    fetch(API_URL + "/activos/casoActivo", {
       method: 'POST',
       body: data
     })
@@ -68,47 +67,6 @@ export function createCaso(data, reset) {
   }
 }
 
-export function activarCaso(caso,reset,usuario) {
-  return function (dispatch) {
-    dispatch({
-      type: NEW_ACTIVO_REQUEST
-    })
-    fetch(API_URL+"/casoActivo", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({caso:caso,usuario:usuario}),
-    })
-      .then(response =>response.json())
-      .then(caso => {
-        if(caso.error){
-          if(caso.type===0){
-            message.error(Mensajes.sinToken)
-          }
-          else if (caso.type===1){
-            message.error(Mensajes.tokenExpiro)
-          }
-          else{
-            message.error(Mensajes.errorDesconocido)
-          }
-          dispatch({type: NEW_ACTIVO_FAILURE})
-        }
-        else{
-        message.success("El caso ha sido activado con éxito.")       
-        reset()
-        dispatch({
-          type: NEW_ACTIVO_SUCCESS,
-          caso: {...caso.caso, key:caso.caso._id}
-        })}
-      })
-      .catch(error => {
-        message.error(Mensajes.errorDesconocido)
-        dispatch({
-          type: NEW_ACTIVO_FAILURE,
-          error: error
-        })
-      })
-  }
-}
 
 export function getCasos(usuario){
   return function (dispatch) {

@@ -29,7 +29,6 @@ const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
 export function createCaso(data, reset) {
-
   return function (dispatch) {
     dispatch({
       type: NEW_CASO_REQUEST
