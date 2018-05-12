@@ -25,6 +25,49 @@ const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
+export function createCaso(data, reset) {
+
+  return function (dispatch) {
+    dispatch({
+      type: NEW_ACTIVO_REQUEST
+    })
+    fetch(API_URL + "/activo/casoActivo", {
+      method: 'POST',
+      body: data
+    })
+      .then(response => response.json())
+      .then(caso => {
+        if (caso.error) {
+          if (caso.type === 0) {
+            message.error(Mensajes.sinToken)
+          }
+          else if (caso.type === 1) {
+            message.error(Mensajes.tokenExpiro)
+          }
+          else {
+            message.error(Mensajes.errorDesconocido)
+          }
+          dispatch({ type: NEW_ACTIVO_FAILURE })
+        }
+        else {
+          dispatch({
+            type: NEW_ACTIVO_SUCCESS,
+            caso: { ...caso.caso, key: caso.caso._id }
+          })
+          message.success("El caso ha sido postulado con éxito")
+          reset()
+        }
+      })
+      .catch(error => {
+        message.error(Mensajes.errorConexion)
+        dispatch({
+          type: NEW_ACTIVO_FAILURE,
+          error: error
+        })
+      })
+  }
+}
+
 export function activarCaso(caso,reset,usuario) {
   return function (dispatch) {
     dispatch({
