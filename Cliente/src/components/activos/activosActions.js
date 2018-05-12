@@ -18,6 +18,9 @@ const EXCLUDE_CASO_FAILURE = 'EXCLUDE_CASO_FAILURE'
 const DELETE_ACTIVO_REQUEST = 'DELETE_ACTIVO_REQUEST'
 const DELETE_ACTIVO_SUCCESS = 'DELETE_ACTIVO_SUCCESS'
 const DELETE_ACTIVO_FAILURE = 'DELETE_ACTIVO_FAILURE'
+const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
+const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
+const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
@@ -219,6 +222,19 @@ export function deleteCaso(caso, nota, usuario) {
     })
 }
 }
+
+export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    window.open(API_URL + `/activos/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: DOWNLOAD_FILE_SUCCESS,
+    })
+  }
+}
+
 export function deleteFiles(files) {
   return function (dispatch) {
     dispatch({

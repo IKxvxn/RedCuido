@@ -21,6 +21,9 @@ const REJECT_VISITA_FAILURE = 'REJECT_VISITA_FAILURE'
 const DELETE_VISITA_REQUEST = 'DELETE_VISITA_REQUEST'
 const DELETE_VISITA_SUCCESS = 'DELETE_VISITA_SUCCESS'
 const DELETE_VISITA_FAILURE = 'DELETE_VISITA_FAILURE'
+const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
+const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
+const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 const DELETE_FILES_REQUEST = 'DELETE_VISITA_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_VISITA_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_VISITA_FAILURE'
@@ -138,6 +141,17 @@ export function editCaso(caso, reset) {
   }
 }
 
+export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    window.open(API_URL + `/visita/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: DOWNLOAD_FILE_SUCCESS,
+    })
+  }
+}
 
 export function acceptCaso(caso, nota, usuario) {
   return function (dispatch) {

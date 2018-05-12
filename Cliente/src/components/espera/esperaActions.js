@@ -18,9 +18,6 @@ const ACCEPT_CASO_FAILURE = 'ACCEPT_CASO_FAILURE'
 const REJECT_CASO_REQUEST = 'REJECT_CASO_REQUEST'
 const REJECT_CASO_SUCCESS = 'REJECT_CASO_SUCCESS'
 const REJECT_CASO_FAILURE = 'REJECT_CASO_FAILURE'
-const UPLOAD_FILE_REQUEST = 'UPLOAD_FILE_REQUEST'
-const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS'
-const UPLOAD_FILE_FAILURE = 'UPLOAD_FILE_FAILURE'
 const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
 const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
 const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
@@ -238,11 +235,9 @@ export function downloadFile(caso) {
     dispatch({
       type: DOWNLOAD_FILE_REQUEST
     })
-    //uso window.open por si acaso pero tampoco sirve :c
-    //window.open(API_URL+`/espera/download/${caso._id.valueOf()}`)
     window.open(API_URL + `/espera/download/${caso._id.valueOf()}`)
     dispatch({
-      type: UPLOAD_FILE_SUCCESS,
+      type: DOWNLOAD_FILE_SUCCESS,
     })
   }
 }

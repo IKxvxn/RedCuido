@@ -78,7 +78,7 @@ class ActivosForm extends React.Component {
   },{
     title: 'Acciones',
     key: 'acciones',
-    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}  deleteCaso={this.props.deleteCaso} deleteFiles={this.props.deleteFiles}/>,
+    render: (text, row) => <Modal usuario={this.props.usuario} modo="ver" row={row} excludeCaso={this.props.excludeCaso} editCaso={this.props.editCaso}  deleteCaso={this.props.deleteCaso} downloadFile={this.props.downloadFile} deleteFiles={this.props.deleteFiles}/>,
     fixed: 'right',
     width: "5rem",
   }];
@@ -136,9 +136,9 @@ function mapDispatchToProps(dispatch) {
     getCasos: (usuarios) => dispatch(activosActions.getCasos(usuarios)),
     editCaso: (caso, reset,usuario) => dispatch(activosActions.editCaso(caso, reset, usuario)),
     excludeCaso: (caso, nota, usuario) => dispatch(activosActions.excludeCaso(caso, nota, usuario)),
+    downloadFile: (caso) => dispatch(activosActions.downloadFile(caso)),
     deleteCaso: (caso, nota, usuario) => dispatch(activosActions.deleteCaso(caso, nota, usuario)),
     deleteFiles:(files) => dispatch(activosActions.deleteFiles(files))
-
   }
 }
 

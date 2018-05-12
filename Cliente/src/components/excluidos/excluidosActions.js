@@ -18,6 +18,9 @@ const DELETE_EXCLUIDO_FAILURE = 'DELETE_EXCLUIDO_FAILURE'
 const REACTIVATE_EXCLUIDO_REQUEST = 'REACTIVATE_EXCLUIDO_REQUEST'
 const REACTIVATE_EXCLUIDO_SUCCESS = 'REACTIVATE_EXCLUIDO_SUCCESS'
 const REACTIVATE_EXCLUIDO_FAILURE = 'REACTIVATE_EXCLUIDO_FAILURE'
+const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
+const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
+const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
@@ -92,6 +95,17 @@ export function getCasos(usuario) {
   }
 }
 
+export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    window.open(API_URL + `/excluido/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: DOWNLOAD_FILE_SUCCESS,
+    })
+  }
+}
 
 export function editCaso(caso, reset) {
   return function (dispatch) {

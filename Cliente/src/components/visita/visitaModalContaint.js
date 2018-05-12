@@ -146,6 +146,10 @@ class editForm extends React.Component {
     this.setState({ treeValue:value });
   }
 
+  enterDownload = () => {
+    this.props.downloadFile(this.props.row)
+  }
+
   handleOptionsMode() {
     //props para el componente de Upload de archivos
     const props = {
@@ -182,7 +186,7 @@ class editForm extends React.Component {
               </Upload>
             </Col>
             <Col xs={12} sm={9}>
-              <Button icon="download" type="secondary">Bajar Archivos</Button>
+              <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
             </Col>
           </Row>
         )
@@ -196,7 +200,7 @@ class editForm extends React.Component {
               </Upload>
             </Col>
             <Col xs={12} sm={9}>
-              <Button icon="download" type="secondary">Bajar Archivos</Button>
+              <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
             </Col>
           </Row>
         )

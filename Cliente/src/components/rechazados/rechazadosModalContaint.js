@@ -133,6 +133,10 @@ class editForm extends React.Component {
       console.log('onChange ', value, arguments);
       this.setState({ treeValue:value });
     }
+
+    enterDownload = () => {
+      this.props.downloadFile(this.props.row)
+    }
   
     handleOptionsMode() {
       //props para el componente de Upload de archivos

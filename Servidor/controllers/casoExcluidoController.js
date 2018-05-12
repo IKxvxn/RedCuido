@@ -275,9 +275,24 @@ function deleteCasoExcluido(req, res) {
     })
 }
 
+function download(req,res){
+  casoExcluidoModel.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send(`Ocurrió un error 💩 ${err}`)
+      }
+      var zipFiles = []
+      //agrego files a la lista con formato path y name
+      for (file of caso[0].files){
+        zipFiles[zipFiles.length] =  { path: `../Servidor/uploads/${file}`, name: `${file}` }
+      }
+      res.zip({ files: zipFiles, filename: 'adjuntos.zip'})
+    })
+}
 
 module.exports = {
-  getCasosExcluidos,createCasoExcluidos,editCasoExcluido,reactivateCasoExcluido, deleteCasoExcluido
+  getCasosExcluidos,createCasoExcluidos,editCasoExcluido,reactivateCasoExcluido, deleteCasoExcluido, download
 }
 
 

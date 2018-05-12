@@ -110,8 +110,21 @@ function createCasoActivo(req, res) {
   })
 }
 
-
-
+function download(req,res){
+  casoActivoModel.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
+    .exec((err, caso) => {
+      if (err) {
+        res.status(500)
+        res.send(`Ocurrió un error 💩 ${err}`)
+      }
+      var zipFiles = []
+      //agrego files a la lista con formato path y name
+      for (file of caso[0].files){
+        zipFiles[zipFiles.length] =  { path: `../Servidor/uploads/${file}`, name: `${file}` }
+      }
+      res.zip({ files: zipFiles, filename: 'adjuntos.zip'})
+    })
+}
 
 function editCasoActivo(req, res) {
   //Toma el caso del body (que viene en form data)
@@ -276,7 +289,7 @@ function deleteCasoActivo(req, res) {
 }
 
 module.exports = {
-  getCasosActivos,createCasoActivo,editCasoActivo, excludeCasoActivo, deleteCasoActivo
+  getCasosActivos,createCasoActivo,editCasoActivo, excludeCasoActivo, deleteCasoActivo, download
 }
 
 

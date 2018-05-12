@@ -294,9 +294,6 @@ function rejectCasoEspera(req, res) {
 
 
 function download(req,res){
-  /*console.log("------------------------------")
-  console.log(__dirname)
-  res.download('../servidor/uploads/026fbf374e2dbf4a-algoritmo.JPG','026fbf374e2dbf4a-algoritmo.JPG');*/
   casoEsperaModel.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {

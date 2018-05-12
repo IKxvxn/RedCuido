@@ -115,6 +115,10 @@ class editForm extends React.Component {
       });
     }
 
+    enterDownload = () => {
+      this.props.downloadFile(this.props.row)
+    }
+
     handleOptionsMode() {
        //props para el componente de Upload de archivos
       const props = {

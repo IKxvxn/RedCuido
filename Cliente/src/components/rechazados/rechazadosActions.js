@@ -18,6 +18,9 @@ const DELETE_RECHAZADO_FAILURE = 'DELETE_RECHAZADO_FAILURE'
 const REACTIVATE_RECHAZADO_REQUEST = 'REACTIVATE_RECHAZADO_REQUEST'
 const REACTIVATE_RECHAZADO_SUCCESS = 'REACTIVATE_RECHAZADO_SUCCESS'
 const REACTIVATE_RECHAZADO_FAILURE = 'REACTIVATE_RECHAZADO_FAILURE'
+const DOWNLOAD_FILE_REQUEST = 'DOWNLOAD_FILE_REQUEST'
+const DOWNLOAD_FILE_SUCCESS = 'DOWNLOAD_FILE_SUCCESS'
+const DOWNLOAD_FILE_FAILURE = 'DOWNLOAD_FILE_FAILURE'
 const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
@@ -137,6 +140,17 @@ export function editCaso(caso, reset) {
 }
 }
 
+export function downloadFile(caso) {
+  return function (dispatch) {
+    dispatch({
+      type: DOWNLOAD_FILE_REQUEST
+    })
+    window.open(API_URL + `/rechazado/download/${caso._id.valueOf()}`)
+    dispatch({
+      type: DOWNLOAD_FILE_SUCCESS,
+    })
+  }
+}
 
 export function reactivateCaso(caso, nota,usuario) {
   return function (dispatch) {
