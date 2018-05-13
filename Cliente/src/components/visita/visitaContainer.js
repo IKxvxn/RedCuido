@@ -22,6 +22,7 @@ busqueda.addIndex('riesgo');
 busqueda.addIndex('sede');
 busqueda.addIndex('señas');
 busqueda.addIndex('telefono');
+busqueda.addIndex('_id');
 
 class NormalLoginForm extends React.Component {
   
@@ -91,14 +92,11 @@ class NormalLoginForm extends React.Component {
     width: "5rem",
   }];
 
-
-
   render() {
     
     busqueda.addDocuments(this.props.casosVisita)
-
     var filter
-    if(this.state.filteredWord===""){filter=this.props.casosVisita}
+    if(this.state.filteredWord===""){filter=this.props.casosVisita;this.props.changeCaller("TAB")}
     else{filter = busqueda.search(this.state.filteredWord)}
     return (
       <div>
@@ -110,7 +108,7 @@ class NormalLoginForm extends React.Component {
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosVisita} lista={"visitados"}/>
         </Col>
         <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
-          <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => this.filtrarCampos(value)}/>
+          <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => {this.filtrarCampos(value);this.props.changeId("")}}/>
         </Col>
         
       </Row>
@@ -128,6 +126,9 @@ class NormalLoginForm extends React.Component {
   componentWillReceiveProps(NextProps) {
     if(NextProps.usuario.token!==this.props.usuario.token){
       this.props.getCasos(NextProps.usuario)
+    }
+    if(NextProps.caller!==this.props.caller||NextProps.searchID!==this.props.searchID){
+      this.setState({filteredWord:NextProps.searchID})
     }
   }
 }

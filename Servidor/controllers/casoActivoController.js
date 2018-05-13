@@ -13,7 +13,7 @@ function getCasosActivos(req, res) {
     res.json({ error: true , casos: []})
     return
   }
-  casoActivoModel.find().sort({ingreso: -1})
+  casoActivoModel.find().sort({inicio: -1})
     .exec((err, casos) => {
       if (err) {
         res.status(500)

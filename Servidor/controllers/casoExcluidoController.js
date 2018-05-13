@@ -13,7 +13,7 @@ function getCasosExcluidos(req, res) {
     res.json({ error: true , casos: []})
     return
   }
-  casoExcluidoModel.find().sort({ingreso: -1})
+  casoExcluidoModel.find().sort({exclusion: -1})
     .exec((err, casos) => {
       if (err) {
         res.status(500)

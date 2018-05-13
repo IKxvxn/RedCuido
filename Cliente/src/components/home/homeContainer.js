@@ -4,7 +4,7 @@ import * as homeActions from './homeActions'
 import * as loginActions from '../login/loginActions'
 import * as Style from '../../style/home'
 import Notificaciones from './notificaciones'
-import { Layout, Menu, notification } from 'antd';
+import { Layout, Menu } from 'antd';
 import Espera from '../espera/esperaContainer'
 import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'
@@ -14,14 +14,19 @@ import Usuarios from '../users/usersContainer'
 import { Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
 const {Content, Footer } = Layout;
-
+const TAB = "TAB"
 
 
 class homeContainer extends React.Component {
 
   state = {
-    
+    caller:TAB,
+    id:""
   }
+
+  changeCaller = (state) =>{this.setState({caller:state})}
+  changeId = (state) =>{this.setState({id:state})}
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -29,68 +34,27 @@ class homeContainer extends React.Component {
       }
     });
   }
-  openNotification = (e) => {
-     if (e.key === "6"){
-        notification['info']({
-          message: 'Se ha recibido nueva solicitud.',
-          description: 'Se ha ingresado nueva solicitud de postulante.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-        notification['info']({
-          message: 'Se ha recibido nueva solicitud.',
-          description: 'Se ha ingresado nueva solicitud de postulante.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-        notification['success']({
-          message: 'Se ha aceptado solicitud.',
-          description: 'Carlos Mena Arias ha sido agregado a lista de Beneficiarios Activos.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-
-        notification['error']({
-          message: 'Se ha rechazado solicitud.',
-          description: 'Victoria Fallas García ha sido agregado a lista de Rechazados.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-        notification['error']({
-          message: 'Se ha rechazado solicitud.',
-          description: 'Guillermo Herrera ha sido agregado a lista de Rechazados.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-
-        notification['warning']({
-          message: 'Se ha excluido a beneficiario.',
-          description: 'Rebeca Loría Chinchilla ha sido agregado a lista de Beneficiarios Excluidos.',
-          style: {
-            width: 600,
-            marginLeft: 335 - 600,
-          },
-          duration: 0,
-        });
-    }
-
-  };
   
+  renderEspera = () => {
+    return <Espera caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+  }
+
+  renderVisita = () => {
+    return <Visita caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+  }
+
+  renderActivos = () => {
+    return <Activos caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+  }
+
+  renderRechazados = () => {
+    return <Rechazados caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+  }
+
+  renderExcluidos = () => {
+    return <Excluidos caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+  }
+
   render() {
     //Cambia selected key en menu
     var tab = 1;
@@ -124,11 +88,11 @@ class homeContainer extends React.Component {
         <Content style={Style.contenedor}>
           <div style={Style.contenido}>
             <Switch>
-              <Route exact path='/home/espera' component={Espera}/>
-              <Route exact path='/home/visita' component={Visita}/>
-              <Route exact path='/home/activos' component={Activos}/>
-              <Route exact path='/home/excluidos' component={Excluidos}/>
-              <Route exact path='/home/rechazados' component={Rechazados}/>
+              <Route exact path='/home/espera' render={this.renderEspera}/>
+              <Route exact path='/home/visita' render={this.renderVisita}/>
+              <Route exact path='/home/activos' render={this.renderActivos}/>
+              <Route exact path='/home/excluidos' render={this.renderExcluidos}/>
+              <Route exact path='/home/rechazados' render={this.renderRechazados}/>
               <Route exact path='/home/usuarios' component={Usuarios}/>
             </Switch>
           </div>
@@ -137,12 +101,12 @@ class homeContainer extends React.Component {
           Red de Cuido C.R. ©2018
         </Footer>
         <Menu mode="horizontal" theme="dark" selectedKeys={[tab]} style={Style.menu} >
-          <Menu.Item key="1"><Link to='/home/espera'>Espera</Link></Menu.Item>
-          <Menu.Item key="2"><Link to='/home/visita'>Visita</Link></Menu.Item>
-          <Menu.Item key="3"><Link to='/home/activos'>Activos</Link></Menu.Item>
-          <Menu.Item key="4"><Link to='/home/rechazados'>Rechazados</Link></Menu.Item>
-          <Menu.Item key="5"><Link to='/home/excluidos'>Excluidos</Link></Menu.Item>
-          <Menu.Item key="6"><Notificaciones deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones}/></Menu.Item>
+          <Menu.Item key="1"><Link to='/home/espera' onClick={() => this.changeCaller(TAB)}>Espera</Link></Menu.Item>
+          <Menu.Item key="2"><Link to='/home/visita' onClick={() => this.changeCaller(TAB)}>Visita</Link></Menu.Item>
+          <Menu.Item key="3"><Link to='/home/activos' onClick={() => this.changeCaller(TAB)}>Activos</Link></Menu.Item>
+          <Menu.Item key="4"><Link to='/home/rechazados' onClick={() => this.changeCaller(TAB)}>Rechazados</Link></Menu.Item>
+          <Menu.Item key="5"><Link to='/home/excluidos' onClick={() => this.changeCaller(TAB)}>Excluidos</Link></Menu.Item>
+          <Menu.Item key="6"><Notificaciones getNotificaciones={this.props.getNotificaciones} changeCaller={this.changeCaller} changePlace={this.changePlace} changeId={this.changeId} deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones} /></Menu.Item>
           <Menu.Item key="7"><Link to='/home/usuarios'>Usuarios</Link></Menu.Item>
           <Menu.Item key="8"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
         </Menu>
@@ -161,12 +125,12 @@ class homeContainer extends React.Component {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
       
-      async function demo(usuario,getNotificaciones) {
-        await sleep(30000);
+      async function notificacionesCaller(usuario,getNotificaciones) {
         getNotificaciones(usuario)
-        demo(usuario,getNotificaciones)
+        await sleep(30000);
+        notificacionesCaller(usuario,getNotificaciones)
       }
-      demo(NextProps.usuario, this.props.getNotificaciones);
+      notificacionesCaller(NextProps.usuario, this.props.getNotificaciones);
     }
   }
 }

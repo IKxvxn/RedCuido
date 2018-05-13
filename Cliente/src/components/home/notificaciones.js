@@ -1,7 +1,10 @@
 import React from "react";
 import { Badge, Button, List, Row,Col, Popover,Icon } from 'antd';
+import { Link } from 'react-router-dom'
 import * as Localizacion from '../../assets/localizacion'
+import {getLocation} from 'react-router-redux';
 var dateFormat = require('dateformat');
+const NOT = "NOT"
 
 dateFormat.i18n = Localizacion.fecha
 
@@ -73,13 +76,35 @@ function generadorMensaje(item,usuario){
   if(item.location ==="activo"||item.location ==="rechazado"||item.location ==="excluido"){
     item.location=item.location+"s"
   }
-  return accion+" un caso en lista de "+item.location
+  return <span><span style={{fontWeight:700}}>{accion}</span><span>{" un caso en la lista de "}<span style={{fontWeight:700}}>{item.location}</span></span></span>
 }
 
-class bontonDescarga extends React.Component {
-  state = {
-  };
+function getPath(item){
+  if(item.location ==="activo"||item.location ==="rechazado"||item.location ==="excluido"){
+    item.location=item.location+"s"
+  }  
+  switch (item.action){
+    case "create":
+      return '/home/'+item.location
+    case "update":
+      return '/home/'+item.location
+    case "reactivate":
+      return '/home/espera'
+    case "accepted":
+      if(item.location==="espera"){return '/home/visita'}
+      if(item.location==="visita"){return '/home/activos'}
+      break;
+    case "rejected":
+      return '/home/rechazados'
+    case "excluded":
+      return '/home/excluidos'
+    default:
+      return '/home/espera'
+  }
+}
 
+
+class bontonDescarga extends React.Component {
   render() {
       var content = (
         <List
@@ -92,7 +117,7 @@ class bontonDescarga extends React.Component {
                 avatar={
                   <Row gutter={8} type="flex" justify="center" style={{maxWidth:"3rem"}}>
                     <Col sm={24} >
-                      <Button shape="circle" type="secondary"><Icon type="eye" /></Button>
+                    <Link to={getPath(item)} onClick={()=>{this.props.changeCaller(NOT);this.props.changeId(item.caso)}}><Button shape="circle" disabled={(item.action==="delete")?true:false} type="secondary"><Icon type="eye" /></Button></Link>
                     </Col>
                     <Col sm={24} >
                        <Button onClick={()=>{this.props.deleteNotificacion(this.props.usuario,item._id)}} style={{margin:"0.2rem 0"}}shape="circle" type="danger"><Icon type="delete" /></Button>
@@ -119,10 +144,11 @@ class bontonDescarga extends React.Component {
     return( 
       <Popover placement="bottomRight" title={ <Button type="danger" ghost onClick={() =>{this.props.cleanNotificaciones(this.props.usuario)}}>Limpiar Notificaciones</Button>} content={content} trigger="click">
         <Badge count={this.props.notificaciones.length}>
-            <Button shape="circle" type="danger"> <Icon type="notification" /></Button>
+            <Button shape="circle" type="danger" onClick={()=>this.props.getNotificaciones(this.props.usuario)}> <Icon type="notification" /></Button>
         </Badge>
       </Popover>)
     }
+    
 }
 
 
