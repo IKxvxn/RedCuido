@@ -6,6 +6,8 @@ const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
 const path = require('path');
 const crypto = require('crypto');
+const Permisos = require('../models/permisos');
+
 
 function getCasosActivos(req, res) {
   if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
@@ -39,6 +41,12 @@ function createCasoActivo(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 
@@ -141,6 +149,12 @@ function editCasoActivo(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
   
   let info = JSON.parse(req.body.caso);
 
@@ -225,6 +239,12 @@ function excludeCasoActivo(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
   casoActivoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
     .exec((err, caso) => {
       //Configura nota con nota anterior
@@ -271,6 +291,12 @@ function deleteCasoActivo(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 

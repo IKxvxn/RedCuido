@@ -6,6 +6,7 @@ const usuarioModel = require('../models/usuarioModel')
 const uuidv4 = require('uuid/v4');
 const crypto = require('crypto');
 const path = require('path');
+const Permisos = require('../models/permisos');
 
 function getCasosExcluidos(req, res) {
   if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
@@ -39,6 +40,11 @@ function createCasoExcluidos(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 
@@ -124,6 +130,11 @@ function reactivateCasoExcluido(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
 
   casoExcluidoModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
     .exec((err, caso) => {
@@ -173,6 +184,11 @@ function editCasoExcluido(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
   
@@ -257,6 +273,11 @@ function deleteCasoExcluido(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.LIST_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 

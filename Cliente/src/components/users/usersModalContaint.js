@@ -169,7 +169,7 @@ class editForm extends React.Component {
               <Option value="Administrador">Administrador</Option>
               <Option value="Modificador">Modificador</Option>
               <Option value="Espera">Espera</Option>
-              <Option value="Observador">Observador</Option>
+              <Option value="Consultor">Consultor</Option>
             </Select>
           )}
         </FormItem>

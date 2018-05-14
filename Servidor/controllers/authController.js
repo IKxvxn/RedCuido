@@ -29,7 +29,7 @@ function ingresar(req, res) {
   usuarioModel.findById(usuario.usuario).then((user)=>{
       if(!user){res.status(500);res.send({error:true, type:0})}
       else if(bcrypt.compareSync(usuario.contraseña,user.contraseña)){
-        res.status(200);res.send({error:false,usuario:{usuario:usuario.usuario,token:jwt.sign({ id: usuario.usuario }, config.pass, {expiresIn: 86400})}});
+        res.status(200);res.send({error:false,usuario:{usuario:usuario.usuario,tipo:user.tipo,token:jwt.sign({ id: usuario.usuario }, config.pass, {expiresIn: 86400})}});
       }
       else{res.status(500);res.send({error:true, type:1})}
     }).catch(error => {

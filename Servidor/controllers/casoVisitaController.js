@@ -2,11 +2,13 @@ const casoVisitaModel = require('../models/casoVisitaModel')
 const casoActivoModel = require('../models/casoActivoModel')
 const casoRechazadoModel = require('../models/casoRechazadoModel')
 const usuarioModel = require('../models/usuarioModel')
+const Permisos = require('../models/permisos');
 const auth = require('./authController')
 const uuidv4 = require('uuid/v4');
 const crypto = require('crypto');
 const mongoose = require('mongoose')
 const path = require('path');
+
 
 function getCasosVisita(req, res) {
   if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
@@ -38,6 +40,11 @@ function createCasoVisita(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 
@@ -117,6 +124,11 @@ function editCasoVisita(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
   let info = JSON.parse(req.body.caso);
@@ -205,6 +217,12 @@ function acceptCasoVisita(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+
+  if(Permisos.ESP_VIS_ACEP.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       //Configura nota con nota anterior
@@ -251,6 +269,11 @@ function rejectCasoVisita(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.ESP_VIS_ACEP.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
@@ -300,6 +323,11 @@ function deleteCasoVisita(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 

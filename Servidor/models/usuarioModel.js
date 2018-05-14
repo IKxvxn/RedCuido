@@ -7,7 +7,7 @@ const usuariosSchema = mongoose.Schema({
   ingreso: {type: Date, default: new Date()},
   telefono: {type: String},
   correo: {type: String},
-  tipo: { type: String, default:"0"},
+  tipo: { type: String, default:"Observador"},
   institucion: {type: String},
   contraseña: {type: String},
   notificaciones: { type: Array, default: []},

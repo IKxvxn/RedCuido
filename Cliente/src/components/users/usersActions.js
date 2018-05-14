@@ -29,6 +29,9 @@ export function createCaso(usuario) {
       .then(usuario => {
         if (usuario.error) {
           message.error("El usuario ya existe, no se ha podido crear")
+          dispatch({
+            type: NEW_USER_FAILURE,
+          })
         }
         else {
           message.success("El usuario ha sido creado con éxito")
@@ -54,7 +57,7 @@ export function getCasos(usuario) {
     dispatch({
       type: GET_USER_REQUEST
     })
-    fetch(API_URL + "/user?token=" + usuario.token)
+    fetch(API_URL + "/user?token=" + usuario.token +"&tipo=" +  usuario.tipo)
       .then(response => response.json())
       .then(data => {
         for (let i = 0; i < data.casos.length; i++) {

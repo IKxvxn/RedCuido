@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button, Row, Col, Input } from 'antd';
 import Form from './esperaModalContaint'
+import * as Permisos from '../../assets/permisos' 
+
 
 class esperaContainer extends React.Component {
   state = {
@@ -49,7 +51,7 @@ class esperaContainer extends React.Component {
     if (this.props.modo==="ver"){
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
-    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
+    return <Button disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
 
   }
 
@@ -57,9 +59,10 @@ class esperaContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Caso</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Caso</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
+              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Caso</Button></Col>
+              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Caso</Button></Col>
+              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
+              
         </Row>
       )
     }

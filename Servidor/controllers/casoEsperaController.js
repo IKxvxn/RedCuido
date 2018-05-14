@@ -7,6 +7,7 @@ const uuidv4 = require('uuid/v4');
 const crypto = require('crypto');
 const mongoose = require('mongoose')
 const path = require('path');
+const Permisos = require('../models/permisos');
 
 
 function getCasosEspera(req, res) {
@@ -40,6 +41,12 @@ function createCasoEspera(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 
@@ -127,6 +134,12 @@ function editCasoEspera(req, res) {
     return
   }
   
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
+  
   let info = JSON.parse(req.body.caso);
 
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "update", caso: {} }
@@ -210,6 +223,13 @@ function acceptCasoEspera(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+
+  if(Permisos.ESP_VIS_ACEP.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
+    return
+  }
+
   casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       //Si hay alguna nota anterior, la adjunta a la nueva
@@ -256,6 +276,12 @@ function rejectCasoEspera(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+
+  if(Permisos.ESP_VIS_ACEP.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 
@@ -322,6 +348,12 @@ function deleteCasoEspera(req, res) {
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
+    return
+  }
+
+  if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
+    res.status(100)
+    res.send({ error: true , type: 2})
     return
   }
 

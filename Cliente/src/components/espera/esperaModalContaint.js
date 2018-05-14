@@ -1,9 +1,11 @@
 import React from 'react';
 import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon, TreeSelect } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
+import * as Permisos from '../../assets/permisos' 
 const domicilios = require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
+
 
 
 class editForm extends React.Component {
@@ -179,7 +181,7 @@ class editForm extends React.Component {
       if (this.state.edit === false) {
         return (
           <Row gutter={8}>
-            <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+            <Col xs={24} sm={6}><Button icon="edit" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
             <Col xs={12} sm={9}>
               <Upload {...props} >
                 <Button disabled={true}> <Icon type="upload" />Añadir Archivo</Button>

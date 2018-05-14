@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Row, Col, Input } from 'antd';
 import Form from './rechazadosModalContaint'
+import * as Permisos from '../../assets/permisos' 
 
 class rechazadosContainer extends React.Component {
   state = {
@@ -45,15 +46,15 @@ class rechazadosContainer extends React.Component {
     if (this.props.modo === "ver") {
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
-    return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
+    return <Button icon="file-add" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
   }
 
   handleModoFooter() {
     if (this.props.modo === "ver") {
       return (
         <Row gutter={8} type="flex" justify="end">
-          <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Reactivar</Button></Col>
-          <Col xs={12} sm={7}><Button type="danger" loading={this.props.loading} ghost  onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
+          <Col xs={12} sm={7}><Button type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Reactivar</Button></Col>
+          <Col xs={12} sm={7}><Button type="danger" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost  onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     } else {

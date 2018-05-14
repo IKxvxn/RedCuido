@@ -13,6 +13,7 @@ import Excluidos from '../excluidos/excluidosContainer'
 import Usuarios from '../users/usersContainer'
 import { Route, Switch,Link } from 'react-router-dom'
 import '../../style/home.css'
+import * as Permisos from '../../assets/permisos' 
 const {Content, Footer } = Layout;
 const TAB = "TAB"
 
@@ -56,6 +57,7 @@ class homeContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.usuario)
     //Cambia selected key en menu
     var tab = 1;
 
@@ -106,8 +108,8 @@ class homeContainer extends React.Component {
           <Menu.Item key="3"><Link to='/home/activos' onClick={() => this.changeCaller(TAB)}>Activos</Link></Menu.Item>
           <Menu.Item key="4"><Link to='/home/rechazados' onClick={() => this.changeCaller(TAB)}>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos' onClick={() => this.changeCaller(TAB)}>Excluidos</Link></Menu.Item>
+          {Permisos.accessUsuario(this.props.usuario.tipo)?<Menu.Item key="7"><Link to='/home/usuarios'>Usuarios</Link></Menu.Item>:false}
           <Menu.Item key="6"><Notificaciones getNotificaciones={this.props.getNotificaciones} changeCaller={this.changeCaller} changePlace={this.changePlace} changeId={this.changeId} deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones} /></Menu.Item>
-          <Menu.Item key="7"><Link to='/home/usuarios'>Usuarios</Link></Menu.Item>
           <Menu.Item key="8"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
         </Menu>
       </Layout>
@@ -116,6 +118,10 @@ class homeContainer extends React.Component {
   componentDidMount(){
     this.props.loadSessionState()
     this.props.getNotificaciones(this.props.usuario)
+    this._mounted = true;
+  }
+  componentWillUnmount() {
+    this._mounted = false;
   }
   componentWillReceiveProps(NextProps) {
     if(NextProps.usuario.token!==this.props.usuario.token){
@@ -125,12 +131,13 @@ class homeContainer extends React.Component {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
       
-      async function notificacionesCaller(usuario,getNotificaciones) {
+      async function notificacionesCaller(usuario,getNotificaciones, component) {
         getNotificaciones(usuario)
         await sleep(30000);
-        notificacionesCaller(usuario,getNotificaciones)
+        if (component._mounted===false){return}
+        notificacionesCaller(usuario,getNotificaciones,component)
       }
-      notificacionesCaller(NextProps.usuario, this.props.getNotificaciones);
+      notificacionesCaller(NextProps.usuario, this.props.getNotificaciones, this);
     }
   }
 }
