@@ -4,7 +4,7 @@ import * as homeActions from './homeActions'
 import * as loginActions from '../login/loginActions'
 import * as Style from '../../style/home'
 import Notificaciones from './notificaciones'
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Col, Row} from 'antd';
 import Espera from '../espera/esperaContainer'
 import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'
@@ -37,27 +37,26 @@ class homeContainer extends React.Component {
   }
   
   renderEspera = () => {
-    return <Espera caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+    return <Espera query={this.props.query} filtro={this.props.filtro} getFiltered={this.props.getFiltered} caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
   }
 
   renderVisita = () => {
-    return <Visita caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+    return <Visita query={this.props.query} filtro={this.props.filtro} getFiltered={this.props.getFiltered} caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
   }
 
   renderActivos = () => {
-    return <Activos caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+    return <Activos query={this.props.query} filtro={this.props.filtro} getFiltered={this.props.getFiltered} caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
   }
 
   renderRechazados = () => {
-    return <Rechazados caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+    return <Rechazados query={this.props.query} filtro={this.props.filtro} getFiltered={this.props.getFiltered} caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
   }
 
   renderExcluidos = () => {
-    return <Excluidos caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
+    return <Excluidos query={this.props.query} filtro={this.props.filtro} getFiltered={this.props.getFiltered} caller={this.state.caller} searchID={this.state.id} changeId={this.changeId} changeCaller={this.changeCaller}/>
   }
 
   render() {
-    console.log(this.props.usuario)
     //Cambia selected key en menu
     var tab = 1;
 
@@ -86,7 +85,6 @@ class homeContainer extends React.Component {
 
     return (
       <Layout style={Style.body} >
-        
         <Content style={Style.contenedor}>
           <div style={Style.contenido}>
             <Switch>
@@ -102,16 +100,16 @@ class homeContainer extends React.Component {
         <Footer style={Style.footer}>
           Red de Cuido C.R. ©2018
         </Footer>
-        <Menu mode="horizontal" theme="dark" selectedKeys={[tab]} style={Style.menu} >
+        <Menu mode='horizontal' theme="dark" selectedKeys={[tab]} style={Style.menu} >
           <Menu.Item key="1"><Link to='/home/espera' onClick={() => this.changeCaller(TAB)}>Espera</Link></Menu.Item>
           <Menu.Item key="2"><Link to='/home/visita' onClick={() => this.changeCaller(TAB)}>Visita</Link></Menu.Item>
           <Menu.Item key="3"><Link to='/home/activos' onClick={() => this.changeCaller(TAB)}>Activos</Link></Menu.Item>
           <Menu.Item key="4"><Link to='/home/rechazados' onClick={() => this.changeCaller(TAB)}>Rechazados</Link></Menu.Item>
           <Menu.Item key="5"><Link to='/home/excluidos' onClick={() => this.changeCaller(TAB)}>Excluidos</Link></Menu.Item>
           {Permisos.accessUsuario(this.props.usuario.tipo)?<Menu.Item key="7"><Link to='/home/usuarios'>Usuarios</Link></Menu.Item>:false}
-          <Menu.Item key="6"><Notificaciones getNotificaciones={this.props.getNotificaciones} changeCaller={this.changeCaller} changePlace={this.changePlace} changeId={this.changeId} deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones} /></Menu.Item>
+          <Menu.Item key="6"><Notificaciones getNotificaciones={this.props.getNotificaciones} changeCaller={this.changeCaller}  changeId={this.changeId} deleteNotificacion={this.props.deleteNotificacion} cleanNotificaciones={this.props.cleanNotificaciones} usuario={this.props.usuario} notificaciones={this.props.notificaciones} /></Menu.Item>
           <Menu.Item key="8"><Link to='' onClick={()=>{this.props.sessionlogout()}}>Salir</Link></Menu.Item>
-        </Menu>
+    </Menu>
       </Layout>
     );
   }
@@ -145,13 +143,16 @@ class homeContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     usuario: state.loginReducer.usuario,
-    notificaciones: state.homeReducer.notificaciones
+    notificaciones: state.homeReducer.notificaciones,
+    filtro: state.homeReducer.filtro,
+    query: state.homeReducer.query
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getNotificaciones: (usuario)  => dispatch(homeActions.getNotificaciones(usuario)),
+    getFiltered: (usuario,word) => dispatch(homeActions.getFiltered(usuario,word)),
     cleanNotificaciones: (usuario)  => dispatch(homeActions.cleanNotificaciones(usuario)),
     deleteNotificacion: (usuario,notificacion)  => dispatch(homeActions.deleteNotificacion(usuario,notificacion)),
     loadSessionState: () => dispatch(loginActions.loadState()),

@@ -15,6 +15,10 @@ const DELETE_NOTIFICACION_REQUEST = 'DELETE_NOTIFICACION_REQUEST'
 const DELETE_NOTIFICACION_SUCCESS = 'DELETE_NOTIFICACION_SUCCESS'
 const DELETE_NOTIFICACION_FAILURE = 'DELETE_NOTIFICACION_FAILURE'
 
+const GET_FILTERED_REQUEST = 'GET_FILTERED_REQUEST'
+const GET_FILTERED_SUCCESS = 'GET_FILTERED_SUCCESS'
+const GET_FILTERED_FAILURE = 'GET_FILTERED_FAILURE'
+
 export function getNotificaciones(usuario) {
   return function (dispatch) {
     dispatch({
@@ -114,3 +118,30 @@ export function deleteNotificacion(usuario,notificacion) {
       message.error(Mensajes.errorConexion)
     })
 }}
+
+export function getFiltered(usuario,query) {
+  return function (dispatch) {
+    dispatch({
+      type: GET_FILTERED_REQUEST
+    })
+    fetch(API_URL + "/filtered?token="+usuario.token+"&filtro="+query)
+      .then(response => response.json())
+      .then(data => {
+        return data.filtro;
+      }).then(filtro => {
+        dispatch({
+          type: GET_FILTERED_SUCCESS,
+          filtro: filtro,
+          query:query
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_FILTERED_FAILURE,
+          query:query,
+          error: error
+        })
+      })
+  }
+  
+}

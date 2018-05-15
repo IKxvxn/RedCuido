@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as visitaActions from './visitaActions'
-import { Table, Row, Col, Input } from 'antd';
+import { Table, Row, Col } from 'antd';
 import Descarga from '../home/botonDescarga'
 import Modal from './visitaModalContainer'
+import BarraB from '../barraBusqueda/barraContainer'
 
 var JsSearch = require('js-search');
 var dateFormat = require('dateformat');
-var Search = Input.Search
 
 var busqueda = new JsSearch.Search('_id');
 busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
@@ -108,7 +108,7 @@ class NormalLoginForm extends React.Component {
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosVisita} lista={"visitados"}/>
         </Col>
         <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
-          <Search  placeholder="Escriba aquí la información que desea buscar" enterButton onSearch={value => {this.filtrarCampos(value);this.props.changeId("")}}/>
+         <BarraB query={this.props.query} getFiltered={this.props.getFiltered} filtro={this.props.filtro} usuario={this.props.usuario} filtrarCampos={this.filtrarCampos} changeId={this.props.changeId} changeCaller={this.props.changeCaller}/>
         </Col>
         
       </Row>

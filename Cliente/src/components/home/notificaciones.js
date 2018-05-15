@@ -132,6 +132,9 @@ class bontonDescarga extends React.Component {
                     <Col sm={24}>
                        <span style={{fontSize:"0.8rem",color:"#3aa4a4"}}>{dateFormat(new Date(item.fecha),"dd De mmmm, yyyy ~ hh:MM TT")}</span>
                     </Col>
+                    <Col sm={24}>
+                       <span style={{fontSize:"0.8rem",color:"#3aa4a4"}}>{item.caso}</span>
+                    </Col>
                   </Row>
                 }
                 description={generadorMensaje(item,this.props.usuario)}

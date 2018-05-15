@@ -19,6 +19,7 @@
     "express": "^4.16.2",
     "express-easy-zip": "^1.1.4",
     "express-fileupload": "^0.4.0",
+    "js-search": "^1.4.2",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.3",
     "morgan": "^1.9.0",

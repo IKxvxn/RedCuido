@@ -64,6 +64,7 @@ router.get('/rechazado/download/:id', casoRechazadoController.download)
 router.post('/rechazado/delete/:id', casoRechazadoController.deleteCasoRechazado)
 
 router.get('/notificaciones', notificacionController.getNotificaciones)
+router.get('/filtered', notificacionController.getFiltered)
 router.post('/cleanNotificaciones', notificacionController.cleanNotificaciones)
 router.post('/deleteNotificacion', notificacionController.deleteNotificacion)
 
