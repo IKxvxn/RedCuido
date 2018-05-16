@@ -8,6 +8,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 var dateFormat = require('dateformat');
+const domicilios = require('../../assets/divisionCR.json').provincias
 
 const text = <span>Opciones de Descarga</span>;
 
@@ -20,9 +21,31 @@ class bontonDescarga extends React.Component {
       info:'1'
   };
 
+  //Preconfigura el domicilio y fecha en los casos.
+  preconfigurarJson = (json) => {
+    for (var i=0; i<json.length; i++){
+      var domicilio = json[i].domicilio;
+      var lista = domicilios;
+      var nuevoDomicilio = "";
+      for (var j=0; j < domicilio.length; j++){
+        if (j !==0 ){
+          lista = lista[domicilio[j-1]].children;
+          nuevoDomicilio = nuevoDomicilio + ", "
+        }
+        nuevoDomicilio = nuevoDomicilio + lista[domicilio[j]].label
+      }
+      json[i].domicilio = nuevoDomicilio;
+      json[i].ingreso = dateFormat(json[i].ingreso,'dd-mm-yyyy');
+      json[i].nacimiento = dateFormat(json[i].nacimiento,'dd-mm-yyyy');
+      json[i].inicio = dateFormat(json[i].inicio,'dd-mm-yyyy');
+      json[i].rechazo = dateFormat(json[i].rechazo,'dd-mm-yyyy');
+      json[i].exclusion = dateFormat(json[i].exclusion,'dd-mm-yyyy');
+    }
+    return json;
+  }
+
   //Si el formato es 1, se crea archivo con solo seleccionados. Si es 2, con todos los casos.
   download = (formato) => {
-    console.log("entra")
    var fields = []
     switch(this.props.lista) {
       case "espera":
@@ -71,11 +94,11 @@ class bontonDescarga extends React.Component {
       const json2csvParser = new Json2csvParser({ fields,excelStrings,delimiter});
       //Si se utilizan solo las filas seleccionadas
       if (formato === "1"){
-        datosCsv = json2csvParser.parse(this.props.seleccionadas);
+        datosCsv = json2csvParser.parse(this.preconfigurarJson(this.props.seleccionadas));
       }
       //Si se utilizan todas las filas
       else{
-        datosCsv = json2csvParser.parse(this.props.todos);
+        datosCsv = json2csvParser.parse(this.preconfigurarJson(this.props.todos));
       }
       var blob = new Blob([datosCsv], {type: "text/plain;charset=utf-8"});
       FileSaver.saveAs(blob, `casos_${this.props.lista}.csv`);
@@ -83,18 +106,16 @@ class bontonDescarga extends React.Component {
       var bodyt = [fields]
       var obj;
       if (formato === "1"){
-        obj = this.props.seleccionadas;
+        obj = this.preconfigurarJson(this.props.seleccionadas);
       }//Si se utilizan todas las filas
       else{
-        obj = this.props.todos;
+        obj = this.preconfigurarJson(this.props.todos);
       }
       for (var elem in obj) {
         var arr = [];
         for(var att in fields){
           if(obj[elem][fields[att]]==null){
             arr.push("-");
-          }else if(fields[att]==='ingreso' || fields[att]==='inicio'|| fields[att]==='nacimiento'|| fields[att]==='rechazo'|| fields[att]==='exclusion'){
-            arr.push(dateFormat(new Date(obj[elem][fields[att]]),"dd-mm-yyyy"));
           }else{
             arr.push(obj[elem][fields[att]]);
           }
