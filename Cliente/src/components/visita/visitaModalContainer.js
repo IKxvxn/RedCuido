@@ -106,7 +106,7 @@ class visitaContainer extends React.Component {
         {this.handleModoOpenerTitle()}
         <Modal
           title={this.handleModoTitle()}
-          maskStyle={{backgroundColor:"#3aa4a4"}}
+          maskStyle={{backgroundColor:"#88beb6"}}
           destroyOnClose
           closable={false}
           visible={this.state.modalVisible}

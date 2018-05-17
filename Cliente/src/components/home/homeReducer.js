@@ -26,7 +26,7 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
         }
         case 'LOGOUT':
             return{
-                notificaciones: []
+                notificaciones: [],filtro:[],query:""
         }
         default:
             return state

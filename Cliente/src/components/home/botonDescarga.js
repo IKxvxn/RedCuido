@@ -125,7 +125,7 @@ class bontonDescarga extends React.Component {
       var widthsl=Array.apply(null, Array(fields.length)).map(Number.prototype.valueOf,930/fields.length);
       console.log(widthsl)
       var dd = { content: [{text: 'Red de Cuido Sede Heredia', style: 'header'},
-          'Teléfono: (506) 2275-3989', 'Correo electrónico: reddecuido.ccheredia@gmail.com', `PDF generado el: ${dateFormat(new Date(),"dd-mm-yyyy")}`,
+          'Correo electrónico: reddecuido.ccheredia@gmail.com', `PDF generado el: ${dateFormat(new Date(),"dd-mm-yyyy")}`,
           {text: `Lista de ${this.props.lista}`, style: 'subheader'},
           {style: 'tableExample',
             table: {headerRows: 1,widths:widthsl,body: bodyt},layout: 'lightHorizontalLines',fontSize: 10.5}
