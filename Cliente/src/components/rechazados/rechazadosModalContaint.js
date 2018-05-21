@@ -235,16 +235,7 @@ class editForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 20 },
-      },
-    };
+    const formItemLayout = null;
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -278,7 +269,7 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Ingreso"
+          label="Fecha de Ingreso a Espera"
         >
         {getFieldDecorator('ingreso', {
         })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
@@ -286,7 +277,7 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Rechazo"
+          label="Fecha de Rechazo"
         >
         {getFieldDecorator('rechazo', {
         })(<DatePicker id={"rechazo"} disabled={!this.state.edit}/>
