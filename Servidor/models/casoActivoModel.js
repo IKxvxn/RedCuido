@@ -10,16 +10,16 @@ const casosActivosSchema = mongoose.Schema({
   domicilio: { type: Array},
   señas: { type: String},
   telefono: { type: String},
-  alt_alimentacion: { type: String},
-  alt_higiene: { type: String}, //Articulos de uso personal e higiene
-  alt_salud: { type: String}, //Medicamentos e implementos de salud
-  alt_atencion: { type: String}, //Atecion social en salud integral
-  alt_apoyo: { type: String}, //Productos de spoyo o ayudas tecnicas
-  alt_equipamento: { type: String}, //Equipamento de casa
-  alt_alquiler: { type: String}, //Alquiler de vivienda, servicios basicos y municipales
-  alt_familias: { type: String}, //Familias solidarias
-  alt_asistente: { type: String}, //Asistente domiciliario
-  alt_institucionalizacion: { type: String},
+  alt_alimentacion: { type: String, default: "[No aprobada]"},
+  alt_higiene: { type: String, default: "[No aprobada]"}, //Articulos de uso personal e higiene
+  alt_salud: { type: String, default: "[No aprobada]"}, //Medicamentos e implementos de salud
+  alt_atencion: { type: String, default: "[No aprobada]"}, //Atecion social en salud integral
+  alt_apoyo: { type: String, default: "[No aprobada]"}, //Productos de spoyo o ayudas tecnicas
+  alt_equipamento: { type: String, default: "[No aprobada]"}, //Equipamento de casa
+  alt_alquiler: { type: String, default: "[No aprobada]"}, //Alquiler de vivienda, servicios basicos y municipales
+  alt_familias: { type: String, default: "[No aprobada]"}, //Familias solidarias
+  alt_asistente: { type: String, default: "[No aprobada]"}, //Asistente domiciliario
+  alt_institucionalizacion: { type: String, default: "[No aprobada]"},
   sede: { type: String},
   riesgo: { type: String},
   notas: { type: String},

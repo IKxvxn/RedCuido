@@ -42,16 +42,34 @@ class bontonDescarga extends React.Component {
       json[i].inicio = dateFormat(json[i].inicio,'dd-mm-yyyy');
       json[i].rechazo = dateFormat(json[i].rechazo,'dd-mm-yyyy');
       json[i].exclusion = dateFormat(json[i].exclusion,'dd-mm-yyyy');
-      json[i].alternativas =  "A: "+json[i].alt_alimentacion+"\n"+
-                              "APH: "+json[i].alt_higiene+"\n"+
-                              "MIS: "+json[i].alt_salud+"\n"+
-                              "ASSI: "+json[i].alt_atencion+"\n"+
-                              "PAAT: "+json[i].alt_apoyo+"\n"+
-                              "EC: "+json[i].alt_equipamento+"\n"+
-                              "AV: "+json[i].alt_alquiler+"\n"+
-                              "FS: "+json[i].alt_familias+"\n"+
-                              "AD: "+json[i].alt_asistente+"\n"+
-                              "I: "+json[i].alt_institucionalizacion;
+      if (this.state.tipo === "1"){
+        json[i].alternativas =  "A: "+json[i].alt_alimentacion+"\n"+
+        "APH: "+json[i].alt_higiene+"\n"+
+        "MIS: "+json[i].alt_salud+"\n"+
+        "ASSI: "+json[i].alt_atencion+"\n"+
+        "PAAT: "+json[i].alt_apoyo+"\n"+
+        "EC: "+json[i].alt_equipamento+"\n"+
+        "AV: "+json[i].alt_alquiler+"\n"+
+        "FS: "+json[i].alt_familias+"\n"+
+        "AD: "+json[i].alt_asistente+"\n"+
+        "I: "+json[i].alt_institucionalizacion;
+      }
+      else{
+        var alternativas_resumidas = "";
+        if(json[i].alt_alimentacion !== "[No aprobada]"){alternativas_resumidas+="A, "}
+        if(json[i].alt_higiene !== "[No aprobada]"){alternativas_resumidas+="APH, "}
+        if(json[i].alt_salud !== "[No aprobada]"){alternativas_resumidas+="MIS, "}
+        if(json[i].alt_atencion !== "[No aprobada]"){alternativas_resumidas+="ASSI, "}
+        if(json[i].alt_apoyo !== "[No aprobada]"){alternativas_resumidas+="PAAT, "}
+        if(json[i].alt_equipamento !== "[No aprobada]"){alternativas_resumidas+="EC, "}
+        if(json[i].alt_alquiler !== "[No aprobada]"){alternativas_resumidas+="AV, "}
+        if(json[i].alt_familias !== "[No aprobada]"){alternativas_resumidas+="FS, "}
+        if(json[i].alt_asistente !== "[No aprobada]"){alternativas_resumidas+="AD, "}
+        if(json[i].alt_institucionalizacion !== "[No aprobada]"){alternativas_resumidas+="I, "}
+        alternativas_resumidas = alternativas_resumidas.slice(0,-2);
+        json[i].alternativas = alternativas_resumidas;
+      }
+      
     }
     return json;
   }

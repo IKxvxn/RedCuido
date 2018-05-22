@@ -11,7 +11,7 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
         case 'GET_NOTIFICACIONES_SUCCESS':
             return {notificaciones: action.notificaciones, filtro:state.filtro, query:state.query}
         case 'CLEAN_NOTIFICACIONES_SUCCESS':
-            return {notificaciones: []}
+            return {...state,notificaciones: []}
         case 'DELETE_NOTIFICACION_SUCCESS':
             return{
                 notificaciones:state.notificaciones.filter(item => {return item._id !== action.notificacion})
