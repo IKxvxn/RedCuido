@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as esperaActions from './esperaActions'
-import { Table, Row, Col, Input } from 'antd';
+import { Table, Row, Col } from 'antd';
 import Descarga from '../home/botonDescarga'
 import Modal from './esperaModalContainer'
 import BarraB from '../barraBusqueda/barraContainer'

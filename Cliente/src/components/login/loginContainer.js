@@ -15,15 +15,7 @@ class loginContainer extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, usuario) => {
       if (!err) {
-      
         this.props.ingresar(usuario,this.props.history)
-        //Esto de abajo ya no funka
-        /*this.props.createUsuario({
-          tipo: "1",
-          nombre: "Gloriana Flores",
-          contraseña: "123456",
-          usuario: "gflores",
-        })*/
       }
     });
   }
@@ -64,12 +56,10 @@ class loginContainer extends React.Component {
 }
 
 loginContainer.propTypes = {
-  //createUsuario: PropTypes.func,
   ingresar: PropTypes.func
 }
 
 loginContainer.defaultProps = {
-  //createUsuario: () => {},
   ingresar: () => {}
 }
 
@@ -81,7 +71,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //createUsuario: (usuario)  => dispatch(loginActions.createUsuario(usuario)),
     ingresar: (usuario,history)  => dispatch(loginActions.ingresar(usuario,history))
   }
 }

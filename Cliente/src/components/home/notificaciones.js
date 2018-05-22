@@ -2,7 +2,6 @@ import React from "react";
 import { Badge, Button, List, Row,Col, Popover,Icon } from 'antd';
 import { Link } from 'react-router-dom'
 import * as Localizacion from '../../assets/localizacion'
-import {getLocation} from 'react-router-redux';
 var dateFormat = require('dateformat');
 const NOT = "NOT"
 

@@ -320,7 +320,27 @@ class editForm extends React.Component {
 
     const { getFieldDecorator } = this.props.form;
 
-    const formItemLayout = null;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 4 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 20 },
+      },
+    };
+    const formItemLayout2 = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 11 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+      },
+    };
+    const formItemLayout3 = null;
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem
@@ -353,22 +373,6 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Fecha de Ingreso a Espera"
-        >
-        {getFieldDecorator('ingreso', {
-        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
-        )}
-        </FormItem>     
-        <FormItem
-          {...formItemLayout}
-          label="Fecha de Nacimiento"
-        >
-          {getFieldDecorator('nacimiento', {
-        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
-        )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
           label="Domicilio"
           extra="La búsqueda es sensible a las mayúsculas."
         >
@@ -384,7 +388,7 @@ class editForm extends React.Component {
           label="Señas"
         >
           {getFieldDecorator('señas')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
         <FormItem
@@ -440,6 +444,7 @@ class editForm extends React.Component {
         >
           {getFieldDecorator('riesgo',{initialValue:"1"})(
             <Select disabled={!this.state.edit}>
+              <Option value="5">5</Option>
               <Option value="4">4</Option>
               <Option value="3">3</Option>
               <Option value="2">2</Option>
@@ -447,8 +452,24 @@ class editForm extends React.Component {
             </Select>
           )}
         </FormItem>
+        <FormItem
+          {...formItemLayout2}
+          label="Fecha de Ingreso (Lista Espera)"
+        >
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>     
+        <FormItem
+          {...formItemLayout2}
+          label="Fecha de Nacimiento"
+        >
+          {getFieldDecorator('nacimiento', {
+        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
         <Divider>Alternativas Aprobadas</Divider>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Alimentación">
           <Checkbox
             value={this.state.checkNick}
@@ -460,14 +481,14 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
 
         >
           {getFieldDecorator('alt_alimentacion')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Artículos de Uso Personal e Higiene">
           <Checkbox
             value={this.state.checkNick}
@@ -479,13 +500,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_higiene')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Medicamentos e Implementos de Salud">
           <Checkbox
             value={this.state.checkNick}
@@ -497,13 +518,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_salud')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Atención Social en Salud Integral">
           <Checkbox
             value={this.state.checkNick}
@@ -515,13 +536,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_atencion')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Productos de Apoyo o Ayudas Técnicas">
           <Checkbox
             value={this.state.checkNick}
@@ -533,13 +554,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_apoyo')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Equipamento de Casa">
           <Checkbox
             value={this.state.checkNick}
@@ -551,13 +572,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_equipamento')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Alquiler de Vivienda, Servicios Básicos y Municipales">
           <Checkbox
             value={this.state.checkNick}
@@ -569,13 +590,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_alquiler')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Familias Solidarias">
           <Checkbox
             value={this.state.checkNick}
@@ -587,13 +608,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_familias')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Asistente Domiciliario">
           <Checkbox
             value={this.state.checkNick}
@@ -605,13 +626,13 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_asistente')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
-        <FormItem {...formItemLayout}
+        <FormItem {...formItemLayout3}
           label="Institucionalización">
           <Checkbox
             value={this.state.checkNick}
@@ -623,19 +644,19 @@ class editForm extends React.Component {
           </Checkbox>
         </FormItem>
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
         >
           {getFieldDecorator('alt_institucionalizacion')(
-            <Input.TextArea Rows={2} maxRows={2} disabled={!this.state.edit} />
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
           )}
         </FormItem>
         <Divider />
         <FormItem
-          {...formItemLayout}
+          {...formItemLayout3}
           label="Notas"
         >
           {getFieldDecorator('notas')(
-            <Input.TextArea Rows={8} maxRows={8} disabled={!this.state.edit} />
+            <Input.TextArea rows={8} maxrows={8} disabled={!this.state.edit} />
           )}
         </FormItem>
         <FormItem

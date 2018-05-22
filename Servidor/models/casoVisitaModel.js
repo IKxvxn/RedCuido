@@ -15,8 +15,8 @@ const casosVisitaSchema = mongoose.Schema({
   alt_alimentacion: { type: String},
   alt_higiene: { type: String}, //Articulos de uso personal e higiene
   alt_salud: { type: String}, //Medicamentos e implementos de salud
-  alt_atencion: { type: String}, //Atecion social en salud integral
-  alt_apoyo: { type: String}, //Productos de spoyo o ayudas tecnicas
+  alt_atencion: { type: String}, //Atencion social en salud integral
+  alt_apoyo: { type: String}, //Productos de apoyo o ayudas tecnicas
   alt_equipamento: { type: String}, //Equipamento de casa
   alt_alquiler: { type: String}, //Alquiler de vivienda, servicios basicos y municipales
   alt_familias: { type: String}, //Familias solidarias

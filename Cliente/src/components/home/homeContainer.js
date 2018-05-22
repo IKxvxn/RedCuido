@@ -4,7 +4,7 @@ import * as homeActions from './homeActions'
 import * as loginActions from '../login/loginActions'
 import * as Style from '../../style/home'
 import Notificaciones from './notificaciones'
-import { Layout, Menu, Col, Row} from 'antd';
+import { Layout, Menu} from 'antd';
 import Espera from '../espera/esperaContainer'
 import Visita from '../visita/visitaContainer'
 import Activos from '../activos/activosContainer'

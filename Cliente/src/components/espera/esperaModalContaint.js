@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload, Icon, TreeSelect } from 'antd';
+import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload,DatePicker, Icon, TreeSelect } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 import * as Permisos from '../../assets/permisos' 
+import moment from 'moment';
 const domicilios = require('../../assets/divisionCR.json').provincias
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -226,6 +227,8 @@ class editForm extends React.Component {
         cedula: this.props.row.cedula,
         nombre: this.props.row.nombre,
         apellidos: this.props.row.apellidos,
+        ingreso:moment(this.props.row.ingreso),
+        nacimiento:moment(this.props.row.nacimiento),
         telefono: this.props.row.telefono,
         domicilio: this.props.row.domicilio,
         señas: this.props.row.señas,
@@ -252,10 +255,26 @@ class editForm extends React.Component {
   render() {
 
     const { getFieldDecorator } = this.props.form;
-
-    const formItemLayout = null;
-
-
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 4 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 20 },
+      },
+    };
+    const formItemLayout2 = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 10 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 10 },
+      },
+    };
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -353,6 +372,22 @@ class editForm extends React.Component {
               <Option value="Baja">Baja</Option>
             </Select>
           )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout2}
+          label="Fecha de Ingreso (Lista Espera)"
+        >
+        {getFieldDecorator('ingreso', {
+        })(<DatePicker id={"ingreso"} disabled={!this.state.edit}/>
+        )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout2}
+          label="Fecha de Nacimiento"
+        >
+          {getFieldDecorator('nacimiento', {
+        })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
+        )}
         </FormItem>
         <FormItem
           {...formItemLayout}

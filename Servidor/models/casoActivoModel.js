@@ -4,7 +4,6 @@ const casosActivosSchema = mongoose.Schema({
   cedula: { type: String},
   apellidos: { type: String},
   nombre: { type: String},
-  sexo: { type: String},
   nacimiento: { type: Date, default: new Date()},
   ingreso: { type: Date, default: new Date()},
   inicio: { type: Date, default: new Date()},

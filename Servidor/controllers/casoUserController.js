@@ -97,6 +97,7 @@ function editUser(req, res) {
       }
       else {
         res.status(200)
+        casod.contraseña = undefined
         res.send({ error: false, caso: casod})
       }
     })

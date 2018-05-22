@@ -9,6 +9,7 @@ const casosRechazadoSchema = mongoose.Schema({
   telefono: { type: String},
   ingreso: { type: Date, default: new Date()},
   rechazo: { type: Date, default: new Date()},
+  nacimiento: { type: Date, default: new Date()},
   sede: { type: String},
   notas: { type: String},
   files: { type: Array}

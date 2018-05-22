@@ -53,6 +53,8 @@ function createCasoEspera(req, res) {
   let info = JSON.parse(req.body.caso);
   info["files"] = []
   //Crea caso
+  console.log("------ingreso: ",info.ingreso)
+  console.log("------nacimiento: ",info.nacimiento)
   let newCaso = new casoEsperaModel(info)
   
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "create", caso: newCaso._id }
@@ -246,7 +248,7 @@ function acceptCasoEspera(req, res) {
       }
       let newCaso = new casoVisitaModel({
         _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
-        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, nacimiento: req.body.caso.nacimiento,telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
         sede: req.body.caso.sede, señas: req.body.caso.señas, notas: nota, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
       })
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "accepted", caso: newCaso._id }
@@ -301,7 +303,7 @@ function rejectCasoEspera(req, res) {
       }
       let newCaso = new casoRechazadoModel({
         _id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
-        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
+        nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, nacimiento: req.body.caso.nacimiento,señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: nota, files: req.body.caso.files })
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "espera", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {

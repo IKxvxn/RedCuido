@@ -261,7 +261,7 @@ function excludeCasoActivo(req, res) {
       }
       let newCaso = new casoExcluidoModel({cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         _id: new mongoose.Types.ObjectId(req.params.id),nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
-        ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio, nacimiento: req.body.caso.nacimiento,
+        ingreso: req.body.caso.ingreso, inicio: req.body.caso.inicio,
         sede: req.body.caso.sede, notas:nota, nacimiento: req.body.caso.nacimiento,  files: req.body.caso.files,
         alt_alimentacion: req.body.caso.alt_alimentacion, alt_higiene: req.body.caso.alt_higiene,
         alt_salud: req.body.caso.alt_salud,alt_atencion: req.body.caso.alt_atencion,

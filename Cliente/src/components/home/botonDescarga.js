@@ -22,7 +22,9 @@ class bontonDescarga extends React.Component {
   };
 
   //Preconfigura el domicilio y fecha en los casos.
-  preconfigurarJson = (json) => {
+  preconfigurarJson = (jsonR) => {
+    var json = JSON.stringify(jsonR);
+    var json = JSON.parse(json);
     for (var i=0; i<json.length; i++){
       var domicilio = json[i].domicilio;
       var lista = domicilios;
@@ -40,23 +42,41 @@ class bontonDescarga extends React.Component {
       json[i].inicio = dateFormat(json[i].inicio,'dd-mm-yyyy');
       json[i].rechazo = dateFormat(json[i].rechazo,'dd-mm-yyyy');
       json[i].exclusion = dateFormat(json[i].exclusion,'dd-mm-yyyy');
+      json[i].alternativas =  "A: "+json[i].alt_alimentacion+"\n"+
+                              "APH: "+json[i].alt_higiene+"\n"+
+                              "MIS: "+json[i].alt_salud+"\n"+
+                              "ASSI: "+json[i].alt_atencion+"\n"+
+                              "PAAT: "+json[i].alt_apoyo+"\n"+
+                              "EC: "+json[i].alt_equipamento+"\n"+
+                              "AV: "+json[i].alt_alquiler+"\n"+
+                              "FS: "+json[i].alt_familias+"\n"+
+                              "AD: "+json[i].alt_asistente+"\n"+
+                              "I: "+json[i].alt_institucionalizacion;
     }
     return json;
   }
 
   //Si el formato es 1, se crea archivo con solo seleccionados. Si es 2, con todos los casos.
   download = (formato) => {
-   var fields = []
+   var fields = [];
+   var sms = "";
+   var tam_letra = 10.5;
+   var tam_papel = 'A3';
+   var proporcion = 930;
     switch(this.props.lista) {
       case "espera":
           if (this.state.info === "1"){
-            fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","problemas","sede","prioridad"]
+            fields = ["cedula","apellidos","nombre","domicilio","nacimiento","señas","telefono","ingreso","problemas","sede","prioridad"]
           }
           else{
             fields = ["cedula","apellidos","nombre","ingreso","prioridad","señas","telefono","sede"]
           }break;
       case "visitados":
           if (this.state.info === "1"){
+            sms ={text:[{text: 'Simbología', bold: true,fontSize: 12},": A (Alimentación), APH (Artículos de uso personal e higiene), MIS (Medicamentos e implementos de salud), ASSI (Atención social en salud integral), PAAT (Productos de apoyo o ayudas técnicas), EC (Equipamento de casa), AV (Alquiler de vivienda, servicios básicos y municipales), FS (Familias solidarias), AD (Asistente domiciliario), I (Institucionalización)."]}
+            tam_papel = 'A2'
+            proporcion = 1400;
+            tam_letra = 11;
             fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","nacimiento","problemas","sede","prioridad","alternativas","riesgo"]
           }
           else{
@@ -64,21 +84,29 @@ class bontonDescarga extends React.Component {
           }break;
       case "activos":
           if (this.state.info === "1"){
-            fields = ["cedula","apellidos","nombre","sexo","nacimiento","ingreso","inicio","domicilio","señas","telefono","alternativas","sede","riesgo"]
+            sms ={text:[{text: 'Simbología', bold: true,fontSize: 12},": A (Alimentación), APH (Artículos de uso personal e higiene), MIS (Medicamentos e implementos de salud), ASSI (Atención social en salud integral), PAAT (Productos de apoyo o ayudas técnicas), EC (Equipamento de casa), AV (Alquiler de vivienda, servicios básicos y municipales), FS (Familias solidarias), AD (Asistente domiciliario), I (Institucionalización)."]}
+            tam_papel = 'A2'
+            proporcion = 1400;
+            tam_letra = 11;
+            fields = ["cedula","apellidos","nombre","nacimiento","ingreso","inicio","domicilio","señas","telefono","alternativas","sede","riesgo"]
           }
           else{
             fields = ["cedula","apellidos","nombre","inicio","telefono","sede","riesgo"]
           }break;
       case "excluidos":
           if (this.state.info === "1"){
-            fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","nacimiento","inicio","exclusion","altv_aprobadas","sede"]
+            sms ={text:[{text: 'Simbología', bold: true,fontSize: 12},": A (Alimentación), APH (Artículos de uso personal e higiene), MIS (Medicamentos e implementos de salud), ASSI (Atención social en salud integral), PAAT (Productos de apoyo o ayudas técnicas), EC (Equipamento de casa), AV (Alquiler de vivienda, servicios básicos y municipales), FS (Familias solidarias), AD (Asistente domiciliario), I (Institucionalización)."]}
+            tam_papel = 'A2'
+            proporcion = 1400;
+            tam_letra = 11;
+            fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","nacimiento","inicio","exclusion","alternativas","sede"]
           }
           else{
             fields = ["cedula","apellidos","nombre","exclusion","inicio","señas","telefono","sede"]
           }break;
       case "rechazados":
           if (this.state.info === "1"){
-            fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","rechazo","sede"]
+            fields = ["cedula","apellidos","nombre","domicilio","señas","telefono","ingreso","rechazo","nacimiento","sede"]
           }
           else{
             fields = ["cedula","apellidos","nombre","rechazo","señas","telefono","sede"]
@@ -122,14 +150,14 @@ class bontonDescarga extends React.Component {
         }
         bodyt.push(arr);
       }
-      var widthsl=Array.apply(null, Array(fields.length)).map(Number.prototype.valueOf,930/fields.length);
+      var widthsl=Array.apply(null, Array(fields.length)).map(Number.prototype.valueOf,proporcion/fields.length);
       console.log(widthsl)
       var dd = { content: [{text: 'Red de Cuido Sede Heredia', style: 'header'},
-          'Correo electrónico: reddecuido.ccheredia@gmail.com', `PDF generado el: ${dateFormat(new Date(),"dd-mm-yyyy")}`,
+          'Correo electrónico: reddecuido.ccheredia@gmail.com', `PDF generado el: ${dateFormat(new Date(),"dd-mm-yyyy")}`,"\n",sms,"\n",
           {text: `Lista de ${this.props.lista}`, style: 'subheader'},
           {style: 'tableExample',
-            table: {headerRows: 1,widths:widthsl,body: bodyt},layout: 'lightHorizontalLines',fontSize: 10.5}
-        ],pageOrientation: 'landscape', pageSize: 'A3',styles: { header: {fontSize: 18,bold: true,margin: [0, 0, 0, 10]},
+            table: {headerRows: 1,widths:widthsl,body: bodyt},layout: 'lightHorizontalLines',fontSize: tam_letra}
+        ],pageOrientation: 'landscape', pageSize: tam_papel,styles: { header: {fontSize: 18,bold: true,margin: [0, 0, 0, 10]},
           subheader: {fontSize: 16,bold: true,margin: [0, 10, 0, 5]},
           tableExample: {margin: [0, 5, 0, 15]},
           tableHeader: {bold: true,fontSize: 13,color: 'black'}},
