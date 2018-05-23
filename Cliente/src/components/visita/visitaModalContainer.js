@@ -36,12 +36,12 @@ class visitaContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
       <Row gutter={8} type="flex" justify="end">
-      <Col xs={12} sm={22}><h3>Detalles del Perfil</h3></Col>
+      <Col xs={12} sm={22}><h3>Detalles del Adulto Mayor</h3></Col>
       <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
        </Row>)}
        return(
         <Row gutter={8} type="flex" justify="end">
-        <Col xs={12} sm={22}><h3>Ficha de Postulación del Perfil</h3></Col>
+        <Col xs={12} sm={22}><h3>Ficha del Adulto Mayor</h3></Col>
         <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
          </Row>)
   }
@@ -58,9 +58,9 @@ class visitaContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Perfil</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Perfil</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Perfil</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="danger"  disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Perfil</Button></Col>
+              <Col xs={24} sm={8}style={{ marginBottom: 7}}><Button type="danger"  disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }

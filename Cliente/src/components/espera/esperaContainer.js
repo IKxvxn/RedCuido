@@ -102,13 +102,13 @@ class NormalLoginForm extends React.Component {
     return (
       <div>
       <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
-        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
+        <Col xs={12} sm={5} style={{margin:"0.5rem 0 0 0"}}>
           <Modal loading={this.props.loading} handleCreate={this.props.createCaso} usuario={this.props.usuario}  modo="crear" />
         </Col>
-        <Col xs={12} sm={4} style={{margin:"0.5rem 0 0 0"}}>
+        <Col xs={12} sm={5} style={{margin:"0.5rem 0 0 0"}}>
           <Descarga seleccionadas={this.state.selectedRows} todos={this.props.casosEspera} lista={"espera"}/>
         </Col>
-        <Col xs={24} sm={16} style={{margin:"0.5rem 0 0 0"}}>
+        <Col xs={24} sm={14} style={{margin:"0.5rem 0 0 0"}}>
           <BarraB query={this.props.query} getFiltered={this.props.getFiltered} filtro={this.props.filtro} usuario={this.props.usuario} filtrarCampos={this.filtrarCampos} changeId={this.props.changeId} changeCaller={this.props.changeCaller}/>
         </Col>
         

@@ -71,13 +71,13 @@ class editForm extends React.Component {
       if (this.state.edit === false) {
         return (
           <Row gutter={8} type="flex" justify="end">
-            <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+            <Col xs={24} sm={8}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
           </Row>
         )
       } else {
         return (
           <Row gutter={8} type="flex" justify="end">
-            <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
+            <Col xs={24} sm={8}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
           </Row>
         )
       }

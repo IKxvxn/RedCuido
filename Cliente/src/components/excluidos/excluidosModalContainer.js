@@ -52,15 +52,15 @@ class excluidosContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Reactivar</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Reactivar</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="danger"  disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }else{
     return(
       <Row gutter={8} type="flex" justify="end">
-           <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar</Button></Col>
-           <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
+           <Col xs={12} sm={8}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar</Button></Col>
+           <Col xs={12} sm={8}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
       </Row>
     )}
   }

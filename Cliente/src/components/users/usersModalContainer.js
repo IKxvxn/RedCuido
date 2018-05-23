@@ -46,7 +46,7 @@ class userContainer extends React.Component {
     if (this.props.modo === "ver") {
       return (
         <Row gutter={8} type="flex" justify="end">
-          <Col xs={12} sm={7}><Button type="danger" loading={this.props.loading} ghost  onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
+          <Col xs={24} sm={8}><Button type="danger" loading={this.props.loading} ghost  onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     } else {

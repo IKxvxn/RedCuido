@@ -168,29 +168,29 @@ class editForm extends React.Component {
           return (
             <Row gutter={8} type="flex" justify="end">
               <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} loading={this.state.loading} type="primary">Editar</Button></Col>
-              <Col xs={12} sm={9}>
+              <Col xs={24} sm={9}>
+                <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
+              </Col>
+              <Col xs={24} sm={9}>
               <Upload {...props} >
                 <Button disabled={true}> <Icon type="upload" />Añadir Archivo</Button>
               </Upload>
               </Col>
-              <Col xs={12} sm={9}>
-                <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
-              </Col>
-            </Row>
+              </Row>
           )
         } else {
           return (
             <Row gutter={8} type="flex" justify="end">
               <Col xs={24} sm={6}><Button icon="edit" onClick={this.enterLoading} loading={this.state.loading} type="primary">Guardar</Button></Col>
-              <Col xs={12} sm={9}>
+              <Col xs={24} sm={9}>
+                <Button icon="download" type="secondary"  onClick={this.enterDownload}>Descargar Archivos</Button>
+              </Col>
+              <Col xs={24} sm={9}>
               <Upload {...props} >
                 <Button><Icon type="upload" />Añadir Archivo</Button>
               </Upload>
               </Col>
-              <Col xs={12} sm={9}>
-                <Button icon="download" type="secondary"  onClick={this.enterDownload}>Descargar Archivos</Button>
-              </Col>
-            </Row>
+              </Row>
           )
         }
       }
@@ -369,9 +369,7 @@ class editForm extends React.Component {
               onChange: this.onChange,
               treeCheckable: true,
               searchPlaceholder: 'Archivos incluidos',
-              style: {
-                width: 300,
-              },}} disabled = {!this.state.edit} />
+              }} disabled = {!this.state.edit} />
           )}
         </FormItem>
         <FormItem>

@@ -58,18 +58,17 @@ class esperaContainer extends React.Component {
   handleModoFooter(){
     if (this.props.modo==="ver"){
       return(
-        <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Caso</Button></Col>
-              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Caso</Button></Col>
-              <Col xs={12} sm={7}><Button disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
-              
+        <Row gutter={8}  type="flex" justify="end">
+              <Col xs={12} sm={8} style={{ marginBottom: 7}}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="primary" loading={this.props.loading} ghost onClick={() => this.setmodal2Visible(true)}>Aceptar Caso</Button></Col>
+              <Col xs={12} sm={8} style={{ marginBottom: 7}}><Button disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Rechazar Caso</Button></Col>
+              <Col xs={24} sm={8} style={{ marginBottom: 7}}><Button disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} type="danger"  loading={this.props.loading} ghost onClick={() => this.setmodal4Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }
     return(
       <Row gutter={8} type="flex" justify="end">
-            <Col xs={12} sm={7}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar Caso</Button></Col>
-            <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
+            <Col xs={12} sm={12}><Button type="primary"  loading={this.props.loading} ghost onClick={this.handleSubmit}>Agregar Caso</Button></Col>
+            <Col xs={12} sm={12}><Button type="danger"  ghost onClick={() => this.setmodalVisible(false)}>Cancelar</Button></Col>
       </Row>
     )
   }

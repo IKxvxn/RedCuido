@@ -35,7 +35,7 @@ const visitaReducer = (state = DEFAULT_STATE, action) => {
         case 'GET_VISITA_FAILURE':
         return {
             ...state,
-            loading: true,
+            loading: false,
             error: action.error
         }
         case 'EDIT_VISITA_REQUEST':

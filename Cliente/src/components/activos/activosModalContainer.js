@@ -26,9 +26,18 @@ class activosContainer extends React.Component {
   handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
   handleModoTitle(){
-    if (this.props.modo==="ver"){
-      return("Detalles del Caso")}
-      return ("Ficha de Postulación de Caso")
+    if (this.props.modo === "ver") {
+      return (
+        <Row gutter={8} type="flex" justify="end">
+          <Col xs={12} sm={22}><h3>Detalles del Adulto Mayor</h3></Col>
+          <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
+        </Row>)
+    }
+    return (
+      <Row gutter={8} type="flex" justify="end">
+        <Col xs={12} sm={22}><h3>Ficha del Adulto Mayor</h3></Col>
+        <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
+      </Row>)
   }
 
   handleModoOpenerTitle(){
@@ -43,8 +52,8 @@ class activosContainer extends React.Component {
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
-              <Col xs={12} sm={7}><Button type="danger" disabled={Permisos.accessGENLIST(this.props.usuario.tipo)} loading={this.props.loading}  ghost onClick={() => this.setmodal2Visible(true)}>Excluir</Button></Col>
-              <Col xs={12} sm={7}><Button type="danger"  disabled={Permisos.accessGENLIST(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="danger" disabled={Permisos.accessGENLIST(this.props.usuario.tipo)} loading={this.props.loading}  ghost onClick={() => this.setmodal2Visible(true)}>Excluir</Button></Col>
+              <Col xs={12} sm={8}style={{ marginBottom: 7}}><Button type="danger"  disabled={Permisos.accessGENLIST(this.props.usuario.tipo)} loading={this.props.loading} ghost onClick={() => this.setmodal3Visible(true)}>Eliminar</Button></Col>
         </Row>
       )
     }
