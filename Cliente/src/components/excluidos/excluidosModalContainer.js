@@ -77,7 +77,7 @@ class excluidosContainer extends React.Component {
 handleDeleteFooter(){
   return(
     <Row gutter={8} type="flex" justify="end">
-          <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleDeleteCaso(document.getElementById("nota").value)}>Eliminar</Button></Col>
+          <Col xs={12} sm={7}><Button type="primary" loading={this.props.loading} ghost onClick={()=>this.handleDeleteCaso("")}>Eliminar</Button></Col>
           <Col xs={12} sm={7}><Button type="danger"  ghost onClick={() => this.setmodal3Visible(false)}>Cancelar</Button></Col>
     </Row>
   )
@@ -127,7 +127,7 @@ handleDeleteFooter(){
             this.handleDeleteFooter()
           ]}
           >
-        <Input.TextArea rows={4} id="nota"/>
+          Esta acción es irreversible.
         </Modal>
       </Row>
       </div>

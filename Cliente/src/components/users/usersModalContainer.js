@@ -98,6 +98,7 @@ class userContainer extends React.Component {
             this.handleDeleteFooter()
           ]}
           >
+          Esta acción es irreversible.
         </Modal>
       </Row>
       </div>
