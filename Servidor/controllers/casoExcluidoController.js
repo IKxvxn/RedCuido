@@ -141,14 +141,17 @@ function reactivateCasoExcluido(req, res) {
       //Configura nota con nota anterior
       var nota = req.body.caso.notas;
       if (nota === undefined){
-        nota = req.body.nota
+        if (req.body.nota !== ""){
+          nota = req.body.nota 
+        }
+        else{
+          nota = ""
+        }
       }
       else{
-        nota = nota+"\n"+req.body.nota
-      }
-      if (err) {
-        res.status(500)
-        res.send(`Ocurrió un error 💩 ${err}`)
+        if (req.body.nota !== ""){
+          nota = nota+"\n"+req.body.nota 
+        }
       }
       let newCaso = new casoEsperaModel({_id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
         nombre: req.body.caso.nombre,nacimiento:req.body.caso.nacimiento, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono,

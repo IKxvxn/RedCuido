@@ -234,17 +234,20 @@ function acceptCasoEspera(req, res) {
 
   casoEsperaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
-      //Si hay alguna nota anterior, la adjunta a la nueva
+      //Configura nota con nota anterior
       var nota = req.body.caso.notas;
       if (nota === undefined){
-        nota = req.body.nota
+        if (req.body.nota !== ""){
+          nota = req.body.nota 
+        }
+        else{
+          nota = ""
+        }
       }
       else{
-        nota = nota+"\n"+req.body.nota
-      }
-      if (err) {
-        res.status(500)
-        res.send(`Ocurrió un error 💩 ${err}`)
+        if (req.body.nota !== ""){
+          nota = nota+"\n"+req.body.nota 
+        }
       }
       let newCaso = new casoVisitaModel({
         _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
@@ -292,14 +295,17 @@ function rejectCasoEspera(req, res) {
       //Configura nota con nota anterior
       var nota = req.body.caso.notas;
       if (nota === undefined){
-        nota = req.body.nota
+        if (req.body.nota !== ""){
+          nota = req.body.nota 
+        }
+        else{
+          nota = ""
+        }
       }
       else{
-        nota = nota+"\n"+req.body.nota
-      }
-      if (err) {
-        res.status(500)
-        res.send(`Ocurrió un error 💩 ${err}`)
+        if (req.body.nota !== ""){
+          nota = nota+"\n"+req.body.nota 
+        }
       }
       let newCaso = new casoRechazadoModel({
         _id: new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, ingreso: req.body.caso.ingreso,
