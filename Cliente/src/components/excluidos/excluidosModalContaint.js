@@ -147,7 +147,6 @@ class editForm extends React.Component {
             formData.append('usuario', JSON.stringify(this.props.usuario))
 
             this.props.editCaso(formData)
-            this.props.deleteFiles(nonwantedFiles)
             if (nonwantedFiles !== []){
               this.props.deleteFiles(nonwantedFiles) 
             }
