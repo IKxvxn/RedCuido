@@ -12,13 +12,16 @@ const router = express.Router()
 
 //Funcion general para eliminar archivos del server.
 router.put('/eliminar', function(req,res){
+    console.log(req.body.files)
     for(var i=0; i < req.body.files.length; i++){
         fs.unlink(`../Servidor/uploads/${req.body.files[i]}`, (err) => {
             if (err){
                 console.log(err)
             };
         });
-    }  
+    } 
+    res.status(200) 
+    res.send({ error: false })
 })
 
 router.get('/user', casoUserController.getUser)
