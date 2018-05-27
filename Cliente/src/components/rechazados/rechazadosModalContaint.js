@@ -70,7 +70,13 @@ class editForm extends React.Component {
           && caso.señas === undefined && caso.telefono === undefined) {
           message.error(Mensajes.minNecesario)
         }
-        else { deleteCaso(this.props.row, nota, this.props.usuario) }
+        else { 
+          deleteCaso(this.props.row, nota, this.props.usuario) 
+          var nonwantedFiles = this.props.row.files;
+          if (nonwantedFiles !== []){
+            this.props.deleteFiles(nonwantedFiles) 
+          }
+        }
       }
       else { message.error(Mensajes.verificar) }
     });
@@ -119,6 +125,9 @@ class editForm extends React.Component {
 
             this.props.editCaso(formData)
             this.props.deleteFiles(nonwantedFiles)
+            if (nonwantedFiles !== []){
+              this.props.deleteFiles(nonwantedFiles) 
+            }
           }
         }
         else { message.error(Mensajes.verificar) }
