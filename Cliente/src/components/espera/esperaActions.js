@@ -99,7 +99,7 @@ export function getCasos(usuario) {
   }
 }
 
-export function editCaso(caso, reset) {
+export function editCaso(caso) {
   return function (dispatch) {
     dispatch({
       type: EDIT_CASO_REQUEST
@@ -131,7 +131,6 @@ export function editCaso(caso, reset) {
             caso: { ...data.caso, key: data.caso._id }
           })
           message.success(Mensajes.editadoExito)
-          reset(false)
         }
       })
       .catch(error => {

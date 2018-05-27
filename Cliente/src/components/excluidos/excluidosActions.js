@@ -107,7 +107,7 @@ export function downloadFile(caso) {
   }
 }
 
-export function editCaso(caso, reset) {
+export function editCaso(caso) {
   return function (dispatch) {
     dispatch({
       type: EDIT_EXCLUIDO_REQUEST
@@ -133,7 +133,6 @@ export function editCaso(caso, reset) {
           dispatch({type: EDIT_EXCLUIDO_FAILURE})
         }
         else{
-          reset(false)
           dispatch({
             type: EDIT_EXCLUIDO_SUCCESS,
             caso: data.caso

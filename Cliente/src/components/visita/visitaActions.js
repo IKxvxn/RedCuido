@@ -97,7 +97,7 @@ export function getCasos(usuario) {
   }
 }
 
-export function editCaso(caso, reset) {
+export function editCaso(caso) {
   return function (dispatch) {
     dispatch({
       type: EDIT_VISITA_REQUEST
@@ -123,7 +123,7 @@ export function editCaso(caso, reset) {
           dispatch({type: EDIT_VISITA_FAILURE})
         }
         else{
-          reset(false)
+          
           dispatch({
             type: EDIT_VISITA_SUCCESS,
             caso: data.caso

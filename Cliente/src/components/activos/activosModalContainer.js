@@ -91,7 +91,7 @@ class activosContainer extends React.Component {
         <Modal
           title={this.handleModoTitle()}
           maskStyle={{backgroundColor:"#88beb6"}}
-          destroyOnClose
+          
           visible={this.state.modalVisible}
           closable={false}
           onCancel={() => this.setmodalVisible(false)}

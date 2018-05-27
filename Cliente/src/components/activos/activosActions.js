@@ -121,7 +121,8 @@ export function editCaso(caso, reset) {
         dispatch({type: NEW_ACTIVO_FAILURE})
       }
       else{
-        reset(false)
+        //Descomentar para cerrar form al guardar.
+        //reset(false)
         dispatch({
           type: EDIT_ACTIVO_SUCCESS,
           caso: { ...data.caso, key: data.caso._id }

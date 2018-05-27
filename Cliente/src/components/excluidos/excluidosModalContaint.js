@@ -93,7 +93,6 @@ class editForm extends React.Component {
   enterLoading = () => {
     if (this.state.edit === false) {
       this.setState({ edit: true });
-      message.error(Mensajes.alreadyEditing);
     }
     else{
       this.props.form.validateFieldsAndScroll((err, caso) => {
@@ -142,7 +141,7 @@ class editForm extends React.Component {
             formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id, files: newFiles }))
             formData.append('usuario', JSON.stringify(this.props.usuario))
 
-            this.props.editCaso(formData, this.props.visible)
+            this.props.editCaso(formData)
             this.props.deleteFiles(nonwantedFiles)
           }
         }

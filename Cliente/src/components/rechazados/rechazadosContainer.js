@@ -137,7 +137,7 @@ function mapDispatchToProps(dispatch) {
   return {
     createCaso: (caso,closer, usuario)  => dispatch(rechazadosActions.createCaso(caso,closer,usuario)),
     getCasos: (usuario) => dispatch(rechazadosActions.getCasos(usuario)),
-    editCaso: (caso, reset,usuario) => dispatch(rechazadosActions.editCaso(caso, reset,usuario)),
+    editCaso: (caso, usuario) => dispatch(rechazadosActions.editCaso(caso, usuario)),
     reactivateCaso: (caso, nota,usuario) => dispatch(rechazadosActions.reactivateCaso(caso, nota,usuario)),
     downloadFile: (caso) => dispatch(rechazadosActions.downloadFile(caso)),
     deleteCaso: (caso, nota, usuario) => dispatch(rechazadosActions.deleteCaso(caso, nota, usuario)),

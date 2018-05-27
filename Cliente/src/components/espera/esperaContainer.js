@@ -151,7 +151,7 @@ function mapDispatchToProps(dispatch) {
     acceptCaso: (caso, nota, usuario) => dispatch(esperaActions.acceptCaso(caso, nota, usuario)),
     rejectCaso: (caso, nota, usuario) => dispatch(esperaActions.rejectCaso(caso, nota, usuario)),
     getCasos: (usuario) => dispatch(esperaActions.getCasos(usuario)),
-    editCaso: (caso, reset) => dispatch(esperaActions.editCaso(caso, reset)),
+    editCaso: (caso) => dispatch(esperaActions.editCaso(caso)),
     downloadFile: (caso) => dispatch(esperaActions.downloadFile(caso)),
     deleteCaso: (caso, nota, usuario) => dispatch(esperaActions.deleteCaso(caso, nota, usuario)),
     deleteFiles:(files) => dispatch(esperaActions.deleteFiles(files))

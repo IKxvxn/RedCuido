@@ -65,7 +65,6 @@ class editForm extends React.Component {
   enterLoading = () => {
     if (this.state.edit === false){
       this.setState({ edit: true});
-      message.error(Mensajes.alreadyEditing);
     }
     else{
       this.props.form.validateFieldsAndScroll((err, caso) => {
@@ -131,7 +130,7 @@ class editForm extends React.Component {
       this.setState({
         check_alternativas: check_alternativas_aux,
       })
-      if(index===0){this.props.form.setFieldsValue({alt_alimentacion:""})}
+      if(index===0){this.props.form.setFieldsValue({alt_alimentacion:"[No]"})}
       else if(index===0){this.props.form.setFieldsValue({alt_alimentacion:""})}
       else if(index===1){this.props.form.setFieldsValue({alt_higiene:""})}
       else if(index===2){this.props.form.setFieldsValue({alt_salud:""})}
@@ -146,8 +145,6 @@ class editForm extends React.Component {
 
     //Maneja los cambios en los archivos seleccionados para mantener en el caso y lo actualiza en el estado.
     onChange = (value) => {
-      console.log(this.state.treeValue)
-      console.log('onChange ', value, arguments);
       this.setState({ treeValue:value });
     }
   
