@@ -168,11 +168,7 @@ class editForm extends React.Component {
             && caso.señas === undefined && caso.telefono === undefined) {
             message.error(Mensajes.minNecesario)
           }
-          else { 
-            var nonwantedFiles = this.props.row.files;
-            deleteCaso(this.props.row, nota, this.props.usuario) 
-            this.props.deleteFiles(nonwantedFiles)
-          }
+          else { deleteCaso(this.props.row, nota, this.props.usuario) }
         }
         else { message.error(Mensajes.verificar) }
       });
