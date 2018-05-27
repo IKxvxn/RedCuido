@@ -14,19 +14,23 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
             return {...state,notificaciones: []}
         case 'DELETE_NOTIFICACION_SUCCESS':
             return{
+                ...state,
                 notificaciones:state.notificaciones.filter(item => {return item._id !== action.notificacion})
             }
         case 'GET_FILTERED_SUCCESS':
             return{
+                ...state,
                 notificaciones:state.notificaciones, filtro:action.filtro, query:action.query
             }
         case 'GET_FILTERED_FAILURE':
             return{
+                ...state,
                 notificaciones:state.notificaciones, filtro:[], query:action.query
         }
         case 'LOGOUT':
             return{
-                notificaciones: [],filtro:[],query:""
+                ...state,
+                notificaciones: []
         }
         default:
             return state

@@ -1,0 +1,340 @@
+Prueba	Código	Datos				Problema:
+4	PAEE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+5	PAEC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+6	PMEE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+7	PMEC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+10	PAVE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas	Todas		Ninguno		
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+11	PAEC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas	Todas		Ninguno	
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+12	PMVE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas:	Todas		Ninguno		
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+13	PMEC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Prioridad	baja		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas:	Todas		Ninguno	
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+18	PAAE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Activos:A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas:	Todas		Ninguno		
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+19	PAAC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Activos:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas:	Todas		Ninguno	
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+20	PMAE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Activos:A		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas:	Todas		Ninguno		
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+21	PMAC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Activos:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas:	Todas		Ninguno	
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+24	PARE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Rechazo:C		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+25	PARC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ningunoo
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Rechazo:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+26	PMRE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Rechazo:C		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+27	PMRC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ningunoo
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Rechazo:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Notas		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+30	PAXE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Activos:A		Sólo fechas
+		Fecha Exclusión:C		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas:	Todas		Ninguno		
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+31	PAXC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Activos:2018-05-01	Ninguno
+		Fecha Exclusión:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas:	Todas		Ninguno	
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+32	PMXE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Apellidos:	3		Sólo letras
+		Domicilio:	1		Sólo direcciónes dadas por provincia,cantón y distrito
+		Señas:		N		Ninguno
+		Teléfono:	h		Sólo números
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Riesgo		1		Ninguno
+		Ingreso Espera:	A		Sólo fechas
+		Ingreso Activos:A		Sólo fechas
+		Fecha Exclusión:C		Sólo fechas
+		Nacimiento: 	B		Sólo fechas
+		Alt. Aprovadas:	Todas		Ninguno		
+		Notas:		Ninguna		Ninguno
+
+Prueba	Código	Datos				Problema:
+33	PMXC	Cédula:		604350585	Ninguno
+		Nombre:		Sandra		Ninguno
+		Apellidos:	Ortíz Galletano	Ninguno
+		Domicilio:	Desconocido	Ninguno
+		Señas:		Casa azul	Ninguno
+		Teléfono:	25147521	Ninguno
+		Problemas:	Alimentarios	Ninguno
+		Sede:		Heredia		Ninguno
+		Ingreso Espera:	2018-05-01	Ninguno
+		Ingreso Activos:2018-05-01	Ninguno
+		Fecha Exclusión:2018-05-01	Ninguno
+		Nacimiento: 	1958-05-04	Ninguno
+		Alt. Aprovadas:	Todas		Ninguno	
+
+Prueba	Código	Datos				Problema:
+36	PAUE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Ingreso:	A		Sólo fechas
+		Teléfono:	h		Sólo números
+		Correo:		a		Correo inválido
+		Tipo:		consultor	Ninguno
+		Intitución:	a1		Ninguno
+		Usuario:	 		Requerido
+		Password:			Requerido
+
+Prueba	Código	Datos				Problema:
+37	PAUC	Cédula:		703120141	Ninguno
+		Nombre:		Ana Arias	Ninguno
+		Ingreso:	2018-05-01	Ninguno
+		Teléfono:	85174141	Ninguno
+		Correo:		ana@red.com	Ninguno
+		Tipo:		consultor	Ninguno
+		Intitución:	RedCuido	Ninguno
+		Usuario:	AnaA 		Ninguno
+		Password:	1234		Ninguno
+
+Prueba	Código	Datos				Problema:
+38	PMUE	Cédula:		S		Sólo se aceptan números
+		Nombre:		2		Sólo letras
+		Ingreso:	A		Sólo fechas
+		Teléfono:	h		Sólo números
+		Correo:		a		Correo inválido
+		Tipo:		consultor	Ninguno
+		Intitución:	a1		Ninguno
+		Usuario:	 		Requerido
+		Password:			Requerido
+
+Prueba	Código	Datos				Problema:
+38	PMUC	Cédula:		703120141	Ninguno
+		Nombre:		Ana Arias	Ninguno
+		Ingreso:	2018-05-01	Ninguno
+		Teléfono:	85174141	Ninguno
+		Correo:		ana@red.com	Ninguno
+		Tipo:		consultor	Ninguno
+		Intitución:	RedCuido	Ninguno
+		Usuario:	AnaA 		Ninguno
+		Password:	1234		Ninguno

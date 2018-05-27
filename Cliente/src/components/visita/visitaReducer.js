@@ -91,7 +91,6 @@ const visitaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'DELETE_VISITA_REQUEST':
         return {

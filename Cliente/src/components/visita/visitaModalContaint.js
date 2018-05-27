@@ -221,7 +221,7 @@ class editForm extends React.Component {
       if (this.state.edit === false) {
         return (
           <Row gutter={8}>
-            <Col xs={24} sm={6}><Button icon="edit" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
+            <Col xs={24} sm={6}><Button icon="edit" disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} onClick={this.enterLoading} loading={this.state.loading} type="primary">Editar</Button></Col>
             <Col xs={24} sm={9}>
               <Button icon="download" type="secondary" onClick={this.enterDownload}>Descargar Archivos</Button>
             </Col>

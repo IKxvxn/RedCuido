@@ -44,7 +44,6 @@ class editForm extends React.Component {
   enterLoading = () => {
     if (this.state.edit === false) {
       this.setState({ edit: true });
-      message.error(Mensajes.alreadyEditing);
     }
     else {
       this.props.form.validateFieldsAndScroll((err, caso) => {
@@ -156,7 +155,7 @@ class editForm extends React.Component {
           {...formItemLayout}
           label="Correo"
         >
-          {getFieldDecorator('correo', {})(
+          {getFieldDecorator('correo', {rules: [{type:"email", message: Mensajes.email }]})(
             <Input disabled={!this.state.edit} />
           )}
         </FormItem>
