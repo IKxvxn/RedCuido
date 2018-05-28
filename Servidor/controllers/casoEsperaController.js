@@ -250,7 +250,9 @@ function acceptCasoEspera(req, res) {
         }
       }
       let newCaso = new casoVisitaModel({
-        _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, problemas: req.body.caso.problemas,
+        _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos, 
+        p_vivienda: req.body.caso.p_vivienda,p_alimento: req.body.caso.p_alimento,p_economico: req.body.caso.p_economico,
+        p_vive_solo: req.body.caso.p_vive_solo,p_otros: req.body.caso.p_otros,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, nacimiento: req.body.caso.nacimiento,telefono: req.body.caso.telefono, ingreso: req.body.caso.ingreso,
         sede: req.body.caso.sede, señas: req.body.caso.señas, notas: nota, prioridad: req.body.caso.prioridad, files: req.body.caso.files,
       })

@@ -106,10 +106,10 @@ export function editCaso(caso, reset) {
           dispatch({ type: EDIT_USER_FAILURE })
         }
         else {
-          reset(false)
+          //reset(false)
           dispatch({
             type: EDIT_USER_SUCCESS,
-            caso: data.caso
+            caso: { ...data.caso, key: data.caso._id }
           })
           message.success("El usuario ha sido modificado con éxito")
         }

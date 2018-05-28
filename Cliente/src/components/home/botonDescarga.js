@@ -42,16 +42,21 @@ class bontonDescarga extends React.Component {
       json[i].inicio = dateFormat(json[i].inicio,'dd-mm-yyyy');
       json[i].rechazo = dateFormat(json[i].rechazo,'dd-mm-yyyy');
       json[i].exclusion = dateFormat(json[i].exclusion,'dd-mm-yyyy');
-      json[i].alternativas =  "A: "+json[i].alt_alimentacion+"\n"+
-      "APH: "+json[i].alt_higiene+"\n"+
-      "MIS: "+json[i].alt_salud+"\n"+
-      "ASSI: "+json[i].alt_atencion+"\n"+
-      "PAAT: "+json[i].alt_apoyo+"\n"+
-      "EC: "+json[i].alt_equipamento+"\n"+
-      "AV: "+json[i].alt_alquiler+"\n"+
-      "FS: "+json[i].alt_familias+"\n"+
-      "AD: "+json[i].alt_asistente+"\n"+
-      "I: "+json[i].alt_institucionalizacion;
+      json[i].alternativas =  ((json[i].alt_alimentacion !== "[No aprobada]") ?"A: "+json[i].alt_alimentacion+"\n ": "")+
+                              ((json[i].alt_higiene !== "[No aprobada]") ? "APH: "+json[i].alt_higiene+"\n ": "")+
+                              ((json[i].alt_salud !== "[No aprobada]") ?"MIS: "+json[i].alt_salud+"\n ": "")+
+                              ((json[i].alt_atencion !== "[No aprobada]") ? "ASSI: "+json[i].alt_atencion+"\n ": "")+
+                              ((json[i].alt_apoyo !== "[No aprobada]") ?"PAAT: "+json[i].alt_apoyo+"\n ": "")+
+                              ((json[i].alt_equipamento !== "[No aprobada]") ?"EC: "+json[i].alt_equipamento+"\n ": "")+
+                              ((json[i].alt_alquiler !== "[No aprobada]") ?"AV: "+json[i].alt_alquiler+"\n ": "")+
+                              ((json[i].alt_familias !== "[No aprobada]") ?"FS: "+json[i].alt_familias+"\n ": "")+
+                              ((json[i].alt_asistente !== "[No aprobada]") ?"AD: "+json[i].alt_asistente+"\n ": "")+
+                              ((json[i].alt_institucionalizacion !== "[No aprobada]") ?"I: "+json[i].alt_institucionalizacion: "");
+      json[i].problemas = ((json[i].p_vivienda !== undefined) ? "Vivienda: "+json[i].p_vivienda+"\n " : "")+
+                          ((json[i].p_alimento !== undefined) ? "Alimento: "+json[i].p_alimento+"\n " : "")+
+                          ((json[i].p_economico !== undefined) ? "Económico: "+json[i].p_economico+"\n " : "")+
+                          ((json[i].p_vive_solo !== undefined) ? "Vive Solo: "+json[i].p_vive_solo+"\n " : "")+
+                          ((json[i].p_otros !== undefined) ? "Otros: "+json[i].p_otros : "");
       
     }
     return json;

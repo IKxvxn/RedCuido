@@ -16,7 +16,11 @@ busqueda.addIndex('apellidos');
 busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
 busqueda.addIndex('prioridad');
-busqueda.addIndex('problemas');
+busqueda.addIndex('p_vivienda');
+busqueda.addIndex('p_alimento');
+busqueda.addIndex('p_economico');
+busqueda.addIndex('p_vive_solo');
+busqueda.addIndex('p_otros');
 busqueda.addIndex('alternativas');
 busqueda.addIndex('riesgo');
 busqueda.addIndex('sede');
@@ -148,7 +152,7 @@ function mapDispatchToProps(dispatch) {
     acceptCaso: (caso, nota, usuario) => dispatch(visitaActions.acceptCaso(caso, nota, usuario)),
     rejectCaso: (caso, nota, usuario) => dispatch(visitaActions.rejectCaso(caso, nota, usuario)),
     getCasos: (usuario) => dispatch(visitaActions.getCasos(usuario)),
-    editCaso: (caso) => dispatch(visitaActions.editCaso(caso)),
+    editCaso: (caso, reset, usuario) => dispatch(visitaActions.editCaso(caso, reset, usuario)),
     downloadFile: (caso) => dispatch(visitaActions.downloadFile(caso)),
     deleteCaso: (caso, nota, usuario) => dispatch(visitaActions.deleteCaso(caso, nota, usuario)),
     deleteFiles: (files) => dispatch(visitaActions.deleteFiles(files))

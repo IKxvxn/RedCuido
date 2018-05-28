@@ -132,7 +132,6 @@ function editCasoVisita(req, res) {
     return
   }
   let info = JSON.parse(req.body.caso);
-  console.log(info)
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "update", caso: {} }
   casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info}, {new:true})
     .exec((err, caso) => {
@@ -173,7 +172,6 @@ function editCasoVisita(req, res) {
             if (archivos.length == files.length) {
               if(caso.files.length>0){
                 archivos = caso.files.concat(archivos)
-                console.log("files ",archivos)
               }
               casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(caso._id) }, { $set: { "files": archivos } },{new:true})
                 .exec((err, casod) => {
@@ -183,7 +181,6 @@ function editCasoVisita(req, res) {
                   }
                   else {
                     res.status(200)
-                    console.log("casod ",casod)
                     res.send({ error: false, caso:casod })
                   }
                 })

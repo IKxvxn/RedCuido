@@ -135,7 +135,7 @@ export function editCaso(caso) {
         else{
           dispatch({
             type: EDIT_EXCLUIDO_SUCCESS,
-            caso: data.caso
+            caso: { ...data.caso, key: data.caso._id }
           })
           message.success("El perfil ha sido modificado con éxito")
       }

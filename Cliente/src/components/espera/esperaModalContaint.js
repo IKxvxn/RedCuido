@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Cascader, Select, Button, Row, Col, message, Upload,DatePicker, Icon, TreeSelect } from 'antd';
+import { Form, Input, Cascader, Select, Button, Divider, Row, Col, message, Upload,DatePicker, Icon, TreeSelect } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 import * as Permisos from '../../assets/permisos' 
 import moment from 'moment';
@@ -240,7 +240,11 @@ class editForm extends React.Component {
         señas: this.props.row.señas,
         sede: this.props.row.sede,
         prioridad: this.props.row.prioridad,
-        problemas: this.props.row.problemas,
+        p_vivienda:this.props.row.p_vivienda,
+        p_alimento:this.props.row.p_alimento,
+        p_economico:this.props.row.p_economico,
+        p_vive_solo:this.props.row.p_vive_solo,
+        p_otros:this.props.row.p_otros,
         notas: this.props.row.notas,
         files: this.state.treeValue
       })
@@ -344,20 +348,6 @@ class editForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Problemas"
-        >
-          {getFieldDecorator('problemas')(
-            <Select mode="multiple" disabled={!this.state.edit}>
-              <Option value="Vivienda">Vivienda</Option>
-              <Option value="Alimentarios">Alimentarios</Option>
-              <Option value="Económicos">Económicos</Option>
-              <Option value="Vive Solo">Vive Solo</Option>
-              <Option value="Otros">Otros</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
           label="Sede"
         >
           {getFieldDecorator('sede', { initialValue: "Desamparados" })(
@@ -394,6 +384,47 @@ class editForm extends React.Component {
           {getFieldDecorator('nacimiento', {
         })(<DatePicker id={"nacimiento"} disabled={!this.state.edit}/>
         )}
+        </FormItem>
+        <Divider>Problemas Encontrados</Divider>
+        <FormItem
+          {...formItemLayout}
+          label="Vivienda"
+        >
+          {getFieldDecorator('p_vivienda')(
+            <Input disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Alimentario"
+        >
+          {getFieldDecorator('p_alimento')(
+            <Input disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Económico"
+        >
+          {getFieldDecorator('p_economico')(
+            <Input disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Vive Solo"
+        >
+          {getFieldDecorator('p_vive_solo')(
+            <Input disabled={!this.state.edit} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Otros"
+        >
+          {getFieldDecorator('p_otros')(
+            <Input.TextArea rows={2} maxrows={2} disabled={!this.state.edit} />
+          )}
         </FormItem>
         <FormItem
           {...formItemLayout}
