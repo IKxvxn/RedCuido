@@ -1,12 +1,37 @@
 
+
 const DEFAULT_STATE = {
-    exampleReducer: []
+    notificaciones: [],
+    filtro:[],
+    query:""
 }
 
-const exampleReducer = (state = DEFAULT_STATE, action) => {
+const homeReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'EXAMPLE_DISPATCH':
-            return {exampleReducerx: []}
+        case 'GET_NOTIFICACIONES_SUCCESS':
+            return {notificaciones: action.notificaciones, filtro:state.filtro, query:state.query}
+        case 'CLEAN_NOTIFICACIONES_SUCCESS':
+            return {...state,notificaciones: []}
+        case 'DELETE_NOTIFICACION_SUCCESS':
+            return{
+                ...state,
+                notificaciones:state.notificaciones.filter(item => {return item._id !== action.notificacion})
+            }
+        case 'GET_FILTERED_SUCCESS':
+            return{
+                ...state,
+                notificaciones:state.notificaciones, filtro:action.filtro, query:action.query
+            }
+        case 'GET_FILTERED_FAILURE':
+            return{
+                ...state,
+                notificaciones:state.notificaciones, filtro:[], query:action.query
+        }
+        case 'LOGOUT':
+            return{
+                ...state,
+                notificaciones: []
+        }
         default:
             return state
             
@@ -14,4 +39,5 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
 
 }
 
-export default exampleReducer
+
+export default homeReducer

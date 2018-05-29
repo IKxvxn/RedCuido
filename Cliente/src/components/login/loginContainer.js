@@ -6,15 +6,16 @@ import { Form, Icon, Input, Button, Row, Layout  } from 'antd';
 import * as Mensajes from '../../assets/mensajes'
 import logo from '../../images/logo.png'
 import '../../style/login.css'
-import * as exampleActions from './loginActions'
+import * as loginActions from './loginActions'
 
 const FormItem = Form.Item;
 
 class loginContainer extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, usuario) => {
       if (!err) {
+        this.props.ingresar(usuario,this.props.history)
       }
     });
   }
@@ -28,23 +29,24 @@ class loginContainer extends React.Component {
             <span>Red de Cuido C.R.</span>
           </FormItem>
           <FormItem>
-            {getFieldDecorator('Usuario', {
+            {getFieldDecorator('usuario', {
               rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="user" style={{ color: '#007A3B' }} />} placeholder="Usuario" />
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('Contraseña', {
+            {getFieldDecorator('contraseña', {
               rules: [{ required: true, message: Mensajes.requerido }],
             })(
               <Input prefix={<Icon type="lock" style={{ color: '#007A3B' }} />} type="password" placeholder="Contraseña" />
             )}
           </FormItem>
           <Row>
-            <Button type="primary"  htmlType="submit" className="login-form-button">
-                Ingresar
+            <Button onClick = {this.handleSubmit} type="primary"  htmlType="submit" className="login-form-button" >
+              Ingresar
             </Button>
+          
           </Row>
             
         </Form>
@@ -54,11 +56,11 @@ class loginContainer extends React.Component {
 }
 
 loginContainer.propTypes = {
-  ExampleFunction: PropTypes.func
+  ingresar: PropTypes.func
 }
 
 loginContainer.defaultProps = {
-  ExampleFunction: () => {}
+  ingresar: () => {}
 }
 
 function mapStateToProps(state) {
@@ -69,7 +71,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ExampleFunction: ()  => dispatch(exampleActions.ExampleFunction())
+    ingresar: (usuario,history)  => dispatch(loginActions.ingresar(usuario,history))
   }
 }
 

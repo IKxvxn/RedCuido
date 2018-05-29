@@ -6,7 +6,7 @@
     width: 20rem;
     height: 25rem;
     padding: 2.25rem;
-    box-shadow:  0 0 301.875rem 0.125rem rgba(52, 50, 50, 1);
+    box-shadow:  0 0 301.875rem 0.125rem rgba(52, 50, 50, 0.75);
     background-color: #FFF;
 }
 

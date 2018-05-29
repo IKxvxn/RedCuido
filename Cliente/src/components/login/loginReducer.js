@@ -1,12 +1,38 @@
+import {saveState,loadState,removeState} from './localStorage'
 
 const DEFAULT_STATE = {
-    exampleReducer: []
+    usuario: {},
+    loading: false
 }
 
-const exampleReducer = (state = DEFAULT_STATE, action) => {
+const loginReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'EXAMPLE_DISPATCH':
-            return {exampleReducerx: []}
+        case 'NEW_LOGIN_REQUEST':
+        return {
+            usuario: state.usuario,
+            loading: true    
+        }
+    case 'NEW_LOGIN_FAILURE':
+        return {
+            usuario: state.usuario,
+            loading: false    
+        }
+    case 'NEW_LOGIN_SUCCESS':
+        saveState(action.usuario)
+        return {
+            usuario: action.usuario,
+            loading: false    
+        }
+    case 'USER_LOAD_STATE':
+        if(loadState().token===undefined){return state}
+        return {usuario:loadState(),
+                loading: false}
+    case 'LOGOUT':
+        removeState()
+        return{
+            usuario:{},
+            loading:false
+        }
         default:
             return state
             
@@ -14,4 +40,4 @@ const exampleReducer = (state = DEFAULT_STATE, action) => {
 
 }
 
-export default exampleReducer
+export default loginReducer

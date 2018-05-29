@@ -10,12 +10,21 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "crypto": "^1.0.1",
     "dotenv": "^5.0.0",
+    "easy-zip": "0.0.4",
     "express": "^4.16.2",
+    "express-easy-zip": "^1.1.4",
+    "express-fileupload": "^0.4.0",
+    "js-search": "^1.4.2",
+    "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.3",
     "morgan": "^1.9.0",
+    "npm": "^5.8.0",
+    "path": "^0.12.7",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
