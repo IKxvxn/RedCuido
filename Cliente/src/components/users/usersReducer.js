@@ -4,6 +4,8 @@ const DEFAULT_STATE = {
     loading: false,
 }
 
+//Se definen los actions utilizados en el userActions.
+//Se guardan los cambios en el reducer
 const userReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'NEW_USER_REQUEST':

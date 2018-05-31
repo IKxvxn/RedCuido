@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
     loading: false,
 }
 
+//Segun la accion de rechazadosActions, modifica el reducer (lista de rechazados)
 const rechazadosReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'NEW_RECHAZADO_REQUEST':

@@ -4,22 +4,24 @@ import Form from './usersModalContaint'
 
 class userContainer extends React.Component {
   state = {
+    //Define la visibilidad de los mensajes de aviso
     modalVisible: false,
     modal3Visible: false,
   }
+  //setea la visibilidad
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
   }
-  
   setmodal3Visible = (modal3Visible) => {
     this.setState({ modal3Visible });
   }
 
+  //Verificadores de formularios
   handleSubmit = () => { this.form.handleSubmit(this.props.handleCreate); }
   handleDeleteCaso = () =>{this.form.handleDeleteCaso(this.props.deleteCaso)}
 
 
-
+  //Define el titulo del modal container
   handleModoTitle() {
     if (this.props.modo === "ver") {
       return (
@@ -34,14 +36,14 @@ class userContainer extends React.Component {
         <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
       </Row>)
   }
-
+  //Forma de abrir el titulo
   handleModoOpenerTitle() {
     if (this.props.modo === "ver") {
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
     return <Button icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
   }
-
+  //Footer el modal
   handleModoFooter() {
     if (this.props.modo === "ver") {
       return (
@@ -58,7 +60,7 @@ class userContainer extends React.Component {
       )
     }
   }
-
+  //Mensaje de aviso al eliminar
   handleDeleteFooter(){
     return(
       <Row gutter={8} type="flex" justify="end">
@@ -67,7 +69,7 @@ class userContainer extends React.Component {
       </Row>
     )
   }
-
+  //Define estructura del modal
   render() {
     return (
       <div>

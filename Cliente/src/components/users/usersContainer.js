@@ -10,6 +10,7 @@ var Search = Input.Search
 var busqueda = new JsSearch.Search('_id');
 busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
 
+//Variables utilizadas en la busqueda de perfiles
 busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
 busqueda.addIndex('telefono');
@@ -20,23 +21,23 @@ busqueda.addIndex('_id');
 
 
 class NormalLoginForm extends React.Component {
-  
+  //Estados del container
   state = {
     selectedRowKeys:[],
     selectedRows:[],
     filteredWord:""
   }
-
+  //Utilizado para filtrar valores de la tabla
   filtrarCampos = (value) => {
     this.setState({filteredWord:value})
   };
-
+  //Define las filas seleccionadas
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       this.setState({selectedRowKeys:selectedRowKeys,selectedRows:selectedRows})
     },
   };
-
+  //Columnas de la tabla con su id y el "sorter" que ordena las filas
   columns = [{
     title: 'Usuario',
     dataIndex: '_id',
@@ -72,7 +73,7 @@ class NormalLoginForm extends React.Component {
     var filter
     if(this.state.filteredWord===""){filter=this.props.casosUser}
     else{filter = busqueda.search(this.state.filteredWord)}
-
+    //Se define el container
     return (
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
@@ -92,7 +93,7 @@ class NormalLoginForm extends React.Component {
   componentDidMount(){
     this.props.getCasos(this.props.usuario)
   }
-
+  //Carga los datos en la tabla
   componentWillReceiveProps(NextProps) {
     if(NextProps.usuario.token!==this.props.usuario.token){
       this.props.getCasos(NextProps.usuario)
@@ -100,7 +101,7 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-
+//Variables del reducer utilizadas
 function mapStateToProps(state) {
   return {
     casosUser: state.userReducer.casosUser,
@@ -109,6 +110,7 @@ function mapStateToProps(state) {
   }
 }
 
+//Funciones utilizadas
 function mapDispatchToProps(dispatch) {
   return {
     createCaso: (caso,closer, usuario)  => dispatch(userActions.createCaso(caso,closer,usuario)),

@@ -7,11 +7,13 @@ const Option = Select.Option;
 
 
 class editForm extends React.Component {
+  //Setea las variables de editar
   state = {
     edit: true,
     loading: false,
   };
 
+  //Define la verificacion del formulario al crear un nuevo usuario
   handleSubmit = (handleCreate) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
@@ -20,6 +22,7 @@ class editForm extends React.Component {
         }else {
           
           const formData = new FormData();
+          //envia los datos del usuario al useractions
           formData.append('caso', JSON.stringify(caso))
           formData.append('usuario', JSON.stringify(this.props.usuario))
           handleCreate(formData, this.props.form.resetFields, this.props.usuario)
@@ -28,7 +31,7 @@ class editForm extends React.Component {
       else { message.error(Mensajes.verificar) }
     });
   }
-
+  //Define la verificacion al eliminar un usuario
   handleDeleteCaso = (deleteCaso) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
@@ -40,7 +43,7 @@ class editForm extends React.Component {
       else { message.error(Mensajes.verificar) }
     });
   }
-
+  //Define la verificacion al editar un usuario
   enterLoading = () => {
     if (this.state.edit === false) {
       this.setState({ edit: true });
@@ -54,6 +57,7 @@ class editForm extends React.Component {
           else {
             this.setState({ edit: false });
             const formData = new FormData();
+            //Envia el usuario al actionsuser
             formData.append('caso', JSON.stringify({ ...caso, _id: this.props.row._id }))
             formData.append('usuario', JSON.stringify(this.props.usuario))
             this.props.editCaso(formData, this.props.visible)
@@ -64,7 +68,7 @@ class editForm extends React.Component {
 
     }
   }
-
+  //Define la estructura de los botones editar y guardar
   handleOptionsMode() {
     if (this.props.modo === "ver") {
       if (this.state.edit === false) {
@@ -83,6 +87,7 @@ class editForm extends React.Component {
     }
   }
 
+  //se montan los valores pertenecientes al usuario
   componentDidMount() {
     this.props.onRef(this)
     if (this.props.modo === "ver") {
@@ -112,7 +117,7 @@ class editForm extends React.Component {
         sm: { span: 20 },
       },
     };
-
+    //Se define la estructura del formulario del usuario
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem

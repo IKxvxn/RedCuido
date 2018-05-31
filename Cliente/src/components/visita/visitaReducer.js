@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
     loading: false,
 }
 
+//Segun la accion de visitaActions se modifica el reducer
 const visitaReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'NEW_VISITA_REQUEST':

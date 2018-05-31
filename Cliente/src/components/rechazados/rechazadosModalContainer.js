@@ -4,29 +4,28 @@ import Form from './rechazadosModalContaint'
 import * as Permisos from '../../assets/permisos' 
 
 class rechazadosContainer extends React.Component {
+    //define visibilidad de los avisos de verificacion
   state = {
     modalVisible: false,
     modal2Visible: false,
     modal3Visible: false,
   }
+  //setea visibilidad de los avisos
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
   }
-
   setmodal2Visible = (modal2Visible) => {
     this.setState({ modal2Visible });
   }
-  
   setmodal3Visible = (modal3Visible) => {
     this.setState({ modal3Visible });
   }
-
+  //funciones que verificaan el formulario según la accion
   handleSubmit = () => { this.form.handleSubmit(this.props.handleCreate); }
   handleReactivateCaso = (nota) => { this.form.handleReactivateCaso(this.props.reactivateCaso, nota) }
   handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
-
-
+  //define la estructura del titulo del modal
   handleModoTitle() {
     if (this.props.modo === "ver") {
       return (
@@ -41,14 +40,14 @@ class rechazadosContainer extends React.Component {
         <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
       </Row>)
   }
-
+  //define los botones detalles y agregar
   handleModoOpenerTitle() {
     if (this.props.modo === "ver") {
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
     }
     return <Button icon="file-add" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
   }
-
+  //define el footer del modal (botones)
   handleModoFooter() {
     if (this.props.modo === "ver") {
       return (
@@ -66,7 +65,7 @@ class rechazadosContainer extends React.Component {
       )
     }
   }
-
+  //define botones del aviso al reactivar
   handleReactivarFooter() {
     return (
       <Row gutter={8} type="flex" justify="end">
@@ -75,7 +74,7 @@ class rechazadosContainer extends React.Component {
       </Row>
     )
   }
-
+  //define botones del aviso al eliminar
   handleDeleteFooter(){
     return(
       <Row gutter={8} type="flex" justify="end">
@@ -85,6 +84,7 @@ class rechazadosContainer extends React.Component {
     )
   }
 
+  //define estructura del modal junto con la estructura de los avisos    
   render() {
     return (
       <div>

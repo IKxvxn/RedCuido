@@ -9,6 +9,7 @@ const Option = Select.Option;
 
 
 class editForm extends React.Component {
+  //Define variables a utilizar
   state = {
       edit:true,
       loading:false,
@@ -17,8 +18,9 @@ class editForm extends React.Component {
       treeData: [{}],
       treeValue: []
   };
-  handleSubmit = (handleCreate) => {
 
+  //Verifica el formulario al crear un perfil
+  handleSubmit = (handleCreate) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
         if(caso.cedula === undefined && (caso.nombre === undefined || caso.apellidos === undefined) 
@@ -49,7 +51,7 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
-
+  //revisa formulario al reactivar un perfil
   handleReactivateCaso = (reactivateCaso, nota) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
@@ -62,7 +64,7 @@ class editForm extends React.Component {
       else{message.error(Mensajes.verificar)}
     });
   }
-
+  //revisa el formulario al eliminar un perfil
   handleDeleteCaso = (deleteCaso, nota) => {
     this.props.form.validateFieldsAndScroll((err, caso) => {
       if (!err) {
@@ -81,7 +83,8 @@ class editForm extends React.Component {
       else { message.error(Mensajes.verificar) }
     });
   }
-  
+
+  //revisa formulario al editar un perfil
   enterLoading = () => {
     if (this.state.edit === false){
       this.setState({ edit: true});
@@ -171,6 +174,7 @@ class editForm extends React.Component {
         },
         fileList: this.state.fileList,
       };
+      //define la estructura del modal (botones)
       if (this.props.modo === "ver") {
         if (this.state.edit === false) {
           return (
@@ -212,7 +216,7 @@ class editForm extends React.Component {
         </Row>
       )
     }
-  
+  //monta los datos del formulario
   componentDidMount(){
     this.props.onRef(this)
     if(this.props.modo==="ver")
@@ -241,7 +245,7 @@ class editForm extends React.Component {
         this.props.form.setFieldsValue({files: value})
       }
     }
-
+  //define la estructura del formulario
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {

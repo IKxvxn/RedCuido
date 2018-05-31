@@ -9,13 +9,15 @@ const crypto = require('crypto');
 const mongoose = require('mongoose')
 const path = require('path');
 
-
+//funcion que obtiene todos los perfiles de visita
 function getCasosVisita(req, res) {
+  //verifica token y usuario
   if(req.query.token == "undefined" || !auth.autentificarAccion(req.query.token)){
     res.status(100)
     res.json({ error: true , casos: []})
     return
   }
+  //obtiene todos los visitados
   casoVisitaModel.find().sort({ingreso: -1})
     .exec((err, casos) => {
       if (err) {
@@ -27,21 +29,22 @@ function getCasosVisita(req, res) {
     })
 }
 
+//funcion que crea un nuevo perfil
 function createCasoVisita(req, res) {
   //Toma el caso del body (que viene en form data)
   let usuario = JSON.parse(req.body.usuario);
-
+  //verifica usuario y token
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
     return
   }
-
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
     return
   }
+  //verifica permisos de usuario
   if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
     res.status(100)
     res.send({ error: true , type: 2})
@@ -55,7 +58,7 @@ function createCasoVisita(req, res) {
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "create", caso: newCaso._id }
   newCaso.save((err, resp) => {
     if (err) {
-      res.status(500)
+      res.status(500)//error
       res.send({ error: true })
     }
     else {
@@ -89,11 +92,11 @@ function createCasoVisita(req, res) {
             casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(newCaso._id) }, { $set: { "files": archivos } },{new:true})
               .exec((err, caso) => {
                 if (err) {
-                  res.status(500)
+                  res.status(500)//error
                   res.send({ error: false })
                 }
                 else {
-                  res.status(200)
+                  res.status(200)//exito
                   res.send({ error: false, caso: caso })
                 }
               })
@@ -112,10 +115,11 @@ function createCasoVisita(req, res) {
   })
 }
 
+//funcion que edita un perfil
 function editCasoVisita(req, res) {
   //Toma el caso del body (que viene en form data)
   let usuario = JSON.parse(req.body.usuario);
-
+  //verifica usuario y token
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
@@ -126,24 +130,26 @@ function editCasoVisita(req, res) {
     res.send({ error: true , type: 1})
     return
   }
+  //verifica permisos de usuario
   if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
     res.status(100)
     res.send({ error: true , type: 2})
     return
   }
+  //crea notificacion
   let info = JSON.parse(req.body.caso);
   let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "update", caso: {} }
+  //hace update en BD
   casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(info._id) }, { $set: info}, {new:true})
     .exec((err, caso) => {
       if (err) {
-        res.status(500)
+        res.status(500)//error
         res.send({ error: false })
       }
       else {
         //caso["files"] = []
         //Recorre req.files en caso de que se haya subido algo
         notificacion.caso=caso._id
-
         var files = [];
         var archivos = [];
         console.log(archivos)
@@ -173,6 +179,7 @@ function editCasoVisita(req, res) {
               if(caso.files.length>0){
                 archivos = caso.files.concat(archivos)
               }
+              //update de archivos
               casoVisitaModel.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(caso._id) }, { $set: { "files": archivos } },{new:true})
                 .exec((err, casod) => {
                   if (err) {
@@ -195,31 +202,33 @@ function editCasoVisita(req, res) {
           });
           i++;
         }
+        //se agrega notificacion
         usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
       }
     })
 }
 
+//funcion que mueve un caso a lista de activos
 function acceptCasoVisita(req, res) {
   let usuario = req.body.usuario;
-
+  //verifica usuario y token
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
     return
   }
-
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
     return
   }
-
+  //verifica permisos
   if(Permisos.ESP_VIS_ACEP.indexOf(usuario.tipo)<0){
     res.status(100)
     res.send({ error: true , type: 2})
     return
   }
+  //elimina perfil de lista visita
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       //Configura nota con nota anterior
@@ -237,6 +246,7 @@ function acceptCasoVisita(req, res) {
           nota = nota+"\n"+req.body.nota 
         }
       }
+      //crea un perfil en lista de activos
       let newCaso = new casoActivoModel({
         _id:new mongoose.Types.ObjectId(req.params.id),cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, telefono: req.body.caso.telefono, nacimiento: req.body.caso.nacimiento,
@@ -249,27 +259,28 @@ function acceptCasoVisita(req, res) {
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "accepted", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
-          res.status(500)
+          res.status(500)//error
           res.send({ error: true })
         }
         else {
+          //agrega notificacion
           usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
         }
       })
       res.status(300)
-      res.json(caso)
+      res.json(caso)//exito
     })
 }
 
+//funcion que pasa el caso a lista de rechazados
 function rejectCasoVisita(req, res) {
   let usuario = req.body.usuario;
-
+  //se verifica usuario y token
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
     return
   }
-
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
@@ -280,6 +291,7 @@ function rejectCasoVisita(req, res) {
     res.send({ error: true , type: 2})
     return
   }
+  //se elimina caso de lista visita
   casoVisitaModel.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       //Configura nota con nota anterior
@@ -297,47 +309,51 @@ function rejectCasoVisita(req, res) {
           nota = nota+"\n"+req.body.nota 
         }
       }
-      console.log(req.body.caso)
+      //console.log(req.body.caso)
+      //crea nuevo caso en lista rechazados
       let newCaso = new casoRechazadoModel({
         _id:new mongoose.Types.ObjectId(req.params.id), cedula: req.body.caso.cedula, apellidos: req.body.caso.apellidos,
         nombre: req.body.caso.nombre, domicilio: req.body.caso.domicilio, señas: req.body.caso.señas, telefono: req.body.caso.telefono,
         sede: req.body.caso.sede, notas: nota,  nacimiento: req.body.caso.nacimiento, ingreso: req.body.caso.ingreso, files: req.body.caso.files 
       })
+      //crea notificacion
       let notificacion = { autor: usuario.usuario, _id: uuidv4(), fecha: new Date(), location: "visita", action: "rejected", caso: newCaso._id }
       newCaso.save((err, resp) => {
         if (err) {
-          res.status(500)
+          res.status(500)//error
           res.send({ error: true })
         }
         else {
+          //agrega notificacion
           usuarioModel.updateMany({ "$push": { "notificaciones": notificacion } }).exec()
         }
       })
       res.status(300)
-      res.json(caso)
+      res.json(caso)//exito
     })
 }
 
+//funcion que elimina perfil de lista visita
 function deleteCasoVisita(req, res) {
   let usuario = req.body.usuario;
-
+  //verifica perfil y token
   if(usuario.token===undefined){
     res.status(500)
     res.send({ error: true , type: 0})
     return
   }
-
   if(!auth.autentificarAccion(usuario.token)){
     res.status(500)
     res.send({ error: true , type: 1})
     return
   }
+  //verifica permisos de usuario
   if(Permisos.ESP_VIS_CRUD.indexOf(usuario.tipo)<0){
     res.status(100)
     res.send({ error: true , type: 2})
     return
   }
-
+  //elimina perfil de lista visita
   casoVisitaModel.deleteOne({_id: new mongoose.Types.ObjectId(req.params.id)})
     .exec((err, caso) => {
       let notificacion = {autor:usuario.usuario,_id:uuidv4(),fecha:new Date(),location:"visita",action:"delete", caso:req.id}
@@ -352,11 +368,13 @@ function deleteCasoVisita(req, res) {
     })
 }
 
+//funcion que hace descargar los archivos de perfil
 function download(req,res){
+  //busca el perfil en BD
   casoVisitaModel.find({ _id: new mongoose.Types.ObjectId(req.params.id) })
     .exec((err, caso) => {
       if (err) {
-        res.status(500)
+        res.status(500)//error
         res.send(`Ocurrió un error 💩 ${err}`)
       }
       var zipFiles = []
@@ -364,10 +382,11 @@ function download(req,res){
       for (file of caso[0].files){
         zipFiles[zipFiles.length] =  { path: `../Servidor/uploads/${file}`, name: `${file}` }
       }
-      res.zip({ files: zipFiles, filename: 'adjuntos.zip'})
+      res.zip({ files: zipFiles, filename: 'adjuntos.zip'}) //envia el zip a cliente
     })
 }
 
+//exporta funciones
 module.exports = {
   getCasosVisita, createCasoVisita, editCasoVisita, acceptCasoVisita, rejectCasoVisita, deleteCasoVisita, download
 }

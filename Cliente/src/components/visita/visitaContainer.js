@@ -12,6 +12,7 @@ var dateFormat = require('dateformat');
 var busqueda = new JsSearch.Search('_id');
 busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
 
+//Se declaran las variables a utilizar en la busqueda
 busqueda.addIndex('apellidos');
 busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
@@ -29,7 +30,7 @@ busqueda.addIndex('telefono');
 busqueda.addIndex('_id');
 
 class NormalLoginForm extends React.Component {
-  
+  //Variables que almacenan las filas seleccionadas
   state = {
     selectedRowKeys:[],
     selectedRows:[],
@@ -45,7 +46,7 @@ class NormalLoginForm extends React.Component {
       this.setState({selectedRowKeys:selectedRowKeys,selectedRows:selectedRows})
     },
   };
-
+  //se definen las columnas de las tablas y los filtros para ordenar
   columns = [{
     title: 'Cedula',
     dataIndex: 'cedula',
@@ -97,7 +98,7 @@ class NormalLoginForm extends React.Component {
   }];
 
   render() {
-    
+    //Se define la estructura del container
     busqueda.addDocuments(this.props.casosVisita)
     var filter
     if(this.state.filteredWord===""){filter=this.props.casosVisita;this.props.changeCaller("TAB")}

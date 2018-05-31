@@ -4,34 +4,33 @@ import Form from './visitaModalContaint'
 import * as Permisos from '../../assets/permisos' 
 
 class visitaContainer extends React.Component {
+  //Define los mensajes de aceptación o cancelacion de acciones
   state = {
     modalVisible: false,
     modal2Visible: false,
     modal3Visible: false,
     modal4Visible: false,
   }
+  //Setea visibilidad de los avisos
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
   }
-
   setmodal2Visible = (modal2Visible) => {
     this.setState({ modal2Visible });
   }
-
   setmodal3Visible = (modal3Visible) => {
     this.setState({ modal3Visible });
   }
-  
   setmodal4Visible = (modal4Visible) => {
     this.setState({ modal4Visible });
   }
-
+  //Funciones que verifican el formulario segun la accion
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
   handleAcceptCaso = (nota) =>{this.form.handleAcceptCaso(this.props.acceptCaso, nota,this.props.usuario)}
   handleRejectCaso = (nota) =>{this.form.handleRejectCaso(this.props.rejectCaso, nota,this.props.usuario)}
   handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
-
+  //Define la estructura del titulo
   handleModoTitle(){
     if (this.props.modo==="ver"){
       return(
@@ -45,7 +44,7 @@ class visitaContainer extends React.Component {
         <Col xs={12} sm={2}><Button icon="close" onClick={() => this.setmodalVisible(false)}></Button></Col>
          </Row>)
   }
-
+  //Define las acciones principales
   handleModoOpenerTitle(){
     if (this.props.modo==="ver"){
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
@@ -53,7 +52,7 @@ class visitaContainer extends React.Component {
     return <Button disabled={Permisos.accessESPVISCRUD(this.props.usuario.tipo)} icon="file-add" type="primary" onClick={() => this.setmodalVisible(true)}>Agregar</Button>
 
   }
-
+  //Define el footer del modal (botones)
   handleModoFooter(){
     if (this.props.modo==="ver"){
       return(
@@ -71,7 +70,7 @@ class visitaContainer extends React.Component {
       </Row>
     )
   }
-
+  //Footer del aviso al aceptar perfil
   handleAceptarFooter(){
       return(
         <Row gutter={8} type="flex" justify="end">
@@ -80,7 +79,7 @@ class visitaContainer extends React.Component {
         </Row>
       )
   }
-
+  //Footer del aviso al rechazar perfil
   handleRechazarFooter(){
     return(
       <Row gutter={8} type="flex" justify="end">
@@ -89,7 +88,7 @@ class visitaContainer extends React.Component {
       </Row>
     )
   }
-
+  //Footer del a viso al eliminar perfil
   handleDeleteFooter(){
     return(
       <Row gutter={8} type="flex" justify="end">
@@ -98,7 +97,7 @@ class visitaContainer extends React.Component {
       </Row>
     )
   }
-
+  //Define la estructura del modal junto a los avisos posibles
   render() {
     return (
       <div>

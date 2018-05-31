@@ -13,6 +13,7 @@ var JsSearch = require('js-search');
 var busqueda = new JsSearch.Search('_id');
 busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
 
+//instancia los datos que seran usados en el buscador
 busqueda.addIndex('apellidos');
 busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
@@ -23,23 +24,23 @@ busqueda.addIndex('_id');
 
 
 class NormalLoginForm extends React.Component {
-  
+  //variables que almacenan las filas seleccionadas
   state = {
     selectedRowKeys:[],
     selectedRows:[],
     filteredWord:""
   }
-
+  //define los filtros
   filtrarCampos = (value) => {
     this.setState({filteredWord:value})
   };
-
+  //define la seleccion de filas
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       this.setState({selectedRowKeys:selectedRowKeys,selectedRows:selectedRows})
     },
   };
-
+  //establece las columnas junto con los filtros de ordenamiento de la tabla
   columns = [{
     title: 'Cedula',
     dataIndex: 'cedula',
@@ -84,13 +85,12 @@ class NormalLoginForm extends React.Component {
 
   
   render() {
-
     busqueda.addDocuments(this.props.casosRechazados)
-
+    //establece los filtros de la tabla
     var filter
     if(this.state.filteredWord===""){filter=this.props.casosRechazados;this.props.changeCaller("TAB")}
     else{filter = busqueda.search(this.state.filteredWord)}
-
+  //define la estructura del container (tabla)
     return (
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
@@ -124,7 +124,7 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-
+//variables utilizadas en el reducer
 function mapStateToProps(state) {
   return {
     casosRechazados: state.rechazadosReducer.casosRechazados,
@@ -133,6 +133,7 @@ function mapStateToProps(state) {
   }
 }
 
+//funciones que comunican con rechazadosActions para realizar modificaiones a la BD
 function mapDispatchToProps(dispatch) {
   return {
     createCaso: (caso,closer, usuario)  => dispatch(rechazadosActions.createCaso(caso,closer,usuario)),
