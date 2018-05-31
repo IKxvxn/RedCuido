@@ -36,7 +36,6 @@ const userReducer = (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             loading: false,
-            error: action.error
         }
         case 'EDIT_USER_REQUEST':
         return {
@@ -56,8 +55,6 @@ const userReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          caso: {},
-          error: action.error
         }
         case 'DELETE_USER_REQUEST':
         return {

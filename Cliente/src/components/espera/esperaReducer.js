@@ -36,7 +36,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             loading: true,
-            error: action.error
         }
         case 'EDIT_CASO_REQUEST':
         return {
@@ -56,8 +55,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          caso: {},
-          error: action.error
         }
         case 'ACCEPT_CASO_REQUEST':
         return {
@@ -74,7 +71,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'REJECT_CASO_REQUEST':
         return {
@@ -91,7 +87,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'DELETE_ESPERA_REQUEST':
         return {
@@ -108,7 +103,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'DELETE_FILES_REQUEST':
         return {
@@ -124,7 +118,6 @@ const esperaReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'LOGOUT':
         return{

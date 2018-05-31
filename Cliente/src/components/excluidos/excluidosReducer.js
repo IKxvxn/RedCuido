@@ -36,7 +36,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             loading: false,
-            error: action.error
         }
         case 'EDIT_EXCLUIDO_REQUEST':
         return {
@@ -56,8 +55,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          caso: {},
-          error: action.error
         }
         case 'REACTIVATE_EXCLUIDO_REQUEST':
         return {
@@ -74,7 +71,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'DELETE_EXCLUIDO_REQUEST':
         return {
@@ -91,7 +87,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'DELETE_FILES_REQUEST':
         return {
@@ -107,7 +102,6 @@ const excluidosReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'LOGOUT':
         return{

@@ -184,11 +184,11 @@ class editForm extends React.Component {
         >
           {getFieldDecorator('_id', {
             rules: [{ required: true, message: 'Ingresa un usuario' }],
-          })(<Input disabled={!this.state.edit} />)}
+          })(<Input disabled={this.props.modo === "ver"?true:false} />)}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="Contraseña"
         >
           {getFieldDecorator('contraseña', {})(<Input prefix={<Icon type="lock" />} type="password" disabled={!this.state.edit} />)}
         </FormItem>

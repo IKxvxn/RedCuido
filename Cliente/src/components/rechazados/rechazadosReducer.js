@@ -107,7 +107,6 @@ const rechazadosReducer = (state = DEFAULT_STATE, action) => {
         return {
           ...state,
           loading: false,
-          error: action.error
         }
         case 'LOGOUT':
         return{
