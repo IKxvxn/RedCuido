@@ -13,6 +13,7 @@ var JsSearch = require('js-search');
 var busqueda = new JsSearch.Search('_id');
 busqueda.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
 
+//se definen los datos a usar en la búsqueda
 busqueda.addIndex('apellidos');
 busqueda.addIndex('cedula');
 busqueda.addIndex('nombre');
@@ -24,23 +25,23 @@ busqueda.addIndex('_id');
 
 
 class NormalLoginForm extends React.Component {
-  
+  //variables de filas seleccionadas  
   state = {
     selectedRowKeys:[],
     selectedRows:[],
     filteredWord:""
   }
-
+  //filtrar campos de la tabla
   filtrarCampos = (value) => {
     this.setState({filteredWord:value})
   };
-
+  //seleccionar las filas
   rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       this.setState({selectedRowKeys:selectedRowKeys,selectedRows:selectedRows})
     },
   };
-
+  //definir las columnas de la tabla y los filtros para ordenas
   columns = [{
     title: 'Cedula',
     dataIndex: 'cedula',
@@ -92,11 +93,11 @@ class NormalLoginForm extends React.Component {
   
   render() {
     busqueda.addDocuments(this.props.casosExcluidos)
-
+    //inicializa el filtro de ordenamiento
     var filter
     if(this.state.filteredWord===""){filter=this.props.casosExcluidos;this.props.changeCaller("TAB")}
     else{filter = busqueda.search(this.state.filteredWord)}
-
+    //establece la estructura del container
     return (
       <div>
         <Row gutter={8} type="flex" justify="end" style={{margin:"0.5rem 0"}}>
@@ -131,15 +132,16 @@ class NormalLoginForm extends React.Component {
 
 
 function mapStateToProps(state) {
+  //variables del reducer
   return {
     casosExcluidos: state.excluidosReducer.casosExcluidos,
     loading: state.excluidosReducer.loading,
     usuario: state.loginReducer.usuario
-  }
-  
+  } 
 }
 
 function mapDispatchToProps(dispatch) {
+  //funciones que realizan las acciones de excluidosActions
   return {
     createCaso: (caso, closer, usuario)  => dispatch(excluidosActions.createCaso(caso,closer, usuario)),
     getCasos: (usuario) => dispatch(excluidosActions.getCasos(usuario)),
@@ -150,8 +152,5 @@ function mapDispatchToProps(dispatch) {
     deleteFiles:(files) => dispatch(excluidosActions.deleteFiles(files))
   }
 }
-
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm)

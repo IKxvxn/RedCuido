@@ -3,6 +3,7 @@ import * as Mensajes from '../../assets/mensajes'
 
 const API_URL = 'http://localhost:8079/home'
 
+//variables dedicadas a acciones del reducer
 const NEW_EXCLUIDO_REQUEST = 'NEW_EXCLUIDO_REQUEST'
 const NEW_EXCLUIDO_SUCCESS = 'NEW_EXCLUIDO_SUCCESS'
 const NEW_EXCLUIDO_FAILURE = 'NEW_EXCLUIDO_FAILURE'
@@ -25,12 +26,13 @@ const DELETE_FILES_REQUEST = 'DELETE_FILES_REQUEST'
 const DELETE_FILES_SUCCESS = 'DELETE_FILES_SUCCESS'
 const DELETE_FILES_FAILURE = 'DELETE_FILES_FAILURE'
 
-
+//funcion encargada de crear un perfil de excluidos
 export function createCaso(caso, reset) {
   return function (dispatch) {
     dispatch({
       type: NEW_EXCLUIDO_REQUEST
     })
+    //se comunica con el servidor
     fetch(API_URL + "/casoExcluido", {
       method: 'POST',
       body: caso,
@@ -38,6 +40,7 @@ export function createCaso(caso, reset) {
       .then(response => response.json())
       .then(caso => {
         if(caso.error){
+          //tipos de casos
           if(caso.type===0){
             message.error(Mensajes.sinToken)
           }
@@ -47,13 +50,13 @@ export function createCaso(caso, reset) {
           else{
             message.error(Mensajes.errorDesconocido)
           }
-          dispatch({type: NEW_EXCLUIDO_FAILURE})
+          dispatch({type: NEW_EXCLUIDO_FAILURE})//error
         }
         else{
         message.success("El perfil ha sido agregado con éxito")
           reset()
           dispatch({
-            type: NEW_EXCLUIDO_SUCCESS,
+            type: NEW_EXCLUIDO_SUCCESS,//exito
             caso: { ...caso.caso, key: caso.caso._id }
           })
         }
@@ -61,18 +64,20 @@ export function createCaso(caso, reset) {
       .catch(error => {
         message.error(Mensajes.errorConexion)
         dispatch({
-          type: NEW_EXCLUIDO_FAILURE,
+          type: NEW_EXCLUIDO_FAILURE,//error
           error: error
         })
       })
   }
 }
 
+//funcion para obtener todos los perfiles de lista excluidos
 export function getCasos(usuario) {
   return function (dispatch) {
     dispatch({
       type: GET_EXCLUIDOS_REQUEST
     })
+    //se comunica con el servidor
     fetch(API_URL + "/casoExcluido?token="+usuario.token)
       .then(response => response.json())
       .then(data => {
@@ -82,36 +87,40 @@ export function getCasos(usuario) {
         return data.casos;
       }).then(casos => {
         dispatch({
-          type: GET_EXCLUIDOS_SUCCESS,
+          type: GET_EXCLUIDOS_SUCCESS,//exito
           casosExcluidos: casos
         })
       })
       .catch(error => {
         dispatch({
-          type: GET_EXCLUIDOS_FAILURE,
+          type: GET_EXCLUIDOS_FAILURE,//error
           error: error
         })
       })
   }
 }
 
+//funcion encargada de descargar los archivos de un perfil
 export function downloadFile(caso) {
   return function (dispatch) {
     dispatch({
       type: DOWNLOAD_FILE_REQUEST
     })
+    //abre una nueva ventana para descargar archivo 
     window.open(API_URL + `/excluido/download/${caso._id.valueOf()}`)
     dispatch({
-      type: DOWNLOAD_FILE_SUCCESS,
+      type: DOWNLOAD_FILE_SUCCESS,//exito
     })
   }
 }
 
+//funcion encargada de editar el perfil
 export function editCaso(caso) {
   return function (dispatch) {
     dispatch({
       type: EDIT_EXCLUIDO_REQUEST
     })
+    //se comunica con el servidor
     var variable = caso.get("caso")
     variable = JSON.parse(variable)
     fetch(`${API_URL}/excluido/edit/${variable._id.valueOf()}`, {
@@ -121,6 +130,7 @@ export function editCaso(caso) {
       .then(response => response.json())
       .then(data => {
         if(data.error){
+          //posibles errores
           if(data.type===0){
             message.error(Mensajes.sinToken)
           }
@@ -130,11 +140,11 @@ export function editCaso(caso) {
           else{
             message.error(Mensajes.errorDesconocido)
           }
-          dispatch({type: EDIT_EXCLUIDO_FAILURE})
+          dispatch({type: EDIT_EXCLUIDO_FAILURE})//error
         }
         else{
           dispatch({
-            type: EDIT_EXCLUIDO_SUCCESS,
+            type: EDIT_EXCLUIDO_SUCCESS,//exito
             caso: { ...data.caso, key: data.caso._id }
           })
           message.success("El perfil ha sido modificado con éxito")
@@ -142,7 +152,7 @@ export function editCaso(caso) {
       })
       .catch(error => {
         dispatch({
-          type: EDIT_EXCLUIDO_FAILURE,
+          type: EDIT_EXCLUIDO_FAILURE,//error servidor
           error: error
         })
         message.error(Mensajes.errorConexion)
@@ -150,11 +160,13 @@ export function editCaso(caso) {
   }
 }
 
+//cambiar el perfil de lista de excluidos a espera
 export function reactivateCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: REACTIVATE_EXCLUIDO_REQUEST
   })
+  //se comunica con el servidor
   fetch(`${API_URL}/excluido/reactivate/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
@@ -162,6 +174,7 @@ export function reactivateCaso(caso, nota, usuario) {
   })
     .then(response => response.json())
     .then(data => {
+      //posibles errores
       if(data.error){
         if(data.type===0){
           message.error(Mensajes.sinToken)
@@ -176,7 +189,7 @@ export function reactivateCaso(caso, nota, usuario) {
       }
       else{
         dispatch({
-          type: REACTIVATE_EXCLUIDO_SUCCESS,
+          type: REACTIVATE_EXCLUIDO_SUCCESS,//exito
           id: caso._id
         })
         message.success("El caso ha sido reactivado con éxito")
@@ -184,7 +197,7 @@ export function reactivateCaso(caso, nota, usuario) {
     })
     .catch(error => {
       dispatch({
-        type: REACTIVATE_EXCLUIDO_FAILURE,
+        type: REACTIVATE_EXCLUIDO_FAILURE,//error servidor
         error: error
       })
       message.error(Mensajes.errorConexion)
@@ -192,12 +205,13 @@ export function reactivateCaso(caso, nota, usuario) {
 }
 }
 
-
+//eliminar perfil de excluido
 export function deleteCaso(caso, nota, usuario) {
   return function (dispatch) {
   dispatch({
     type: DELETE_EXCLUIDO_REQUEST
   })
+  //se comunica con servidor
   fetch(`${API_URL}/excluido/delete/${caso._id.valueOf()}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json'},
@@ -205,6 +219,7 @@ export function deleteCaso(caso, nota, usuario) {
   })
     .then(response => response.json())
     .then(data => {
+      //posibles errores
       if(data.error){
         if(data.type===0){
           message.error(Mensajes.sinToken)
@@ -219,7 +234,7 @@ export function deleteCaso(caso, nota, usuario) {
       }
       else{
         dispatch({
-          type: DELETE_EXCLUIDO_SUCCESS,
+          type: DELETE_EXCLUIDO_SUCCESS,//exito
           id: caso._id
         })
         message.success("El caso ha sido eliminado con éxito")
@@ -227,7 +242,7 @@ export function deleteCaso(caso, nota, usuario) {
     })
     .catch(error => {
       dispatch({
-        type: DELETE_EXCLUIDO_FAILURE,
+        type: DELETE_EXCLUIDO_FAILURE,//error servidor
         error: error
       })
       message.error(Mensajes.errorConexion)
@@ -235,11 +250,13 @@ export function deleteCaso(caso, nota, usuario) {
 }
 }
 
+//funcion que elimina archivos asociados a un perfil
 export function deleteFiles(files) {
   return function (dispatch) {
     dispatch({
       type: DELETE_FILES_REQUEST
     })
+    //se comunica con servidor
     fetch(`${API_URL}/eliminar`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -247,6 +264,7 @@ export function deleteFiles(files) {
     })
       .then(response => response.json())
       .then(data => {
+        //posibles errores
         if (data.error) {
           if (data.type === 0) {
             message.error(Mensajes.sinToken)
@@ -261,13 +279,13 @@ export function deleteFiles(files) {
         }
         else {
           dispatch({
-            type: DELETE_FILES_SUCCESS
+            type: DELETE_FILES_SUCCESS   //exito
           })
         }
       })
       .catch(error => {
         dispatch({
-          type: DELETE_FILES_FAILURE,
+          type: DELETE_FILES_FAILURE,//error servidor
           error: error
         })
         message.error(Mensajes.errorConexion)

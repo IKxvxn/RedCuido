@@ -4,28 +4,28 @@ import Form from './excluidosModalContaint'
 import * as Permisos from '../../assets/permisos' 
 
 class excluidosContainer extends React.Component {
+  //variables de visibilidad para los avisos
   state = {
     modalVisible: false,
     modal2Visible: false,
     modal3Visible: false,
   }
+  //setea las visibilidades
   setmodalVisible = (modalVisible) => {
     this.setState({ modalVisible });
   }
-
   setmodal2Visible = (modal2Visible) => {
     this.setState({ modal2Visible });
   }
-
   setmodal3Visible = (modal3Visible) => {
     this.setState({ modal3Visible });
   }
-
+  //funciones para verificar el formulario
   handleSubmit = () =>{this.form.handleSubmit(this.props.handleCreate);}
   handleReactivateCaso = (nota) =>{this.form.handleReactivateCaso(this.props.reactivateCaso, nota)}
   handleDeleteCaso = (nota) =>{this.form.handleDeleteCaso(this.props.deleteCaso, nota)}
 
-
+  //define el titulo del modal
   handleModoTitle(){
     if (this.props.modo==="ver"){
       return(
@@ -40,6 +40,7 @@ class excluidosContainer extends React.Component {
          </Row>)
   }
 
+  //define los botones de la tabla
   handleModoOpenerTitle(){
     if (this.props.modo==="ver"){
       return <Button onClick={() => this.setmodalVisible(true)}>Detalles</Button>
@@ -47,8 +48,8 @@ class excluidosContainer extends React.Component {
     return <Button icon="file-add" type="primary" disabled={Permisos.accessESPVISACEP(this.props.usuario.tipo)} onClick={() => this.setmodalVisible(true)}>Agregar</Button>
   }
 
+  //footer del modal (botones)
   handleModoFooter(){
-    
     if (this.props.modo==="ver"){
       return(
         <Row gutter={8} type="flex" justify="end">
@@ -65,6 +66,7 @@ class excluidosContainer extends React.Component {
     )}
   }
 
+  //footer del aviso al reactivar el perfil
   handleReactivarFooter(){
     return(
       <Row gutter={8} type="flex" justify="end">
@@ -74,6 +76,7 @@ class excluidosContainer extends React.Component {
     )
 }
 
+//footer del aviso al eliminar
 handleDeleteFooter(){
   return(
     <Row gutter={8} type="flex" justify="end">
@@ -82,7 +85,7 @@ handleDeleteFooter(){
     </Row>
   )
 }
-
+  //establece la estructura del modal
   render() {
     return (
       <div>
